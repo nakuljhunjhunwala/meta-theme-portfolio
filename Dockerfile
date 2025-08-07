@@ -5,17 +5,9 @@ WORKDIR /app
 # Install OS deps
 RUN apk add --no-cache libc6-compat
 
-# Install dependencies (respect package manager lockfile if present)
-COPY package.json pnpm-lock.yaml* package-lock.json* yarn.lock* ./
-
-# Default to npm if no other lockfile present
-RUN if [ -f yarn.lock ]; then \
-    corepack enable && corepack prepare yarn@stable --activate && yarn --frozen-lockfile; \
-    elif [ -f pnpm-lock.yaml ]; then \
-    corepack enable && corepack prepare pnpm@latest --activate && pnpm i --frozen-lockfile; \
-    else \
-    npm ci; \
-    fi
+# Install dependencies with npm
+COPY package.json package-lock.json* ./
+RUN npm ci
 
 # ---------- Builder ----------
 FROM node:20-alpine AS builder
@@ -25,14 +17,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build Next.js (standalone output configured in next.config.mjs)
-RUN if [ -f yarn.lock ]; then \
-    corepack enable && corepack prepare yarn@stable --activate && yarn build; \
-    elif [ -f pnpm-lock.yaml ]; then \
-    corepack enable && corepack prepare pnpm@latest --activate && pnpm build; \
-    else \
-    npm run build; \
-    fi
+# Build Next.js
+RUN npm run build
 
 # ---------- Runner ----------
 FROM node:20-alpine AS runner
@@ -54,4 +40,3 @@ USER nextjs
 
 # Start Next.js server
 CMD ["node", "server.js"]
-
