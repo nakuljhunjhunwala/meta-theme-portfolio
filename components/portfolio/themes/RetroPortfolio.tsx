@@ -17,6 +17,7 @@ const Tetris = React.lazy(() => import("../games/Tetris"))
 const SpaceInvaders = React.lazy(() => import("../games/SpaceInvaders"))
 const FlappyBird = React.lazy(() => import("../games/FlappyBird"))
 const DinoGame = React.lazy(() => import("../games/DinoGame"))
+  const RoadRush = React.lazy(() => import("../games/RoadRush"))
 
 interface GameState {
   score: number
@@ -324,6 +325,7 @@ export default function RetroPortfolio() {
           {activeGame === "Space-Invaders" && <SpaceInvaders />}
           {activeGame === "Flappy-Bird" && <FlappyBird />}
           {activeGame === "Dino-Game" && <DinoGame />}
+          {activeGame === "Road-Rush" && <RoadRush />}
         </Suspense>
       </GameModal>
 
@@ -786,6 +788,14 @@ function RetroGames({
       icon: "🦕",
       color: "bg-orange-500",
       component: <DinoGame />,
+    },
+    {
+      id: "Road-Rush",
+      name: "Road Rush",
+      description: "Dodge traffic, collect coins!",
+      icon: "🚗",
+      color: "bg-rose-600",
+      component: <RoadRush />,
     },
   ]
 

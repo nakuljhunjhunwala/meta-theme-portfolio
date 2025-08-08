@@ -3,7 +3,7 @@ import { Howler, Howl } from "howler"
 // Cached tone generator using Howler and base64 WAV data URIs.
 // Also exposes unlock helpers to satisfy mobile autoplay policies.
 
-type WaveType = "square" | "sine"
+type WaveType = "square" | "sine" | "triangle" | "sawtooth"
 
 const toneCache = new Map<string, Howl>()
 
@@ -91,8 +91,12 @@ function buildToneDataURI(frequency: number, durationMs: number, wave: WaveType)
         let sample = 0
         if (wave === "square") {
             sample = Math.sign(Math.sin(phase)) * amplitude
-        } else {
+        } else if (wave === "sine") {
             sample = Math.sin(phase) * amplitude
+        } else if (wave === "triangle") {
+            sample = (2 / Math.PI) * amplitude * Math.asin(Math.sin(phase))
+        } else if (wave === "sawtooth") {
+            sample = (2 * amplitude) / Math.PI * (phase - Math.PI / 2)
         }
         view.setInt16(headerSize + i * 2, Math.max(-1, Math.min(1, sample)) * 0x7fff, true)
     }
