@@ -87,7 +87,7 @@ export default function RetroPortfolio() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600 text-white font-mono relative overflow-hidden">
       {/* Mario-style clouds background */}
-      <div className="fixed inset-0 opacity-20">
+      <div className="fixed inset-0 opacity-20 pointer-events-none -z-10">
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
@@ -111,7 +111,7 @@ export default function RetroPortfolio() {
       </div>
 
       {/* Pixel grid overlay */}
-      <div className="fixed inset-0 opacity-10">
+      <div className="fixed inset-0 opacity-10 pointer-events-none -z-10">
         <div
           className="w-full h-full"
           style={{
@@ -245,7 +245,7 @@ export default function RetroPortfolio() {
       </div>
 
       {/* Main content area */}
-      <main className="pt-12 sm:pt-24 pb-20 sm:pb-8 px-4 ml-0 lg:ml-48">
+      <main className="relative z-10 pt-12 sm:pt-24 pb-20 sm:pb-8 px-4 ml-0 lg:ml-48">
         <div className="max-w-4xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
@@ -256,7 +256,12 @@ export default function RetroPortfolio() {
               transition={{ duration: 0.3 }}
             >
               {currentSection === "home" && (
-                <RetroHome addScore={addScore} addCoins={addCoins} unlockAchievement={unlockRetroAchievement} />
+                <RetroHome
+                  addScore={addScore}
+                  addCoins={addCoins}
+                  unlockAchievement={unlockRetroAchievement}
+                  onNavigate={(id) => setCurrentSection(id)}
+                />
               )}
               {currentSection === "about" && (
                 <RetroAbout addScore={addScore} addCoins={addCoins} unlockAchievement={unlockRetroAchievement} />
@@ -360,10 +365,12 @@ function RetroHome({
   addScore,
   addCoins,
   unlockAchievement,
+  onNavigate,
 }: {
   addScore: (points: number) => void
   addCoins: (coins: number) => void
   unlockAchievement: (achievement: string) => void
+  onNavigate: (id: "home" | "about" | "skills" | "projects" | "games" | "contact") => void
 }) {
   return (
     <div className="text-center space-y-8">
@@ -411,6 +418,9 @@ function RetroHome({
               addScore(25)
               addCoins(5)
               if (index === 0) unlockAchievement("Experience Explorer")
+              if (index === 0) onNavigate("about")
+              else if (index === 1) onNavigate("projects")
+              else if (index === 2) onNavigate("skills")
             }}
             className={`${stat.color} border-4 border-black rounded-lg p-3 sm:p-4 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg`}
           >

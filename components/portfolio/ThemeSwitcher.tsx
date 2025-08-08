@@ -100,20 +100,23 @@ export default function ThemeSwitcher({ onBackToLanding }: ThemeSwitcherProps) {
         <AnimatePresence>
             {showGuide && (
                 <motion.div
-                    className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[99] flex items-end justify-end p-4"
+                    className="fixed inset-0 z-[99] flex items-end justify-end p-4 pointer-events-none"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    onClick={dismissGuide}
                 >
+                    {/* Non-interactive scrim so page remains clickable behind */}
+                    <div className="absolute inset-0 bg-black/80 backdrop-blur-sm pointer-events-none" />
+
+                    {/* Interactive guide card */}
                     <div
-                        className={`relative text-center pointer-events-none ${
+                        className={`relative text-center pointer-events-auto ${
                             isMobile
                                 ? "bottom-24 right-0 w-full max-w-xs mx-auto"
                                 : "bottom-24 right-4 max-w-xs"
                         }`}
                     >
-                        <div className="bg-gray-800 p-4 rounded-lg shadow-2xl pointer-events-auto">
+                        <div className="bg-gray-800 p-4 rounded-lg shadow-2xl">
                             <h3 className="text-lg font-bold text-white mb-2">Change Your View</h3>
                             <p className="text-white/80 mb-4">
                                 Use this button to explore different portfolio themes.

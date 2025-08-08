@@ -56,7 +56,7 @@ export default function GlassPortfolio() {
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Dynamic Background with better contrast */}
       <div
-        className="fixed inset-0 transition-all duration-1000"
+        className="fixed inset-0 transition-all duration-1000 pointer-events-none"
         style={{
           background: `
             radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, 
@@ -492,11 +492,11 @@ function ContactSection() {
                 href={contact.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="backdrop-blur-xl bg-black/10 border border-white/20 rounded-2xl p-6 hover:bg-black/20 transition-all transform hover:scale-105 shadow-lg"
+                className="backdrop-blur-xl bg-black/10 border border-white/20 rounded-2xl p-6 hover:bg-black/20 transition-all transform hover:scale-105 shadow-lg max-w-full"
               >
                 <IconComponent className="w-8 h-8 text-white mx-auto mb-3" />
                 <div className="text-white/70 text-sm mb-1 drop-shadow-sm">{contact.label}</div>
-                <div className="text-white font-medium drop-shadow-sm">{contact.value}</div>
+                <div className="text-white font-medium drop-shadow-sm break-all">{contact.value}</div>
               </a>
             )
           })}
