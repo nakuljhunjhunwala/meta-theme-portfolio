@@ -1,12 +1,12 @@
 import type { Metadata } from "next"
 import type { MetadataRoute } from "next"
-import { personalInfo, projects } from "@/constants/portfolio"
+import { personalInfo, projects, technicalSkills } from "@/constants/portfolio"
 
 export function getSiteUrl(): string {
     const envUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim()
     if (envUrl) return envUrl.replace(/\/$/, "")
     if (personalInfo.website) return personalInfo.website.replace(/\/$/, "")
-    return "https://example.com"
+    return "https://nakuljhunjhunwala.sociocircle.in"
 }
 
 export function getMetadataBase(): URL {
@@ -16,15 +16,8 @@ export function getMetadataBase(): URL {
 export function buildSiteMetadata(): Metadata {
     const title = `${personalInfo.name} – ${personalInfo.title}`
     const description = personalInfo.bio.medium || personalInfo.bio.short
-    const keywords = [
-        personalInfo.name,
-        personalInfo.title,
-        "portfolio",
-        "full-stack developer",
-        "react",
-        "node.js",
-        "typescript",
-    ]
+
+    const keywords = getKeywords()
 
     const image = "/placeholder.jpg"
 
@@ -169,6 +162,46 @@ export function getProjectsJsonLd() {
     }
 }
 
+// Expanded: theme-specific structured data
+export function getThemeJsonLd(theme: string) {
+    const baseUrl = getSiteUrl()
+    return {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: `${personalInfo.name} – ${theme} theme`,
+        url: `${baseUrl}/themes/${theme}`,
+        description: personalInfo.bio.short,
+        inLanguage: "en",
+        about: {
+            "@type": "Person",
+            name: personalInfo.name,
+            jobTitle: personalInfo.title,
+        },
+    }
+}
+
+export function getThemeBreadcrumbJsonLd(theme: string) {
+    const baseUrl = getSiteUrl()
+    return {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: baseUrl,
+            },
+            {
+                "@type": "ListItem",
+                position: 2,
+                name: `Theme: ${theme}`,
+                item: `${baseUrl}/themes/${theme}`,
+            },
+        ],
+    }
+}
+
 export function buildRobots(): MetadataRoute.Robots {
     const base = getSiteUrl()
     const allowIndex = Boolean(process.env.NEXT_PUBLIC_INDEXING !== "false")
@@ -193,6 +226,71 @@ export function buildSitemap(): MetadataRoute.Sitemap {
             changeFrequency: "weekly",
             priority: 1,
         },
+        ...["retro", "code", "glass", "terminal"].map((t) => ({
+            url: `${base}/themes/${t}`,
+            lastModified: now,
+            changeFrequency: "weekly" as const,
+            priority: 0.8,
+        })),
     ]
+}
+
+// Keyword builder using portfolio content and common best-practice terms
+export function getKeywords(): string[] {
+    const baseKeywords = [
+        personalInfo.name,
+        personalInfo.title,
+        "Full-Stack Developer Portfolio",
+        "Software Engineer Portfolio",
+        "React Developer",
+        "Next.js Developer",
+        "TypeScript Developer",
+        "Node.js Developer",
+        "Frontend Developer",
+        "Backend Developer",
+        "JavaScript Developer",
+        "Web Developer",
+        "UI Engineer",
+        "Portfolio Website",
+        "Open Source",
+        "SEO Optimized",
+        "Performance",
+        "Accessibility",
+        personalInfo.location,
+        "India Developer",
+        'Nakul',
+        'Nakul Jhunjhunwala',
+        'Nakul Jhunjhunwala Portfolio',
+        'Nakul Jhunjhunwala Projects',
+        'Nakul Jhunjhunwala Skills',
+        'Nakul Jhunjhunwala Experience',
+        'Nakul Jhunjhunwala Education',
+        'Nakul Jhunjhunwala Resume',
+        'Nakul Jhunjhunwala LinkedIn',
+        'Nakul Jhunjhunwala GitHub',
+        'Nakul Jhunjhunwala Twitter',
+    ]
+
+    const skillKeywords = technicalSkills
+        .map((s) => [s.name, s.category, s.description])
+        .flat()
+        .filter(Boolean)
+
+    const projectKeywords = projects
+        .map((p) => [p.title, p.category, ...p.techStack, ...(p.features?.map((f) => f.title) || [])])
+        .flat()
+        .filter(Boolean)
+
+    // Normalize and dedupe
+    const normalize = (s: string) => s.toString().toLowerCase().trim()
+    const unique = new Set<string>()
+        ;[...baseKeywords, ...skillKeywords, ...projectKeywords].forEach((k) => {
+            const nk = normalize(String(k))
+            if (nk && nk.length <= 50) unique.add(nk)
+        })
+
+    // Return capitalized keywords limited to ~50 items
+    const cap = (s: string) => s.length ? s[0].toUpperCase() + s.slice(1) : s
+    return Array.from(unique).slice(0, 50).map(cap)
 }
 

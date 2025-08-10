@@ -1,7 +1,50 @@
 {
-  "name": "my-v0-project",
-  "version": "0.1.0",
+  "name": "nakul-meta-portfolio",
+  "version": "1.0.0",
   "private": true,
+  "description": "Interactive, route-based multi-theme portfolio (Retro Arcade, Code Editor, Terminal, Glass) with strong SEO. Built with Next.js, TypeScript, Tailwind CSS, Zustand, and Framer Motion.",
+  "homepage": "https://nakuljhunjhunwala.sociocircle.in",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nakuljhunjhunwala/meta-portfolio-2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nakuljhunjhunwala/meta-portfolio-2/issues"
+  },
+  "author": "Nakul Jhunjhunwala <jhunjhunwalanakul@gmail.com> (https://www.linkedin.com/in/nakuljjw/)",
+  "license": "MIT",
+  "keywords": [
+    "nakul",
+    "nakul jhunjhunwala",
+    "portfolio",
+    "developer portfolio",
+    "full stack developer",
+    "full-stack developer",
+    "software engineer",
+    "react",
+    "next.js",
+    "nextjs",
+    "typescript",
+    "node.js",
+    "tailwindcss",
+    "zustand",
+    "framer motion",
+    "seo",
+    "web development",
+    "frontend",
+    "backend",
+    "react portfolio",
+    "nextjs portfolio",
+    "retro",
+    "retro arcade",
+    "arcade games",
+    "terminal portfolio",
+    "code editor portfolio",
+    "glass morphism"
+  ],
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "scripts": {
     "build": "next build",
     "dev": "next dev",

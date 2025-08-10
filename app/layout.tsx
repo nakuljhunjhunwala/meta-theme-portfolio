@@ -4,6 +4,7 @@ import { Inter, JetBrains_Mono, Press_Start_2P } from "next/font/google"
 import "./globals.css"
 import AudioUnlock from "../components/AudioUnlock"
 import { buildSiteMetadata } from "@/lib/seo"
+import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,7 +39,9 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${pressStart.variable}`}>
       <body className={`${inter.className} antialiased bg-[#0b0f17] text-white`}>
         <AudioUnlock />
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -6,12 +6,10 @@ import { Sparkles, Github, Linkedin, Mail, ExternalLink } from "lucide-react"
 import { personalInfo, getFeaturedProjects } from "@/constants/portfolio"
 import { usePortfolioStore } from "@/stores/portfolioStore"
 import ThemeSwitcher from "../portfolio/ThemeSwitcher"
+import { useRouter } from "next/navigation"
 import AnimatedShapes from "./AnimatedShapes"
 
-interface LandingPageProps {
-    onThemeSelect: (theme: string) => void
-    onBackToLanding: () => void
-}
+interface LandingPageProps {}
 
 const themes = [
     {
@@ -48,15 +46,16 @@ const themes = [
     },
 ]
 
-const LandingPage = ({ onThemeSelect, onBackToLanding }: LandingPageProps) => {
+const LandingPage = ({}: LandingPageProps) => {
     const [selectedTheme, setSelectedTheme] = useState<string | null>(null)
+    const router = useRouter()
     const { setTheme, visitCount, visitData } = usePortfolioStore()
     const featuredProjects = getFeaturedProjects()
 
     const handleThemeSelect = (themeId: string) => {
         setSelectedTheme(themeId)
         setTheme(themeId as any)
-        onThemeSelect(themeId)
+        router.push(`/themes/${themeId}`)
     }
 
     return (
@@ -64,7 +63,7 @@ const LandingPage = ({ onThemeSelect, onBackToLanding }: LandingPageProps) => {
             <AnimatedShapes />
 
             {/* Theme Switcher Integration */}
-            <ThemeSwitcher onBackToLanding={onBackToLanding} />
+            <ThemeSwitcher />
 
             {/* Main Content */}
             <main className="relative z-10">

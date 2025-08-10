@@ -174,27 +174,7 @@ export default function AnimatedShapes() {
                 </motion.svg>
             ))}
             
-            {/* Add floating animation */}
-            {shapes.map((_, index) => (
-                <motion.div
-                    key={`float-${index}`}
-                    className="absolute w-2 h-2 bg-purple-400/30 rounded-full"
-                    style={{
-                        top: `${Math.random() * 80 + 10}%`,
-                        left: `${Math.random() * 80 + 10}%`,
-                    }}
-                    animate={{
-                        y: [0, -20, 0],
-                        opacity: [0.3, 0.8, 0.3],
-                    }}
-                    transition={{
-                        duration: 3 + Math.random() * 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: Math.random() * 2,
-                    }}
-                />
-            ))}
+            {/* Removed extra floating dots to avoid double animations with theme UIs */}
         </div>
     )
 }

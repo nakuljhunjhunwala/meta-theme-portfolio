@@ -6,10 +6,7 @@ import { usePortfolioStore } from "@/stores/portfolioStore"
 import { Palette, Home, X } from "lucide-react"
 import { useMobile } from "@/hooks/use-mobile"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet"
-
-interface ThemeSwitcherProps {
-    onBackToLanding: () => void
-}
+import { useRouter } from "next/navigation"
 
 const themes = [
     { id: "retro", name: "Retro Gaming", icon: "🎮", color: "from-green-400 to-green-600" },
@@ -18,11 +15,12 @@ const themes = [
     { id: "terminal", name: "Terminal", icon: "⚡", color: "from-gray-400 to-gray-600" },
 ]
 
-export default function ThemeSwitcher({ onBackToLanding }: ThemeSwitcherProps) {
+export default function ThemeSwitcher() {
     const [isExpanded, setIsExpanded] = useState(false)
     const [isClient, setIsClient] = useState(false)
     const [showGuide, setShowGuide] = useState(false)
     const { currentTheme, setTheme, resetToLanding } = usePortfolioStore()
+    const router = useRouter()
     const isMobile = useMobile()
 
     useEffect(() => {
@@ -35,6 +33,7 @@ export default function ThemeSwitcher({ onBackToLanding }: ThemeSwitcherProps) {
 
     const handleThemeChange = (themeId: string) => {
         setTheme(themeId as any)
+        router.push(`/themes/${themeId}`)
         if (isMobile) {
             // The sheet will close automatically via SheetClose
         } else {
@@ -44,7 +43,7 @@ export default function ThemeSwitcher({ onBackToLanding }: ThemeSwitcherProps) {
 
     const handleBackToLanding = () => {
         resetToLanding()
-        onBackToLanding()
+        router.push(`/`)
     }
 
     const dismissGuide = () => {

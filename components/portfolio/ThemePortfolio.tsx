@@ -8,6 +8,7 @@ import TerminalPortfolio from "./themes/TerminalPortfolio"
 import ThemeSwitcher from "./ThemeSwitcher"
 import JourneyManager from "@/components/storytelling/JourneyManager"
 import { motion } from "framer-motion"
+import { useRouter } from "next/navigation"
 
 interface ThemePortfolioProps {
   onBackToLanding: () => void
@@ -15,6 +16,7 @@ interface ThemePortfolioProps {
 
 export default function ThemePortfolio({ onBackToLanding }: ThemePortfolioProps) {
   const { currentTheme } = usePortfolioStore()
+  const router = useRouter()
 
   const CodeThemeWrapper = ({ children }: { children: React.ReactNode }) => (
     <div className="relative min-h-screen overflow-hidden bg-[#282c34]">
@@ -59,7 +61,7 @@ export default function ThemePortfolio({ onBackToLanding }: ThemePortfolioProps)
               <h2 className="text-2xl font-bold mb-4">Theme Not Found</h2>
               <p className="text-gray-400 mb-6">The selected theme could not be loaded.</p>
               <button
-                onClick={onBackToLanding}
+                onClick={() => router.push("/")}
                 className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
               >
                 Back to Landing
@@ -73,7 +75,7 @@ export default function ThemePortfolio({ onBackToLanding }: ThemePortfolioProps)
   return (
     <div className="relative">
       {renderTheme()}
-      <ThemeSwitcher onBackToLanding={onBackToLanding} />
+      <ThemeSwitcher />
       <JourneyManager />
     </div>
   )

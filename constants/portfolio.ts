@@ -172,7 +172,7 @@ export const personalInfo: PersonalInfo = {
   location: "Mumbai, India",
   avatar: "https://media.licdn.com/dms/image/v2/D4D03AQHEiKBOcryr9g/profile-displayphoto-shrink_200_200/B4DZf12.IjHMAc-/0/1752176518993?e=2147483647&v=beta&t=PQto5MVZoBLVY1MDFcT1IEkuaaaaK6BZc1lDdYG6b0U",
   email: "jhunjhunwalanakul@gmail.com",
-  website: "https://nakuljhunjhunwala.github.io/Portfolio/",
+  website: "https://nakuljhunjhunwala.sociocircle.in",
   socialLinks: [
     {
       platform: "LinkedIn",
