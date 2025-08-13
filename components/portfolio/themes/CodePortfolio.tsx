@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { usePortfolioStore } from "@/stores/portfolioStore"
-import { personalInfo, getTotalYearsExperience, technicalSkills, projects } from "@/constants/portfolio"
+import { personalInfo, getTotalYearsExperience, technicalSkills, projects, experiences } from "@/constants/portfolio"
 import { CodeEditor } from "./CodeEditor"
 import { CodeFileTabs } from "./CodeFileTabs"
 import { CodeStatusBar } from "./CodeStatusBar"
@@ -11,10 +11,10 @@ import { CodeWindow } from "./CodeWindow"
 
 export type PortfolioFileType =
   | "portfolio.tsx"
+  | "journey.tsx"
   | "skills.json"
   | "projects.md"
   | "contact.tsx"
-  | "certificates.md"
 
 export default function CodePortfolio() {
   const [activeFile, setActiveFile] = useState<PortfolioFileType>("portfolio.tsx")
@@ -57,6 +57,81 @@ class Developer {
 const nakul = new Developer();
 console.log(nakul.getPhilosophy());`,
     },
+    "journey.tsx": {
+      language: "typescript",
+      content: `// Professional & Educational Journey
+// Complete timeline of career and academic growth
+
+interface JourneyItem {
+  id: string;
+  type: 'experience' | 'education';
+  title: string;
+  organization: string;
+  duration: {
+    start: string;
+    end?: string;
+    current: boolean;
+  };
+  location: string;
+  description: string;
+  achievements: string[];
+  technologies?: string[];
+}
+
+// Combined journey timeline
+const journeyTimeline: JourneyItem[] = [
+  // Professional Experience
+${experiences.map((exp, index) => `  {
+    id: "${exp.id}",
+    type: "experience",
+    title: "${exp.role}",
+    organization: "${exp.company}",
+    duration: {
+      start: "${exp.duration.start}",
+      ${exp.duration.end ? `end: "${exp.duration.end}",` : ''}
+      current: ${exp.duration.current}
+    },
+    location: "${exp.location}",
+    description: "${exp.description.replace(/"/g, '\\"')}",
+    achievements: [
+${exp.achievements.slice(0, 3).map(achievement => `      "${achievement.replace(/"/g, '\\"')}"`).join(',\n')}
+    ],
+    technologies: [
+${exp.technologies.slice(0, 6).map(tech => `      "${tech}"`).join(',\n')}
+    ]
+  }${index < experiences.length - 1 || personalInfo.education.length > 0 ? ',' : ''}`).join(',\n')}${personalInfo.education.length > 0 ? ',\n' : ''}
+  // Educational Background
+${personalInfo.education.map((edu, index) => `  {
+    id: "edu-${index}",
+    type: "education",
+    title: "${edu.degree}",
+    organization: "${edu.institution}",
+    duration: {
+      start: "${edu.year.split('-')[0]}",
+      ${edu.year.includes('-') ? `end: "${edu.year.split('-')[1]}",` : ''}
+      current: false
+    },
+    location: "${edu.location}",
+    description: "${edu.degree.includes('Computer') ? 
+      'Focused on software development, programming fundamentals, and computer science principles.' :
+      edu.degree.includes('Commerce') ?
+      'Studied business fundamentals, commerce principles, and analytical thinking.' :
+      'Built strong foundational knowledge and critical thinking skills.'}",
+    achievements: [${edu.honors ? `\n      "${edu.honors}"\n    ` : ''}]
+  }${index < personalInfo.education.length - 1 ? ',' : ''}`).join(',\n')}
+].sort((a, b) => new Date(b.duration.start).getTime() - new Date(a.duration.start).getTime());
+
+// Journey Statistics
+const journeyStats = {
+  totalExperience: "4.5+ years",
+  companiesWorked: ${experiences.length},
+  degreesEarned: ${personalInfo.education.length},
+  technologiesUsed: 15,
+  achievements: ${experiences.reduce((acc, exp) => acc + exp.achievements.length, 0)}
+};
+
+export { journeyTimeline, journeyStats };`,
+    },
     "skills.json": {
       language: "json",
       content: JSON.stringify(
@@ -94,12 +169,7 @@ const ContactInfo = () => ({
 export default ContactInfo;
 `,
     },
-    "certificates.md": {
-      language: "markdown",
-      content: `# Certifications & Education\n\n${personalInfo.education
-        .map((e: any) => `### ${e.degree} - ${e.institution}\n*${e.year}*`)
-        .join("\n\n")}`,
-    },
+
   }
 
   return (

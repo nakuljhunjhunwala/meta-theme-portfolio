@@ -12,7 +12,7 @@ Built for performance, SEO, and delight.
 
 ## Live
 
-- Primary: `https://nakuljhunjhunwala.sociocircle.in`
+- Primary: `https://nakuljhunjhunwala.in`
 
 ## Features at a Glance
 

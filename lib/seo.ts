@@ -3,10 +3,15 @@ import type { MetadataRoute } from "next"
 import { personalInfo, projects, technicalSkills } from "@/constants/portfolio"
 
 export function getSiteUrl(): string {
-    const envUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim()
-    if (envUrl) return envUrl.replace(/\/$/, "")
-    if (personalInfo.website) return personalInfo.website.replace(/\/$/, "")
-    return "https://nakuljhunjhunwala.sociocircle.in"
+    try {
+        const envUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim()
+        if (envUrl && envUrl !== 'undefined') return envUrl.replace(/\/$/, "")
+        if (personalInfo?.website) return personalInfo.website.replace(/\/$/, "")
+        return "https://nakuljhunjhunwala.in"
+    } catch (error) {
+        console.warn("Error getting site URL, using fallback:", error)
+        return "https://nakuljhunjhunwala.in"
+    }
 }
 
 export function getMetadataBase(): URL {
@@ -203,36 +208,84 @@ export function getThemeBreadcrumbJsonLd(theme: string) {
 }
 
 export function buildRobots(): MetadataRoute.Robots {
-    const base = getSiteUrl()
-    const allowIndex = Boolean(process.env.NEXT_PUBLIC_INDEXING !== "false")
-    return {
-        rules: {
-            userAgent: "*",
-            allow: allowIndex ? "/" : "/",
-            disallow: allowIndex ? [] : ["/"],
-        },
-        sitemap: `${base}/sitemap.xml`,
-        host: base,
+    try {
+        const base = getSiteUrl()
+        const allowIndex = Boolean(process.env.NEXT_PUBLIC_INDEXING !== "false")
+        return {
+            rules: {
+                userAgent: "*",
+                allow: allowIndex ? "/" : "/",
+                disallow: allowIndex ? [] : ["/"],
+            },
+            sitemap: `${base}/sitemap.xml`,
+            host: base,
+        }
+    } catch (error) {
+        console.warn("Error generating robots.txt, using fallback:", error)
+        return {
+            rules: {
+                userAgent: "*",
+                allow: "/",
+            },
+            sitemap: "https://nakuljhunjhunwala.in/sitemap.xml",
+            host: "https://nakuljhunjhunwala.in",
+        }
     }
 }
 
 export function buildSitemap(): MetadataRoute.Sitemap {
-    const base = getSiteUrl()
-    const now = new Date().toISOString()
-    return [
-        {
-            url: `${base}/`,
-            lastModified: now,
-            changeFrequency: "weekly",
-            priority: 1,
-        },
-        ...["retro", "code", "glass", "terminal"].map((t) => ({
-            url: `${base}/themes/${t}`,
-            lastModified: now,
-            changeFrequency: "weekly" as const,
-            priority: 0.8,
-        })),
-    ]
+    try {
+        const base = getSiteUrl()
+        const now = new Date().toISOString()
+
+        // Build sitemap with error handling for static generation
+        const sitemap: MetadataRoute.Sitemap = [
+            {
+                url: `${base}`,
+                lastModified: now,
+                changeFrequency: "weekly",
+                priority: 1,
+            },
+            // Theme pages
+            {
+                url: `${base}/themes/retro`,
+                lastModified: now,
+                changeFrequency: "weekly",
+                priority: 0.8,
+            },
+            {
+                url: `${base}/themes/code`,
+                lastModified: now,
+                changeFrequency: "weekly",
+                priority: 0.8,
+            },
+            {
+                url: `${base}/themes/glass`,
+                lastModified: now,
+                changeFrequency: "weekly",
+                priority: 0.8,
+            },
+            {
+                url: `${base}/themes/terminal`,
+                lastModified: now,
+                changeFrequency: "weekly",
+                priority: 0.8,
+            },
+        ]
+
+        return sitemap
+    } catch (error) {
+        console.warn("Error generating sitemap, using fallback:", error)
+        // Fallback sitemap for build-time errors
+        return [
+            {
+                url: "https://nakuljhunjhunwala.in",
+                lastModified: new Date().toISOString(),
+                changeFrequency: "weekly",
+                priority: 1,
+            },
+        ]
+    }
 }
 
 // Keyword builder using portfolio content and common best-practice terms

@@ -18,6 +18,7 @@ export const commandList = {
     skills: "List my technical skills. Usage: skills [--category <cat>]",
     projects: "Show my featured projects. Usage: projects [--id <id>]",
     experience: "Display my professional work experience",
+    education: "Show my educational background and qualifications",
     contact: "Show my contact information",
     socials: "Display my social media links",
     whoami: "Display the current user",
@@ -130,6 +131,23 @@ export const useCommands = ({ setHistory }: { setHistory: React.Dispatch<React.S
                             (e) =>
                                 `  **${e.role}** @ ${e.company} (${e.duration.start} - ${e.duration.end || "Present"})\n` +
                                 `  ${e.description}`
+                        )
+                        .join("\n\n"),
+
+                education: () =>
+                    "Educational Background:\n\n" +
+                    personalInfo.education
+                        .map(
+                            (edu) =>
+                                `  **${edu.degree}**\n` +
+                                `  ${edu.institution} (${edu.year})\n` +
+                                `  Location: ${edu.location}\n` +
+                                `${edu.honors ? `  Honors: ${edu.honors}\n` : ""}` +
+                                `  Focus: ${edu.degree.includes('Computer') ?
+                                    'Software Development, Programming, Database Management' :
+                                    edu.degree.includes('Commerce') ?
+                                        'Business Fundamentals, Commerce Principles, Analytical Thinking' :
+                                        'Core Academic Subjects, Critical Thinking, Problem Solving'}`
                         )
                         .join("\n\n"),
 

@@ -152,12 +152,8 @@ export default function ThemeSwitcher() {
                         side="bottom"
                         className="rounded-t-2xl z-[2000] border-none bg-white dark:bg-gray-900 p-6"
                     >
-                        <SheetHeader className="mb-4 relative">
+                        <SheetHeader className="mb-4">
                             <SheetTitle className="text-center text-gray-900 dark:text-white">Switch Theme</SheetTitle>
-                            <SheetClose className="absolute right-0 top-0 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-                                <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-                                <span className="sr-only">Close</span>
-                            </SheetClose>
                         </SheetHeader>
                         <div className="space-y-3">
                             {themes.map((theme) => renderThemeButton(theme, true))}

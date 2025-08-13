@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { usePortfolioStore } from "@/stores/portfolioStore"
-import { personalInfo, projects, getSkillsByCategory } from "@/constants/portfolio"
+import { personalInfo, projects, getSkillsByCategory, experiences } from "@/constants/portfolio"
 import {
   Home,
   User,
@@ -19,9 +19,11 @@ import {
   Star,
   Calendar,
   MapPin,
+  GraduationCap,
+  Building,
 } from "lucide-react"
 
-type SectionId = "home" | "about" | "skills" | "projects" | "contact"
+type SectionId = "home" | "about" | "journey" | "skills" | "projects" | "contact"
 
 export default function GlassPortfolio() {
   const [activeSection, setActiveSection] = useState("home")
@@ -43,6 +45,7 @@ export default function GlassPortfolio() {
   const sections: Array<{ id: SectionId; label: string; icon: React.ComponentType<{ className?: string }> }> = [
     { id: "home", label: "Home", icon: Home },
     { id: "about", label: "About", icon: User },
+    { id: "journey", label: "Journey", icon: Calendar },
     { id: "skills", label: "Skills", icon: Code },
     { id: "projects", label: "Projects", icon: Briefcase },
     { id: "contact", label: "Contact", icon: Mail },
@@ -140,6 +143,7 @@ export default function GlassPortfolio() {
           >
              {activeSection === "home" && <HomeSection onNavigate={handleNavigate} />}
             {activeSection === "about" && <AboutSection />}
+            {activeSection === "journey" && <JourneySection />}
             {activeSection === "skills" && <SkillsSection />}
             {activeSection === "projects" && <ProjectsSection />}
             {activeSection === "contact" && <ContactSection />}
@@ -509,6 +513,255 @@ function ContactSection() {
           <Mail className="w-5 h-5" />
           <span>Send Message</span>
         </a>
+      </motion.div>
+    </div>
+  )
+}
+
+function JourneySection() {
+  // Combine and sort experience and education data chronologically
+  const journeyItems = [
+    ...experiences.map((exp) => ({
+      type: 'experience' as const,
+      id: exp.id,
+      title: exp.role,
+      subtitle: exp.company,
+      startDate: exp.duration.start,
+      endDate: exp.duration.current ? "Present" : exp.duration.end,
+      location: exp.location,
+      description: exp.description,
+      achievements: exp.achievements,
+      technologies: exp.technologies,
+      isCurrent: exp.duration.current
+    })),
+    ...personalInfo.education.map((edu, index) => ({
+      type: 'education' as const,
+      id: `edu-${index}`,
+      title: edu.degree,
+      subtitle: edu.institution,
+      startDate: edu.year.split('-')[0],
+      endDate: edu.year.split('-')[1] || edu.year.split('-')[0],
+      location: edu.location,
+      description: edu.degree.includes('Computer') ? 
+        "Focused on software development, programming fundamentals, database management, and computer science principles." :
+        edu.degree.includes('Commerce') ?
+        "Studied business fundamentals, commerce principles, and analytical thinking skills." :
+        "Built strong foundational knowledge and critical thinking skills.",
+      achievements: edu.honors ? [edu.honors] : [],
+      technologies: [],
+      isCurrent: false
+    }))
+  ].sort((a, b) => {
+    // Sort by start date, most recent first
+    const dateA = new Date(a.startDate)
+    const dateB = new Date(b.startDate)
+    return dateB.getTime() - dateA.getTime()
+  })
+
+  return (
+    <div className="max-w-6xl mx-auto">
+      {/* Enhanced Glass Header */}
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center mb-12 relative"
+      >
+        <div className="absolute inset-0 backdrop-blur-3xl bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-green-500/20 rounded-3xl -z-10"></div>
+        <div className="p-8 backdrop-blur-xl bg-white/5 border border-white/20 rounded-3xl shadow-2xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg bg-gradient-to-r from-purple-400 via-blue-400 to-green-400 bg-clip-text text-transparent">
+            Professional & Educational Journey
+          </h2>
+          <p className="text-white/80 text-lg">A timeline of growth, learning, and achievement</p>
+        </div>
+      </motion.div>
+
+      {/* Enhanced Timeline Container */}
+      <div className="relative max-w-7xl mx-auto">
+        {/* Enhanced Timeline Line with Multiple Gradients - Fixed positioning */}
+        <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-1 md:transform md:-translate-x-1/2 overflow-hidden rounded-full">
+          <div className="absolute inset-0 bg-gradient-to-b from-purple-400 via-blue-400 via-green-400 to-pink-400"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/20 to-transparent animate-pulse"></div>
+        </div>
+
+        {/* Journey Items */}
+        <div className="space-y-8 md:space-y-16">
+          {journeyItems.map((item, index) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ 
+                delay: index * 0.1,
+                type: "spring",
+                stiffness: 100,
+                damping: 10
+              }}
+              className={`relative flex flex-col md:flex-row items-start ${
+                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+              }`}
+            >
+              {/* Enhanced Timeline Node - Fixed positioning to match timeline exactly */}
+              <motion.div 
+                className="absolute left-6 md:left-1/2 top-6 md:transform md:-translate-x-1/2 z-20"
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                style={{ marginLeft: '-12px' }} // Perfect center alignment
+              >
+                <div className="relative w-6 h-6 flex items-center justify-center">
+                  {/* Timeline dot */}
+                  <div className={`w-6 h-6 rounded-full border-4 border-white shadow-2xl ${
+                    item.type === 'experience' 
+                      ? 'bg-gradient-to-r from-purple-400 to-blue-400' 
+                      : 'bg-gradient-to-r from-pink-400 to-purple-400'
+                  }`}></div>
+                  
+                  {/* Emoji positioned exactly on center */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-[10px] leading-none filter drop-shadow-sm">
+                      {item.type === 'experience' ? '💼' : '🎓'}
+                    </span>
+                  </div>
+                  
+                  {/* Pulse effect */}
+                  <div className="absolute inset-0 rounded-full bg-white/20 animate-ping"></div>
+                </div>
+              </motion.div>
+
+              {/* Enhanced Content Card with proper responsive sizing */}
+              <div className={`w-full md:w-[45%] pl-16 md:pl-0 pr-4 md:pr-0 ${
+                index % 2 === 0 ? "md:mr-auto md:pr-12" : "md:ml-auto md:pl-12"
+              }`}>
+                <motion.div
+                  whileHover={{ 
+                    scale: 1.02, 
+                    y: -5,
+                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="group relative backdrop-blur-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-2xl hover:border-white/50 transition-all duration-300"
+                >
+                  {/* Glass Shine Effect */}
+                  <div className="absolute inset-0 rounded-2xl md:rounded-3xl bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  {/* Type Badge */}
+                  <div className={`absolute -top-2 -right-2 md:-top-3 md:-right-3 px-2 py-0.5 md:px-3 md:py-1 text-[10px] md:text-xs font-bold rounded-full border-2 backdrop-blur-xl ${
+                    item.type === 'experience' 
+                      ? 'bg-purple-500/30 border-purple-400/50 text-purple-200' 
+                      : 'bg-pink-500/30 border-pink-400/50 text-pink-200'
+                  }`}>
+                    {item.type === 'experience' ? 'WORK' : 'STUDY'}
+                  </div>
+
+                  {/* Header */}
+                  <div className="relative z-10 mb-3 md:mb-4">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1 pr-2">
+                        <h3 className="text-lg md:text-xl font-bold text-white drop-shadow-lg mb-1 leading-tight">{item.title}</h3>
+                        <p className={`text-sm md:text-base font-medium ${
+                          item.type === 'experience' ? 'text-purple-300' : 'text-pink-300'
+                        }`}>{item.subtitle}</p>
+                      </div>
+                      {item.isCurrent && (
+                        <motion.div
+                          animate={{ scale: [1, 1.1, 1] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                          className="px-2 py-0.5 md:px-2 md:py-1 bg-green-500/30 border border-green-400/50 rounded-full text-[10px] md:text-xs font-bold text-green-200"
+                        >
+                          CURRENT
+                        </motion.div>
+                      )}
+                    </div>
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-2 text-xs md:text-sm text-white/70 space-y-1 md:space-y-0">
+                      <span className="font-medium">{item.startDate} - {item.endDate}</span>
+                      <span className="text-[10px] md:text-xs text-white/60">{item.location}</span>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="relative z-10 text-white/90 text-xs md:text-sm leading-relaxed mb-3 md:mb-4 drop-shadow-sm">
+                    {item.description}
+                  </p>
+
+                  {/* Achievements */}
+                  {item.achievements.length > 0 && (
+                    <div className="relative z-10 mb-3 md:mb-4">
+                      <h4 className="text-xs md:text-sm font-semibold text-blue-300 mb-2">
+                        {item.type === 'experience' ? 'Key Achievements' : 'Honors & Recognition'}
+                      </h4>
+                      <ul className="space-y-1">
+                        {item.achievements.slice(0, 3).map((achievement, achIndex) => (
+                          <li key={achIndex} className="flex items-start text-[10px] md:text-xs text-white/80">
+                            <Star className="w-2.5 h-2.5 md:w-3 md:h-3 text-yellow-400 fill-current mr-1.5 md:mr-2 mt-0.5 flex-shrink-0" />
+                            <span className="leading-tight">{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Technologies */}
+                  {item.technologies.length > 0 && (
+                    <div className="relative z-10 flex flex-wrap gap-1.5 md:gap-2">
+                      {item.technologies.slice(0, 5).map((tech, techIndex) => (
+                        <motion.span
+                          key={techIndex}
+                          whileHover={{ scale: 1.05 }}
+                          className="px-2 py-0.5 md:px-2 md:py-1 text-[10px] md:text-xs backdrop-blur-xl bg-white/10 border border-white/20 rounded-full text-white/90 shadow-sm hover:bg-white/20 transition-colors"
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                      {item.technologies.length > 5 && (
+                        <span className="px-2 py-0.5 text-[10px] md:text-xs text-white/60">+{item.technologies.length - 5} more</span>
+                      )}
+                    </div>
+                  )}
+                </motion.div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Enhanced Summary */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: journeyItems.length * 0.1 + 0.3 }}
+        className="mt-16 relative"
+      >
+        <div className="absolute inset-0 backdrop-blur-3xl bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-green-500/10 rounded-3xl -z-10"></div>
+        <div className="backdrop-blur-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 rounded-3xl p-8 shadow-2xl text-center">
+          <h3 className="text-2xl font-bold text-white mb-8 drop-shadow-lg bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            Journey Highlights
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {[
+              { label: "Years Experience", value: "4.5+", icon: "⚡", color: "from-purple-400 to-blue-400" },
+              { label: "Companies", value: experiences.length, icon: "🏢", color: "from-blue-400 to-green-400" },
+              { label: "Technologies", value: "15+", icon: "🚀", color: "from-green-400 to-yellow-400" },
+              { label: "Education", value: personalInfo.education.length, icon: "🎓", color: "from-pink-400 to-purple-400" },
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: journeyItems.length * 0.1 + 0.5 + index * 0.1 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="group relative backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 rounded-2xl p-6 hover:border-white/40 transition-all duration-300"
+              >
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative z-10">
+                  <div className="text-3xl mb-3">{stat.icon}</div>
+                  <div className={`text-2xl font-bold mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-white/70">{stat.label}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </motion.div>
     </div>
   )
