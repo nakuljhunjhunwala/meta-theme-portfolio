@@ -247,6 +247,12 @@ const FlappyBird = () => {
     jump()
   }, [jump])
 
+  const handleTouch = useCallback((e: React.TouchEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    jump()
+  }, [jump])
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
@@ -255,41 +261,48 @@ const FlappyBird = () => {
   if (!isClient) return null
 
   return (
-    <div className="flex flex-col items-center justify-center p-2 sm:p-4">
-      <div className="mb-4 text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-yellow-400 pixel-text animate-pulse mb-2 drop-shadow-lg">
+    <div className="flex flex-col h-full max-h-full overflow-hidden p-1 sm:p-2">
+      {/* Compact Header - Mobile Optimized */}
+      <div className="flex-shrink-0 mb-1 sm:mb-2 text-center">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-yellow-400 pixel-text animate-pulse mb-1 drop-shadow-lg">
           🐦 FLAPPY BIRD RETRO 🐦
         </h2>
-        <div className="text-sm sm:text-base text-white/80 mb-2">
+        <div className="text-xs sm:text-sm text-white/80 mb-1 sm:mb-2">
           Fly through the pipes without crashing!
         </div>
-        <div className="flex justify-center gap-4 sm:gap-8 text-base sm:text-lg font-bold">
-          <div className="flex items-center gap-2">
+        <div className="flex justify-center gap-2 sm:gap-4 text-sm sm:text-base font-bold">
+          <div className="flex items-center gap-1 sm:gap-2">
             <span className="text-yellow-400">SCORE</span>
-            <div className="bg-yellow-400 text-black px-3 py-1 rounded font-mono text-xl">
+            <div className="bg-yellow-400 text-black px-2 py-1 rounded font-mono text-sm sm:text-lg">
               {score}
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             <span className="text-purple-400">BEST</span>
-            <div className="bg-purple-400 text-black px-3 py-1 rounded font-mono text-xl">
+            <div className="bg-purple-400 text-black px-2 py-1 rounded font-mono text-sm sm:text-lg">
               {bestScore}
             </div>
           </div>
         </div>
       </div>
 
-      <div
-        ref={gameAreaRef}
-        className="relative w-full max-w-3xl bg-[#0b0f17] border border-white/10 overflow-hidden rounded-md shadow-xl cursor-pointer game-screen"
-        style={{
-          aspectRatio: `${GAME_WIDTH}/${GAME_HEIGHT}`,
-          maxHeight: '70vh',
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)`,
-          backgroundSize: '24px 24px'
-        }}
-        onClick={handleClick}
-      >
+      {/* Full Screen Game Area for Mobile */}
+      <div className="flex-1 flex items-center justify-center min-h-0">
+        <div
+          ref={gameAreaRef}
+          className="relative w-full h-full max-w-4xl bg-[#0b0f17] border border-white/10 sm:border-2 overflow-hidden rounded-md shadow-xl cursor-pointer game-screen select-none"
+          style={{
+            aspectRatio: `${GAME_WIDTH}/${GAME_HEIGHT}`,
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)`,
+            backgroundSize: '24px 24px',
+            touchAction: 'manipulation', // Prevents zoom on double-tap
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            WebkitTouchCallout: 'none'
+          }}
+          onClick={handleClick}
+          onTouchStart={handleTouch}
+        >
         {/* Moving clouds */}
         {Array.from({ length: 3 }, (_, i) => (
           <motion.div
@@ -440,10 +453,10 @@ const FlappyBird = () => {
                 READY TO FLY?
               </h3>
               <div className="text-sm sm:text-base text-white/80 mb-6 space-y-2">
-                <p>• Click or press SPACE to flap</p>
+                <p>• <span className="block sm:hidden">Tap screen</span><span className="hidden sm:block">Click or press SPACE</span> to flap</p>
                 <p>• Avoid the pipes and ground!</p>
                 <p>• Try to beat your best score!</p>
-                <p className="text-yellow-400">• ESC to pause</p>
+                <p className="text-yellow-400 hidden sm:block">• ESC to pause</p>
               </div>
               <motion.button
                 onClick={(e) => {
@@ -556,33 +569,12 @@ const FlappyBird = () => {
           )}
         </AnimatePresence>
 
-        {/* Mobile Instructions */}
-        {gameStarted && !isPaused && !gameOver && (
-          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 text-xs text-white/80 text-center block sm:hidden bg-black/40 px-3 py-1 rounded">
-            Tap screen to flap wings
-          </div>
-        )}
-      </div>
-
-      {/* Mobile Controls */}
-      <div className="mt-4 block sm:hidden">
-        <div className="text-center">
-          <motion.button
-            onTouchStart={jump}
-            className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold px-8 py-4 rounded-lg border-2 border-yellow-400 text-xl"
-            whileTap={{ scale: 0.95 }}
-          >
-            🐦 FLAP WINGS
-          </motion.button>
-        </div>
-        <div className="text-center mt-2">
-          <motion.button
-            onClick={togglePause}
-            className="bg-gray-600 hover:bg-gray-700 text-white font-bold px-4 py-2 rounded border border-gray-400"
-            whileTap={{ scale: 0.95 }}
-          >
-            {isPaused ? "▶️ RESUME" : "⏸️ PAUSE"}
-          </motion.button>
+          {/* Mobile Instructions */}
+          {gameStarted && !isPaused && !gameOver && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-white/80 text-center block sm:hidden bg-black/40 px-3 py-1 rounded">
+              Tap anywhere to flap wings
+            </div>
+          )}
         </div>
       </div>
     </div>

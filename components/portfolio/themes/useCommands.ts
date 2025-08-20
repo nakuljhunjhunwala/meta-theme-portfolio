@@ -19,8 +19,11 @@ export const commandList = {
     projects: "Show my featured projects. Usage: projects [--id <id>]",
     experience: "Display my professional work experience",
     education: "Show my educational background and qualifications",
-    contact: "Show my contact information",
+    contact: "Show my contact information and quick contact options",
+    whatsapp: "Open WhatsApp chat with me instantly",
+    resume: "Download my resume directly",
     socials: "Display my social media links",
+    availability: "Check my current availability status",
     whoami: "Display the current user",
     pwd: "Print the current working directory",
     ls: "List files in the current directory",
@@ -151,10 +154,58 @@ export const useCommands = ({ setHistory }: { setHistory: React.Dispatch<React.S
                         )
                         .join("\n\n"),
 
-                contact: () => `Email: ${personalInfo.email}\nWebsite: ${personalInfo.website}`,
+                contact: () =>
+                    `📞 Contact Information:\n\n` +
+                    `Ready to collaborate? Let's build something amazing together! 🚀\n\n` +
+                    `📧 Email: ${personalInfo.email}\n` +
+                    `💬 WhatsApp: +91 ${personalInfo.whatsappNumber}\n` +
+                    `🌐 Website: ${personalInfo.website}\n` +
+                    `📍 Location: ${personalInfo.location}\n\n` +
+                    `⚡ Quick Actions:\n` +
+                    `  - Type "whatsapp" to chat instantly\n` +
+                    `  - Type "resume" to download my resume\n` +
+                    `  - Click here to email: mailto:${personalInfo.email}?subject=Hi%20Nakul!%20Let's%20collaborate\n` +
+                    `  - Type "availability" to check my status\n\n` +
+                    `${personalInfo.availability.message}`,
+
+                whatsapp: () => {
+                    const message = "Hi%20Nakul!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20potential%20opportunities.%20Are%20you%20available%20for%20a%20quick%20chat%3F"
+                    const whatsappUrl = `https://wa.me/91${personalInfo.whatsappNumber}?text=${message}`
+                    if (typeof window !== 'undefined') {
+                        window.open(whatsappUrl, '_blank')
+                    }
+                    return `💬 Opening WhatsApp chat...\n\nClick here if it didn't open automatically:\n${whatsappUrl}\n\nOr scan this QR code with your phone to start chatting!`
+                },
+
+                resume: () => {
+                    if (typeof window !== 'undefined') {
+                        const link = document.createElement('a')
+                        link.href = personalInfo.resumeUrl
+                        link.download = 'Nakul_Jhunjhunwala_Resume.docx'
+                        document.body.appendChild(link)
+                        link.click()
+                        document.body.removeChild(link)
+                    }
+                    return `📄 Downloading resume...\n\n✅ Resume download initiated!\n\nFile: Nakul_Jhunjhunwala_Resume.docx\nLocation: ${personalInfo.resumeUrl}\n\n📝 The resume includes:\n• 4.5+ years of full-stack development experience\n• Technical skills and certifications\n• Project portfolio and achievements\n• Contact information\n\nType "contact" for more ways to reach me!`
+                },
+
+                availability: () =>
+                    `📅 Current Availability:\n\n` +
+                    `Status: ${personalInfo.availability.status.toUpperCase()}\n` +
+                    `Message: ${personalInfo.availability.message}\n` +
+                    `Next Available: ${personalInfo.availability.nextAvailable}\n\n` +
+                    `🔥 Looking for exciting projects and opportunities!\n` +
+                    `💡 Quick response guaranteed - I typically reply within a few hours.\n\n` +
+                    `Type "contact" to see how to reach me!`,
+
                 socials: () =>
-                    "Social Media:\n" +
-                    personalInfo.socialLinks.map((s) => `  - ${s.platform}: ${s.url}`).join("\n"),
+                    "🌐 Social Media & Professional Links:\n\n" +
+                    personalInfo.socialLinks.map((s) =>
+                        `  ${s.platform === 'LinkedIn' ? '💼' :
+                            s.platform === 'GitHub' ? '🐙' :
+                                s.platform === 'WhatsApp' ? '💬' : '🔗'} ${s.platform}: ${s.url}`
+                    ).join("\n") +
+                    `\n\n🎯 Connect with me for collaborations, opportunities, or just to say hi!`,
                 whoami: () => personalInfo.name,
                 pwd: () => "/home/portfolio",
                 ls: () => Object.keys(files).join("\n"),

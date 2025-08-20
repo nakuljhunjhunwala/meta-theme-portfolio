@@ -280,34 +280,87 @@ const RoadRush: React.FC = () => {
   const playerYPct = (playerY / GAME_HEIGHT) * 100
 
   return (
-    <div className="flex flex-col items-center justify-center p-2 sm:p-4">
+    <div className="flex flex-col h-full max-h-full overflow-hidden p-2">
       {/* Title & HUD */}
-      <div className="mb-3 text-center">
-        <h2 className="text-2xl sm:text-3xl font-bold text-red-400 pixel-text drop-shadow-lg">
+      <div className="flex-shrink-0 mb-2 text-center">
+        <h2 className="text-lg sm:text-xl font-bold text-red-400 pixel-text drop-shadow-lg">
           🏁 ROAD RUSH 🏁
         </h2>
-        <div className="flex justify-center gap-4 sm:gap-8 text-sm sm:text-base font-bold mt-1">
-          <div className="flex items-center gap-2">
+        <div className="flex justify-center gap-2 sm:gap-4 text-xs sm:text-sm font-bold mt-1">
+          <div className="flex items-center gap-1 sm:gap-2">
             <span className="text-yellow-400">SCORE</span>
-            <div className="bg-yellow-400 text-black px-3 py-1 rounded font-mono text-base sm:text-lg">
+            <div className="bg-yellow-400 text-black px-2 py-1 rounded font-mono text-sm sm:text-base">
               {score.toString().padStart(5, "0")}
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             <span className="text-green-400">HIGH</span>
-            <div className="bg-green-400 text-black px-3 py-1 rounded font-mono text-base sm:text-lg">
+            <div className="bg-green-400 text-black px-2 py-1 rounded font-mono text-sm sm:text-base">
               {highScore.toString().padStart(5, "0")}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Game Area */}
-      <div
-        className="relative w-full max-w-md bg-black border-4 border-yellow-400 overflow-hidden rounded-md shadow-2xl game-screen"
-        style={{ aspectRatio: `${GAME_WIDTH}/${GAME_HEIGHT}`, maxHeight: "75vh" }}
+      {/* Game Area Container */}
+      <div className="flex-1 flex flex-col items-center justify-center min-h-0 pb-12 sm:pb-4">
+        <div
+          className="relative w-full max-w-md bg-black border-2 sm:border-4 border-yellow-400 overflow-hidden rounded-md shadow-2xl game-screen select-none"
+          style={{ 
+            aspectRatio: `${GAME_WIDTH}/${GAME_HEIGHT}`, 
+            maxHeight: "100%",
+            touchAction: 'manipulation',
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            WebkitTouchCallout: 'none'
+          }}
         onClick={() => {
           if (!gameStarted) startGame()
+          else if (gameStarted && !gameOver && !isPaused) doBoost()
+        }}
+        onTouchStart={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          const touch = e.touches[0]
+          const rect = e.currentTarget.getBoundingClientRect()
+          const touchX = touch.clientX - rect.left
+          const touchY = touch.clientY - rect.top
+          
+          // Store touch start position for swipe detection
+          e.currentTarget.dataset.touchStartX = touchX.toString()
+          e.currentTarget.dataset.touchStartY = touchY.toString()
+        }}
+        onTouchEnd={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          if (!gameStarted) {
+            startGame()
+            return
+          }
+          
+          const touchStartX = parseFloat(e.currentTarget.dataset.touchStartX || '0')
+          const touchStartY = parseFloat(e.currentTarget.dataset.touchStartY || '0')
+          
+          const touch = e.changedTouches[0]
+          const rect = e.currentTarget.getBoundingClientRect()
+          const touchEndX = touch.clientX - rect.left
+          const touchEndY = touch.clientY - rect.top
+          
+          const deltaX = touchEndX - touchStartX
+          const deltaY = touchEndY - touchStartY
+          const minSwipeDistance = 30
+          
+          // Check for horizontal swipe
+          if (Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX > 0) {
+              moveRight()
+            } else {
+              moveLeft()
+            }
+          } else if (Math.abs(deltaX) < 20 && Math.abs(deltaY) < 20) {
+            // Tap for boost (small movement means tap, not swipe)
+            doBoost()
+          }
         }}
       >
         {/* Road background: plain black with white markings */}
@@ -465,32 +518,18 @@ const RoadRush: React.FC = () => {
           )}
         </AnimatePresence>
 
-        {/* Mobile Controls */}
-        <div className="absolute left-0 right-0 bottom-2 sm:bottom-4 flex items-center justify-center gap-2 sm:gap-4 select-none">
-          <button
-            onClick={moveLeft}
-            className="sm:hidden px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-md border-2 border-blue-400 shadow-lg active:scale-95"
-          >
-            ⬅️
-          </button>
-          <button
-            onClick={doBoost}
-            className={`sm:hidden px-4 py-3 ${boosting ? "bg-purple-700" : "bg-purple-600"} hover:bg-purple-700 text-white font-bold rounded-md border-2 border-purple-400 shadow-lg active:scale-95`}
-          >
-            ⚡ BOOST
-          </button>
-          <button
-            onClick={moveRight}
-            className="sm:hidden px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-md border-2 border-blue-400 shadow-lg active:scale-95"
-          >
-            ➡️
-          </button>
+          {/* Touch Instructions for Mobile */}
+          {gameStarted && !isPaused && !gameOver && (
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs text-white/80 text-center block sm:hidden bg-black/40 px-3 py-1 rounded">
+              Swipe ← → to steer • Tap to boost
+            </div>
+          )}
         </div>
-      </div>
 
-      {/* Desktop instructions */}
-      <div className="hidden sm:block text-xs text-gray-300 text-center mt-2">
-        ← → to switch lanes • ↑/Shift to boost • Space/Esc to pause
+        {/* Desktop instructions */}
+        <div className="hidden sm:block text-xs text-gray-300 text-center mt-2 flex-shrink-0">
+          ← → to switch lanes • ↑/Shift to boost • Space/Esc to pause
+        </div>
       </div>
     </div>
   )

@@ -831,21 +831,46 @@ function RetroContact({
         animate={{ opacity: 1, y: 0 }}
         className="bg-black/80 border-4 border-green-400 rounded-lg p-3 sm:p-6 text-center shadow-lg"
       >
-        <h3 className="text-lg sm:text-2xl font-bold text-yellow-400 mb-4">🤝 READY TO COLLABORATE?</h3>
+        <h3 className="text-lg sm:text-2xl font-bold text-yellow-400 mb-4">🤝 READY TO BUILD SOMETHING EPIC?</h3>
         <p className="text-white mb-6 leading-relaxed text-sm sm:text-base">
-          Let's team up and create something amazing together! I'm always excited to work on new projects and
-          challenges. Send me a message and let's start our next adventure!
+          I'm passionate about turning ideas into reality! Whether you need a full-stack web application, want to discuss a challenging project, or just say hi - I'd love to hear from you. Let's create something amazing together! 🚀
         </p>
+        
+        <div className="text-center mb-4">
+          <div className="text-green-400 text-sm font-bold animate-pulse">
+            💡 Quick Response Guaranteed • Available for Immediate Projects
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
           {[
-            { label: "EMAIL", value: personalInfo.email, icon: "📧", color: "bg-red-500" },
-            { label: "LOCATION", value: personalInfo.location, icon: "📍", color: "bg-blue-500" },
+            { 
+              label: "EMAIL", 
+              value: personalInfo.email, 
+              icon: "📧", 
+              color: "bg-red-500",
+              action: () => window.open(`mailto:${personalInfo.email}?subject=Hi%20Nakul!%20Let's%20collaborate&body=Hi%20Nakul,%0A%0AI%20came%20across%20your%20portfolio%20and%20I'm%20impressed%20with%20your%20work.%20I'd%20love%20to%20discuss%20potential%20opportunities.%0A%0ABest%20regards`, '_blank')
+            },
+            { 
+              label: "WHATSAPP", 
+              value: `+91 ${personalInfo.whatsappNumber}`, 
+              icon: "💬", 
+              color: "bg-green-600",
+              action: () => window.open(`https://wa.me/91${personalInfo.whatsappNumber}?text=Hi%20Nakul!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20potential%20opportunities.%20Are%20you%20available%20for%20a%20quick%20chat%3F`, '_blank')
+            },
+            { 
+              label: "LOCATION", 
+              value: personalInfo.location, 
+              icon: "📍", 
+              color: "bg-blue-500",
+              action: null
+            },
             {
               label: "STATUS",
               value: personalInfo.availability.status.toUpperCase(),
               icon: "🟢",
-              color: "bg-green-500",
+              color: "bg-purple-500",
+              action: null
             },
           ].map((contact, index) => (
             <motion.button
@@ -856,38 +881,67 @@ function RetroContact({
               onClick={() => {
                 addScore(30, true) // Sound for contact click
                 addCoins(5)
+                if (contact.action) {
+                  contact.action()
+                }
               }}
-              className={`${contact.color} border-4 border-black rounded-lg p-3 sm:p-4 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg`}
+              className={`${contact.color} border-4 border-black rounded-lg p-3 sm:p-4 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg ${contact.action ? 'cursor-pointer' : 'cursor-default'}`}
             >
               <div className="text-xl sm:text-2xl mb-2">{contact.icon}</div>
               <div className="text-yellow-400 font-bold text-xs sm:text-sm">{contact.label}</div>
-              <div className="text-white text-xs">{contact.value}</div>
+              <div className="text-white text-xs break-all">{contact.value}</div>
+              {contact.action && (
+                <div className="text-yellow-300 text-xs mt-1 animate-pulse">CLICK TO CONTACT</div>
+              )}
             </motion.button>
           ))}
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href={`mailto:${personalInfo.email}`}
+            href={`https://wa.me/91${personalInfo.whatsappNumber}?text=Hi%20Nakul!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20potential%20opportunities.%20Are%20you%20available%20for%20a%20quick%20chat%3F`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-green-500 text-white px-4 sm:px-6 py-3 rounded font-bold hover:bg-green-400 transition-colors border-4 border-black shadow-lg text-sm sm:text-base"
+            onClick={() => {
+              addScore(100, true) // Sound for WhatsApp click
+              addCoins(20)
+            }}
+          >
+            💬 WHATSAPP ME
+          </a>
+          <a
+            href={`mailto:${personalInfo.email}?subject=Hi%20Nakul!%20Let's%20collaborate&body=Hi%20Nakul,%0A%0AI%20came%20across%20your%20portfolio%20and%20I'm%20impressed%20with%20your%20work.%20I'd%20love%20to%20discuss%20potential%20opportunities.%0A%0ABest%20regards`}
             className="bg-yellow-400 text-black px-4 sm:px-6 py-3 rounded font-bold hover:bg-yellow-300 transition-colors border-4 border-black shadow-lg text-sm sm:text-base"
             onClick={() => {
               addScore(100, true) // Sound for email click
               addCoins(20)
             }}
           >
-            📧 SEND MESSAGE
+            📧 SEND EMAIL
+          </a>
+          <a
+            href={personalInfo.resumeUrl}
+            download="Nakul_Jhunjhunwala_Resume.docx"
+            className="bg-purple-500 text-white px-4 sm:px-6 py-3 rounded font-bold hover:bg-purple-400 transition-colors border-4 border-black shadow-lg text-sm sm:text-base"
+            onClick={() => {
+              addScore(75, true) // Sound for resume download
+              addCoins(15)
+            }}
+          >
+            📄 RESUME
           </a>
           <a
             href={personalInfo.socialLinks.find((s) => s.platform === "LinkedIn")?.url || "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-blue-500 text-white px-6 py-3 rounded font-bold hover:bg-blue-400 transition-colors border-4 border-black shadow-lg"
+            className="bg-blue-500 text-white px-4 sm:px-6 py-3 rounded font-bold hover:bg-blue-400 transition-colors border-4 border-black shadow-lg text-sm sm:text-base"
             onClick={() => {
               addScore(50, true) // Sound for LinkedIn click
               addCoins(10)
             }}
           >
-            💼 CONNECT ON LINKEDIN
+            💼 LINKEDIN
           </a>
         </div>
       </motion.div>

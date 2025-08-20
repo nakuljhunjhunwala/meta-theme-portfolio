@@ -154,18 +154,37 @@ export { journeyTimeline, journeyStats };`,
     },
     "contact.tsx": {
       language: "typescript",
-      content: `import { Mail, Phone } from 'lucide-react';
+      content: `import { Mail, MessageCircle, ExternalLink } from 'lucide-react';
 
 const ContactInfo = () => ({
   email: "${personalInfo.email}",
+  whatsapp: "+91 ${personalInfo.whatsappNumber}",
   website: "${personalInfo.website}",
+  resume: "${personalInfo.resumeUrl}",
+  
+  // Quick contact actions
+  quickContact: {
+    whatsapp: "https://wa.me/91${personalInfo.whatsappNumber}?text=Hi%20Nakul!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20potential%20opportunities.%20Are%20you%20available%20for%20a%20quick%20chat%3F",
+    email: "mailto:${personalInfo.email}?subject=Hi%20Nakul!%20Let's%20collaborate&body=Hi%20Nakul,%0A%0AI%20came%20across%20your%20portfolio%20and%20I'm%20impressed%20with%20your%20work.%20I'd%20love%20to%20discuss%20potential%20opportunities.%0A%0ABest%20regards",
+    resume: "${personalInfo.resumeUrl}"
+  },
+  
   socials: {
     LinkedIn: "${personalInfo.socialLinks.find((s) => s.platform === "LinkedIn")?.url}",
     GitHub: "${personalInfo.socialLinks.find((s) => s.platform === "GitHub")?.url}",
     DigiCard: "${personalInfo.socialLinks.find((s) => s.platform === "DigiCard")?.url}",
+    WhatsApp: "${personalInfo.socialLinks.find((s) => s.platform === "WhatsApp")?.url}",
+  },
+  
+  // Availability status
+  availability: {
+    status: "${personalInfo.availability.status}",
+    message: "${personalInfo.availability.message}",
+    nextAvailable: "${personalInfo.availability.nextAvailable}"
   }
 });
 
+// Ready to collaborate? Let's build something amazing! 🚀
 export default ContactInfo;
 `,
     },

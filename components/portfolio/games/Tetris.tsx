@@ -389,17 +389,21 @@ const Tetris = () => {
       </div>
 
       {/* Main Game Area */}
-      <div className="flex flex-1 flex-col sm:flex-row gap-2 min-h-0">
-        {/* Game Board */}
-        <div className="relative flex-1 min-h-0">
-          <div 
-            className="grid gap-[1px] p-1 bg-[#0b0f17] border border-white/10 rounded-md shadow-xl game-screen h-full"
-            style={{ 
-              gridTemplateColumns: `repeat(${BOARD_WIDTH}, 1fr)`,
-              gridTemplateRows: `repeat(${BOARD_HEIGHT}, 1fr)`,
-              aspectRatio: `${BOARD_WIDTH}/${BOARD_HEIGHT}`,
-              maxHeight: '60vh'
-            }}
+      <div className="flex flex-1 gap-2 min-h-0 pb-16 sm:pb-2">
+        {/* Game Board Container */}
+        <div className="flex-1 flex items-center justify-center min-h-0">
+          <div className="relative w-full max-w-sm">
+            <div 
+              className="grid gap-[1px] p-1 bg-[#0b0f17] border border-white/10 rounded-md shadow-xl game-screen w-full select-none"
+              style={{ 
+                gridTemplateColumns: `repeat(${BOARD_WIDTH}, 1fr)`,
+                gridTemplateRows: `repeat(${BOARD_HEIGHT}, 1fr)`,
+                aspectRatio: `${BOARD_WIDTH}/${BOARD_HEIGHT}`,
+                touchAction: 'manipulation',
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                WebkitTouchCallout: 'none'
+              }}
           >
             {renderBoard().flat().map((cell, index) => {
               const y = Math.floor(index / BOARD_WIDTH)
@@ -465,31 +469,32 @@ const Tetris = () => {
             </div>
           )}
 
-          {gameOver && (
-            <div className="absolute inset-0 bg-black/90 flex items-center justify-center rounded-lg">
-              <motion.div 
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="text-center bg-black/60 border-2 border-red-400 rounded-lg p-3 shadow-2xl"
-              >
-                <div className="text-4xl mb-2">💀</div>
-                <p className="text-lg font-bold text-white mb-1 pixel-text">GAME OVER</p>
-                <p className="text-sm text-yellow-400 mb-3">Score: {score.toLocaleString()}</p>
-                <motion.button
-                  onClick={resetGame}
-                  className="px-3 py-2 bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-700 hover:to-purple-700 text-white font-bold rounded-lg pixel-text border border-red-400 text-sm"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+            {gameOver && (
+              <div className="absolute inset-0 bg-black/90 flex items-center justify-center rounded-lg">
+                <motion.div 
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="text-center bg-black/60 border-2 border-red-400 rounded-lg p-3 shadow-2xl"
                 >
-                  PLAY AGAIN
-                </motion.button>
-              </motion.div>
-            </div>
-          )}
+                  <div className="text-4xl mb-2">💀</div>
+                  <p className="text-lg font-bold text-white mb-1 pixel-text">GAME OVER</p>
+                  <p className="text-sm text-yellow-400 mb-3">Score: {score.toLocaleString()}</p>
+                  <motion.button
+                    onClick={resetGame}
+                    className="px-3 py-2 bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-700 hover:to-purple-700 text-white font-bold rounded-lg pixel-text border border-red-400 text-sm"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    PLAY AGAIN
+                  </motion.button>
+                </motion.div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Compact Side Panel */}
-        <div className="flex-shrink-0 flex sm:flex-col gap-2 w-full sm:w-24">
+        <div className="flex-shrink-0 flex flex-col gap-2 w-20 sm:w-24">
           {/* Next Piece */}
           <div className="bg-black/60 border border-purple-400 rounded-lg p-2 flex-1 sm:flex-initial">
             <h3 className="text-xs font-bold text-purple-400 pixel-text mb-1 text-center">NEXT</h3>
@@ -536,41 +541,61 @@ const Tetris = () => {
         </div>
       </div>
 
-      {/* Compact Mobile Controls */}
-      <div className="flex-shrink-0 pt-2 sm:hidden">
-        <div className="grid grid-cols-4 gap-1 max-w-xs mx-auto px-2">
+      {/* Compact Mobile Controls - Fixed at bottom */}
+      <div className="absolute bottom-2 left-2 right-2 sm:hidden">
+        <div className="grid grid-cols-4 gap-1 mb-2">
           <motion.button
-            onTouchStart={() => movePiece(-1, 0)}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              movePiece(-1, 0)
+            }}
             className="bg-purple-600 text-white font-bold p-2 rounded border border-purple-400 text-xs"
             whileTap={{ scale: 0.95 }}
           >
             ⬅️
           </motion.button>
           <motion.button
-            onTouchStart={rotatePieceAction}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              rotatePieceAction()
+            }}
             className="bg-yellow-600 text-white font-bold p-2 rounded border border-yellow-400 text-xs"
             whileTap={{ scale: 0.95 }}
           >
             🔄
           </motion.button>
           <motion.button
-            onTouchStart={() => movePiece(1, 0)}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              movePiece(1, 0)
+            }}
             className="bg-purple-600 text-white font-bold p-2 rounded border border-purple-400 text-xs"
             whileTap={{ scale: 0.95 }}
           >
             ➡️
           </motion.button>
           <motion.button
-            onTouchStart={hardDrop}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              hardDrop()
+            }}
             className="bg-red-600 text-white font-bold p-2 rounded border border-red-400 text-xs"
             whileTap={{ scale: 0.95 }}
           >
             ⬇️
           </motion.button>
         </div>
-        <div className="text-center mt-1">
+        <div className="text-center">
           <motion.button
-            onClick={togglePause}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              togglePause()
+            }}
             className="bg-gray-600 text-white font-bold px-3 py-1 rounded border border-gray-400 text-xs"
             whileTap={{ scale: 0.95 }}
           >

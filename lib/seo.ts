@@ -19,12 +19,12 @@ export function getMetadataBase(): URL {
 }
 
 export function buildSiteMetadata(): Metadata {
-    const title = `${personalInfo.name} – ${personalInfo.title}`
-    const description = personalInfo.bio.medium || personalInfo.bio.short
+    const title = `${personalInfo.name} – ${personalInfo.title} | Interactive Portfolio`
+    const description = `${personalInfo.bio.medium} | Interactive portfolio with 4 unique themes: Retro Gaming, VS Code, Glass Morphism & Terminal. Explore projects, skills, and contact information.`
 
     const keywords = getKeywords()
 
-    const image = "/placeholder.jpg"
+    const image = "/profile_photo.jpg"
 
     const isProdIndexable = Boolean(
         process.env.NEXT_PUBLIC_INDEXING !== "false"
@@ -123,6 +123,51 @@ export function getWebsiteJsonLd() {
             url: personalInfo.website,
         },
         sameAs: personalInfo.socialLinks.map((s) => s.url),
+        potentialAction: [
+            {
+                "@type": "SearchAction",
+                target: {
+                    "@type": "EntryPoint",
+                    urlTemplate: `${baseUrl}/themes/{search_term_string}`
+                },
+                "query-input": "required name=search_term_string"
+            }
+        ],
+        mainEntity: {
+            "@type": "ItemList",
+            name: "Portfolio Themes",
+            description: "Interactive portfolio themes showcasing different experiences",
+            itemListElement: [
+                {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Retro Gaming Theme",
+                    description: "8-bit arcade experience with achievements and mini-games",
+                    url: `${baseUrl}/themes/retro`
+                },
+                {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "VS Code Theme",
+                    description: "Professional IDE interface with syntax highlighting",
+                    url: `${baseUrl}/themes/code`
+                },
+                {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Glass Morphism Theme",
+                    description: "Modern frosted glass design with smooth animations",
+                    url: `${baseUrl}/themes/glass`
+                },
+                {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "Terminal Theme",
+                    description: "Command-line interface for the tech-savvy",
+                    url: `${baseUrl}/themes/terminal`
+                }
+            ]
+        }
     }
 }
 
@@ -142,6 +187,26 @@ export function getPersonJsonLd() {
             addressCountry: "IN",
         },
         sameAs: personalInfo.socialLinks.map((s) => s.url),
+        worksFor: {
+            "@type": "Organization",
+            name: "UnicoConnect",
+            description: "Educational Technology Company"
+        },
+        hasOccupation: {
+            "@type": "Occupation",
+            name: "Full-Stack Developer",
+            description: "Building scalable web applications and user-centric solutions"
+        },
+        knowsAbout: technicalSkills.map(skill => skill.name),
+        alumniOf: personalInfo.education.map(edu => ({
+            "@type": "EducationalOrganization",
+            name: edu.institution,
+            address: {
+                "@type": "PostalAddress",
+                addressLocality: edu.location,
+                addressCountry: "IN"
+            }
+        }))
     }
 }
 
@@ -167,21 +232,128 @@ export function getProjectsJsonLd() {
     }
 }
 
-// Expanded: theme-specific structured data
-export function getThemeJsonLd(theme: string) {
+// Professional Service Schema for better business listings
+export function getProfessionalServiceJsonLd() {
     const baseUrl = getSiteUrl()
     return {
         "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        name: `${personalInfo.name} - Full-Stack Development Services`,
+        url: baseUrl,
+        description: "Professional full-stack web development services specializing in React, Node.js, and modern web technologies",
+        provider: {
+            "@type": "Person",
+            name: personalInfo.name,
+            jobTitle: personalInfo.title,
+            url: personalInfo.website,
+            sameAs: personalInfo.socialLinks.map((s) => s.url),
+        },
+        areaServed: {
+            "@type": "Country",
+            name: "India"
+        },
+        serviceType: [
+            "Full-Stack Web Development",
+            "React Development",
+            "Node.js Development",
+            "Frontend Development",
+            "Backend Development",
+            "TypeScript Development",
+            "UI/UX Implementation",
+            "API Development",
+            "Database Design",
+            "Cloud Architecture"
+        ],
+        hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "Development Services",
+            itemListElement: projects.map(p => ({
+                "@type": "Offer",
+                name: p.title,
+                description: p.description.elevator,
+                category: p.category
+            }))
+        }
+    }
+}
+
+// Site Navigation Schema for better sitelinks
+export function getSiteNavigationJsonLd() {
+    const baseUrl = getSiteUrl()
+    return {
+        "@context": "https://schema.org",
+        "@type": "SiteNavigationElement",
+        name: "Portfolio Navigation",
+        url: baseUrl,
+        hasPart: [
+            {
+                "@type": "SiteNavigationElement",
+                name: "Portfolio Themes",
+                description: "Interactive portfolio experiences",
+                url: `${baseUrl}/#themes`,
+                hasPart: [
+                    {
+                        "@type": "WebPage",
+                        name: "Retro Gaming Portfolio",
+                        description: "8-bit arcade experience with achievements and mini-games",
+                        url: `${baseUrl}/themes/retro`
+                    },
+                    {
+                        "@type": "WebPage",
+                        name: "VS Code Portfolio",
+                        description: "Professional IDE interface with syntax highlighting",
+                        url: `${baseUrl}/themes/code`
+                    },
+                    {
+                        "@type": "WebPage",
+                        name: "Glass Morphism Portfolio",
+                        description: "Modern frosted glass design with smooth animations",
+                        url: `${baseUrl}/themes/glass`
+                    },
+                    {
+                        "@type": "WebPage",
+                        name: "Terminal Portfolio",
+                        description: "Command-line interface for the tech-savvy",
+                        url: `${baseUrl}/themes/terminal`
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+// Expanded: theme-specific structured data
+export function getThemeJsonLd(theme: string) {
+    const baseUrl = getSiteUrl()
+    const themeDescriptions: Record<string, string> = {
+        retro: "Interactive retro gaming portfolio featuring classic arcade games, achievements system, and 8-bit aesthetics showcasing full-stack development skills",
+        code: "VS Code inspired portfolio theme with syntax highlighting, file explorer, and IDE interface demonstrating professional development environment",
+        glass: "Modern glass morphism portfolio with frosted glass effects, smooth animations, and contemporary design showcasing frontend expertise",
+        terminal: "Command-line interface portfolio with interactive terminal commands, showcasing system administration and backend development skills"
+    }
+
+    return {
+        "@context": "https://schema.org",
         "@type": "WebPage",
-        name: `${personalInfo.name} – ${theme} theme`,
+        name: `${personalInfo.name} – ${theme.charAt(0).toUpperCase() + theme.slice(1)} Portfolio Theme`,
         url: `${baseUrl}/themes/${theme}`,
-        description: personalInfo.bio.short,
+        description: themeDescriptions[theme] || personalInfo.bio.short,
         inLanguage: "en",
         about: {
             "@type": "Person",
             name: personalInfo.name,
             jobTitle: personalInfo.title,
         },
+        isPartOf: {
+            "@type": "WebSite",
+            name: `${personalInfo.name} Portfolio`,
+            url: baseUrl
+        },
+        mainContentOfPage: {
+            "@type": "WebPageElement",
+            name: `${theme} Theme Experience`,
+            description: themeDescriptions[theme]
+        }
     }
 }
 
@@ -284,6 +456,56 @@ export function buildSitemap(): MetadataRoute.Sitemap {
                 changeFrequency: "weekly",
                 priority: 1,
             },
+        ]
+    }
+}
+
+// FAQ Schema for rich snippets
+export function getFAQJsonLd() {
+    return {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+            {
+                "@type": "Question",
+                name: "What kind of full-stack development services does Nakul Jhunjhunwala offer?",
+                acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Nakul specializes in full-stack web development using React, Node.js, TypeScript, and modern cloud technologies. Services include frontend development, backend API development, database design, UI/UX implementation, and cloud architecture."
+                }
+            },
+            {
+                "@type": "Question",
+                name: "How many years of experience does Nakul have in web development?",
+                acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Nakul has 4.5+ years of professional experience in full-stack development, working with companies ranging from legal tech to educational technology platforms."
+                }
+            },
+            {
+                "@type": "Question",
+                name: "What technologies does Nakul specialize in?",
+                acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Primary technologies include React.js, Vue.js, Node.js, TypeScript, JavaScript, MongoDB, Redis, AWS, Google Cloud Platform, and modern frontend frameworks. Experienced in both frontend and backend development."
+                }
+            },
+            {
+                "@type": "Question",
+                name: "Can I view different portfolio themes?",
+                acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Yes! The portfolio features 4 interactive themes: Retro Gaming (8-bit arcade experience), VS Code (professional IDE interface), Glass Morphism (modern design), and Terminal (command-line interface). Each showcases the same projects in different experiences."
+                }
+            },
+            {
+                "@type": "Question",
+                name: "How can I contact Nakul for projects or opportunities?",
+                acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "You can contact Nakul via email at jhunjhunwalanakul@gmail.com, WhatsApp at +91 8856020006, or through LinkedIn. He typically responds within a few hours and is currently available for new projects."
+                }
+            }
         ]
     }
 }

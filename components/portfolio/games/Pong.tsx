@@ -168,41 +168,43 @@ const Pong = () => {
   if (!isClient) return null
 
   return (
-    <div className="flex flex-col items-center justify-center p-2 sm:p-4">
-      <div className="mb-4 text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 pixel-text animate-pulse mb-2 drop-shadow-lg">
+    <div className="flex flex-col h-full max-h-full overflow-hidden p-2">
+      <div className="flex-shrink-0 text-center mb-2">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-cyan-400 pixel-text animate-pulse mb-1 drop-shadow-lg">
           🏓 PONG CLASSIC 🏓
         </h2>
-        <div className="text-sm sm:text-base text-white/80 mb-2">
+        <div className="text-xs sm:text-sm text-white/80 mb-2">
           The original arcade legend - First to 5 wins!
         </div>
-        <div className="flex justify-center gap-4 sm:gap-8 text-lg sm:text-2xl font-bold">
-          <div className="flex items-center gap-2">
+        <div className="flex justify-center gap-2 sm:gap-4 text-sm sm:text-lg font-bold">
+          <div className="flex items-center gap-1 sm:gap-2">
             <span className="text-cyan-400">YOU</span>
-            <div className="bg-cyan-400 text-black px-2 py-1 rounded font-mono text-xl">
+            <div className="bg-cyan-400 text-black px-2 py-1 rounded font-mono text-sm sm:text-lg">
               {gameState.playerScore}
             </div>
           </div>
           <div className="text-white/50">VS</div>
-          <div className="flex items-center gap-2">
-            <div className="bg-red-500 text-white px-2 py-1 rounded font-mono text-xl">
+          <div className="flex items-center gap-1 sm:gap-2">
+            <div className="bg-red-500 text-white px-2 py-1 rounded font-mono text-sm sm:text-lg">
               {gameState.aiScore}
             </div>
             <span className="text-red-400">AI</span>
           </div>
         </div>
       </div>
-      <div
-        ref={gameAreaRef}
-        className="relative w-full max-w-4xl aspect-[4/3] bg-black border-4 border-cyan-500 overflow-hidden cursor-none rounded-lg shadow-2xl"
-        style={{
-          backgroundImage: `
-            linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-            linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-            radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 70%)
-          `,
-          backgroundSize: '40px 40px, 40px 40px, 100% 100%'
-        }}
+      <div className="flex-1 flex items-center justify-center min-h-0">
+        <div
+          ref={gameAreaRef}
+          className="relative w-full h-full max-w-2xl max-h-full bg-black border-2 sm:border-4 border-cyan-500 overflow-hidden cursor-none rounded-lg shadow-2xl"
+          style={{
+            aspectRatio: '4/3',
+            backgroundImage: `
+              linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+              linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+              radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 70%)
+            `,
+            backgroundSize: '40px 40px, 40px 40px, 100% 100%'
+          }}
         onMouseMove={handleMouseMove}
         onTouchMove={handleTouchMove}
         onTouchStart={(e) => e.preventDefault()}
@@ -299,12 +301,13 @@ const Pong = () => {
           </motion.div>
         )}
         
-        {/* Mobile Instructions */}
-        {!gameState.gameOver && (
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs text-white/60 text-center block sm:hidden">
-            Touch and drag to move paddle
-          </div>
-        )}
+          {/* Mobile Instructions */}
+          {!gameState.gameOver && (
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs text-white/60 text-center block sm:hidden">
+              Touch and drag to move paddle
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

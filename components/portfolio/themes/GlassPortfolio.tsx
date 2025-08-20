@@ -21,6 +21,7 @@ import {
   MapPin,
   GraduationCap,
   Building,
+  Download,
 } from "lucide-react"
 
 type SectionId = "home" | "about" | "journey" | "skills" | "projects" | "contact"
@@ -461,32 +462,47 @@ function ContactSection() {
         animate={{ opacity: 1, y: 0 }}
         className="backdrop-blur-xl bg-black/20 border border-white/30 rounded-3xl p-8 md:p-12 shadow-2xl"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 drop-shadow-lg">Let's Work Together</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 drop-shadow-lg">Let's Build Something Amazing</h2>
 
-        <p className="text-white/90 text-lg mb-8 leading-relaxed drop-shadow-sm">
-          I'm always interested in new opportunities and exciting projects. Whether you have a question or just want to
-          say hi, I'll try my best to get back to you!
+        <p className="text-white/90 text-lg mb-6 leading-relaxed drop-shadow-sm">
+          Ready to bring your ideas to life? I'm passionate about creating innovative solutions and would love to collaborate with you! Whether it's a complex web application or a quick chat about your project - let's connect! 🚀
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="text-center mb-8">
+          <div className="inline-block bg-green-500/20 border border-green-400/50 rounded-full px-4 py-2 text-green-300 text-sm font-semibold">
+            ⚡ Available for Immediate Projects • Quick Response Guaranteed
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           {[
             {
               icon: Mail,
               label: "Email",
               value: personalInfo.email,
-              href: `mailto:${personalInfo.email}`,
+              href: `mailto:${personalInfo.email}?subject=Hi%20Nakul!%20Let's%20collaborate&body=Hi%20Nakul,%0A%0AI%20came%20across%20your%20portfolio%20and%20I'm%20impressed%20with%20your%20work.%20I'd%20love%20to%20discuss%20potential%20opportunities.%0A%0ABest%20regards`,
+              isPrimary: false
+            },
+            {
+              icon: Mail, // Placeholder, will be handled specially
+              label: "WhatsApp",
+              value: `+91 ${personalInfo.whatsappNumber}`,
+              href: `https://wa.me/91${personalInfo.whatsappNumber}?text=Hi%20Nakul!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20potential%20opportunities.%20Are%20you%20available%20for%20a%20quick%20chat%3F`,
+              isPrimary: true
             },
             {
               icon: Github,
               label: "GitHub",
-              value: personalInfo.socialLinks.find((s) => s.platform === "GitHub")?.handle || "@alexchen",
+              value: personalInfo.socialLinks.find((s) => s.platform === "GitHub")?.handle || "@nakuljhunjhunwala",
               href: personalInfo.socialLinks.find((s) => s.platform === "GitHub")?.url || "#",
+              isPrimary: false
             },
             {
               icon: Linkedin,
               label: "LinkedIn",
-              value: personalInfo.socialLinks.find((s) => s.platform === "LinkedIn")?.handle || "Alex Chen",
+              value: personalInfo.socialLinks.find((s) => s.platform === "LinkedIn")?.handle || "nakuljjw",
               href: personalInfo.socialLinks.find((s) => s.platform === "LinkedIn")?.url || "#",
+              isPrimary: false
             },
           ].map((contact, index) => {
             const IconComponent = contact.icon
@@ -496,23 +512,53 @@ function ContactSection() {
                 href={contact.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="backdrop-blur-xl bg-black/10 border border-white/20 rounded-2xl p-6 hover:bg-black/20 transition-all transform hover:scale-105 shadow-lg max-w-full"
+                className={`backdrop-blur-xl ${contact.isPrimary ? 'bg-green-500/20 border-green-400/50 hover:bg-green-500/30' : 'bg-black/10 border-white/20 hover:bg-black/20'} border rounded-2xl p-6 transition-all transform hover:scale-105 shadow-lg max-w-full group`}
               >
+                {contact.label === "WhatsApp" ? (
+                  <div className="w-8 h-8 text-white mx-auto mb-3 flex items-center justify-center text-2xl">💬</div>
+                ) : (
                 <IconComponent className="w-8 h-8 text-white mx-auto mb-3" />
-                <div className="text-white/70 text-sm mb-1 drop-shadow-sm">{contact.label}</div>
-                <div className="text-white font-medium drop-shadow-sm break-all">{contact.value}</div>
+                )}
+                <div className={`text-sm mb-1 drop-shadow-sm ${contact.isPrimary ? 'text-green-300' : 'text-white/70'}`}>
+                  {contact.label}
+                </div>
+                <div className="text-white font-medium drop-shadow-sm break-all text-sm">{contact.value}</div>
+                {contact.isPrimary && (
+                  <div className="text-green-300 text-xs mt-2 opacity-75 group-hover:opacity-100 transition-opacity">
+                    Click to chat instantly!
+                  </div>
+                )}
               </a>
             )
           })}
         </div>
 
-        <a
-          href={`mailto:${personalInfo.email}`}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href={`https://wa.me/91${personalInfo.whatsappNumber}?text=Hi%20Nakul!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20potential%20opportunities.%20Are%20you%20available%20for%20a%20quick%20chat%3F`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center space-x-2 px-8 py-4 backdrop-blur-xl bg-green-500/30 border border-green-400/50 rounded-full text-white font-semibold hover:bg-green-500/40 transition-all transform hover:scale-105 shadow-lg"
+          >
+            <div className="text-lg">💬</div>
+            <span>WhatsApp Me</span>
+          </a>
+          <a
+            href={`mailto:${personalInfo.email}?subject=Hi%20Nakul!%20Let's%20collaborate&body=Hi%20Nakul,%0A%0AI%20came%20across%20your%20portfolio%20and%20I'm%20impressed%20with%20your%20work.%20I'd%20love%20to%20discuss%20potential%20opportunities.%0A%0ABest%20regards`}
           className="inline-flex items-center space-x-2 px-8 py-4 backdrop-blur-xl bg-purple-500/30 border border-purple-400/50 rounded-full text-white font-semibold hover:bg-purple-500/40 transition-all transform hover:scale-105 shadow-lg"
         >
           <Mail className="w-5 h-5" />
-          <span>Send Message</span>
-        </a>
+            <span>Send Email</span>
+          </a>
+          <a
+            href={personalInfo.resumeUrl}
+            download="Nakul_Jhunjhunwala_Resume.docx"
+            className="inline-flex items-center space-x-2 px-8 py-4 backdrop-blur-xl bg-blue-500/30 border border-blue-400/50 rounded-full text-white font-semibold hover:bg-blue-500/40 transition-all transform hover:scale-105 shadow-lg"
+          >
+            <Download className="w-5 h-5" />
+            <span>Download Resume</span>
+          </a>
+        </div>
       </motion.div>
     </div>
   )

@@ -33,7 +33,7 @@ const GameModal: React.FC<GameModalProps> = ({
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.5, opacity: 0 }}
-            className="bg-[#0d0f14] border-4 border-[#2f2f46] shadow-2xl w-full h-full max-w-6xl max-h-[95vh] sm:max-h-[90vh] flex flex-col relative rounded-lg overflow-hidden crt-overlay game-screen"
+            className="bg-[#0d0f14] border-4 border-[#2f2f46] shadow-2xl w-full h-full max-w-6xl max-h-[95vh] sm:max-h-[90vh] flex flex-col relative rounded-lg overflow-hidden crt-overlay game-screen select-none"
             onClick={(e) => e.stopPropagation()}
             style={{
               backgroundImage: `
@@ -45,7 +45,11 @@ const GameModal: React.FC<GameModalProps> = ({
                 linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.03) 75%)
               `,
               backgroundSize: '400px 400px, 400px 400px, 20px 20px, 20px 20px, 20px 20px, 20px 20px',
-              backgroundPosition: '0 0, 100% 100%, 0 0, 0 10px, 10px -10px, -10px 0px'
+              backgroundPosition: '0 0, 100% 100%, 0 0, 0 10px, 10px -10px, -10px 0px',
+              touchAction: 'manipulation',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              WebkitTouchCallout: 'none'
             }}
           >
             <div className="flex items-center justify-between p-3 sm:p-4 bg-[#0d0f14] border-b-2 border-[#2f2f46] relative">
@@ -62,9 +66,9 @@ const GameModal: React.FC<GameModalProps> = ({
                 <X size={18} className="sm:w-6 sm:h-6" />
               </button>
             </div>
-            <div className="flex-grow overflow-hidden p-2 sm:p-4 relative">
+            <div className="flex-grow overflow-hidden p-1 sm:p-2 relative">
               <div className="absolute inset-0 bg-black/10"></div>
-              <div className="relative z-10">
+              <div className="relative z-10 h-full">
                 {children}
               </div>
               <div className="crt-scanline"></div>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Sparkles, Github, Linkedin, Mail, ExternalLink } from "lucide-react"
+import { Sparkles, Github, Linkedin, Mail, ExternalLink, Download, MessageCircle, FileText } from "lucide-react"
 import { personalInfo, getFeaturedProjects } from "@/constants/portfolio"
 import { usePortfolioStore } from "@/stores/portfolioStore"
 import ThemeSwitcher from "../portfolio/ThemeSwitcher"
@@ -135,21 +135,34 @@ const LandingPage = ({}: LandingPageProps) => {
                                 >
                                     {social.platform === "GitHub" && <Github size={24} />}
                                     {social.platform === "LinkedIn" && <Linkedin size={24} />}
+                                    {social.platform === "WhatsApp" && <MessageCircle size={24} />}
                                     {social.platform === "DigiCard" && <ExternalLink size={24} />}
                                 </a>
                             ))}
                         </motion.div>
 
-                        <motion.a
-                            href={`mailto:${personalInfo.email}`}
-                            className="btn inline-flex items-center gap-2 bg-purple-600 text-white py-3 px-8 rounded-full hover:bg-purple-700 transition-all duration-300 transform hover:scale-105 mb-12"
+                        <motion.div
+                            className="flex flex-col md:flex-row gap-4 justify-center items-center mb-12"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1 }}
                         >
-                            <Mail size={20} />
-                            Contact Me
-                        </motion.a>
+                            <a
+                                href={`mailto:${personalInfo.email}`}
+                                className="btn inline-flex items-center gap-2 bg-purple-600 text-white py-3 px-8 rounded-full hover:bg-purple-700 transition-all duration-300 transform hover:scale-105"
+                            >
+                                <Mail size={20} />
+                                Contact Me
+                            </a>
+                            <a
+                                href={personalInfo.resumeUrl}
+                                download="Nakul_Jhunjhunwala_Resume.docx"
+                                className="btn inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 px-8 rounded-full hover:from-pink-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                            >
+                                <FileText size={20} />
+                                Resume
+                            </a>
+                        </motion.div>
 
                         <motion.div 
                             className="scroll__down"

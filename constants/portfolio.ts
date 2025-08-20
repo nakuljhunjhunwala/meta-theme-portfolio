@@ -14,6 +14,8 @@ export interface PersonalInfo {
   avatar: string
   email: string
   website: string
+  whatsappNumber: number
+  resumeUrl: string
   socialLinks: Array<{
     platform: string
     url: string
@@ -170,9 +172,11 @@ export const personalInfo: PersonalInfo = {
       "I'm a senior full-stack developer with over 4.5 years of experience building production-grade web applications and scalable systems. My expertise spans modern JavaScript ecosystems, cloud technologies, and UI component development. I've worked across various industries from legal tech to chat platforms, consistently delivering solutions that reduce manual processes and improve user experiences. I'm passionate about creating maintainable code, building reusable components, and leveraging AI-driven development approaches.",
   },
   location: "Mumbai, India",
-  avatar: "https://media.licdn.com/dms/image/v2/D4D03AQHEiKBOcryr9g/profile-displayphoto-shrink_200_200/B4DZf12.IjHMAc-/0/1752176518993?e=2147483647&v=beta&t=PQto5MVZoBLVY1MDFcT1IEkuaaaaK6BZc1lDdYG6b0U",
+  avatar: "/profile_photo.jpg",
   email: "jhunjhunwalanakul@gmail.com",
   website: "https://nakuljhunjhunwala.in",
+  whatsappNumber: 8856020006,
+  resumeUrl: "/resume.docx",
   socialLinks: [
     {
       platform: "LinkedIn",
@@ -187,6 +191,12 @@ export const personalInfo: PersonalInfo = {
       handle: "nakuljhunjhunwala",
     },
     {
+      platform: "WhatsApp",
+      url: "https://wa.me/918856020006?text=Hi%20Nakul!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20potential%20opportunities.%20Are%20you%20available%20for%20a%20quick%20chat%3F",
+      icon: "whatsapp",
+      handle: "+91 8856020006",
+    },
+    {
       platform: "DigiCard",
       url: "https://digicard.netlify.app/owner",
       icon: "card",
@@ -197,6 +207,11 @@ export const personalInfo: PersonalInfo = {
     {
       type: "email",
       value: "jhunjhunwalanakul@gmail.com",
+      preferred: true,
+    },
+    {
+      type: "whatsapp",
+      value: "8856020006",
       preferred: true,
     },
     {

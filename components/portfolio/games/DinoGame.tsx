@@ -63,6 +63,7 @@ const DinoGame = () => {
   
   const [obstacles, setObstacles] = useState<Obstacle[]>([])
   const [clouds, setClouds] = useState<Cloud[]>([])
+  const [isHolding, setIsHolding] = useState(false)
   
   const gameLoopRef = useRef<number | null>(null)
   const lastTimeRef = useRef<number>(0)
@@ -337,40 +338,85 @@ const DinoGame = () => {
     }
   }, [handleKeyDown, handleKeyUp])
 
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!gameStarted) {
+      startGame()
+      return
+    }
+    if (gameOver) return
+    
+    setIsHolding(true)
+    jump()
+    
+    // Set timeout for ducking after 200ms of hold
+    setTimeout(() => {
+      if (isHolding) {
+        duck()
+      }
+    }, 200)
+  }, [gameStarted, gameOver, startGame, jump, duck, isHolding])
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsHolding(false)
+    stopDuck()
+  }, [stopDuck])
+
+  const handleClick = useCallback(() => {
+    if (!gameStarted) {
+      startGame()
+      return
+    }
+    if (gameOver) return
+    jump()
+  }, [gameStarted, gameOver, startGame, jump])
+
   if (!isClient) return null
 
   return (
-    <div className="flex flex-col items-center justify-center p-2 sm:p-4">
-      <div className="mb-4 text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-400 pixel-text animate-pulse mb-2 drop-shadow-lg">
+    <div className="flex flex-col h-full max-h-full overflow-hidden p-1 sm:p-2">
+      {/* Compact Header - Mobile Optimized */}
+      <div className="flex-shrink-0 mb-1 sm:mb-2 text-center">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-green-400 pixel-text animate-pulse mb-1 drop-shadow-lg">
           🦕 DINO RUNNER 🦕
         </h2>
-        <div className="text-sm sm:text-base text-white/80 mb-2">
+        <div className="text-xs sm:text-sm text-white/80 mb-1 sm:mb-2">
           Jump over cacti and duck under birds!
         </div>
-        <div className="flex justify-center gap-4 sm:gap-8 text-base sm:text-lg font-bold">
-          <div className="flex items-center gap-2">
+        <div className="flex justify-center gap-2 sm:gap-4 text-sm sm:text-base font-bold">
+          <div className="flex items-center gap-1 sm:gap-2">
             <span className="text-yellow-400">SCORE</span>
-            <div className="bg-yellow-400 text-black px-3 py-1 rounded font-mono text-xl">
+            <div className="bg-yellow-400 text-black px-2 py-1 rounded font-mono text-sm sm:text-lg">
               {Math.floor(score / 10).toString().padStart(5, '0')}
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             <span className="text-purple-400">HIGH</span>
-            <div className="bg-purple-400 text-black px-3 py-1 rounded font-mono text-xl">
+            <div className="bg-purple-400 text-black px-2 py-1 rounded font-mono text-sm sm:text-lg">
               {Math.floor(highScore / 10).toString().padStart(5, '0')}
             </div>
           </div>
         </div>
       </div>
 
-      <div
-        className="relative w-full max-w-4xl bg-[#0b0f17] border border-white/10 overflow-hidden rounded-md shadow-xl game-screen"
-        style={{
-          aspectRatio: `${GAME_WIDTH}/${GAME_HEIGHT}`,
-          maxHeight: '70vh'
-        }}
-      >
+      {/* Full Screen Game Area for Mobile */}
+      <div className="flex-1 flex items-center justify-center min-h-0">
+        <div
+          className="relative w-full h-full max-w-5xl bg-[#0b0f17] border border-white/10 sm:border-2 overflow-hidden rounded-md shadow-xl game-screen cursor-pointer select-none"
+          style={{
+            aspectRatio: `${GAME_WIDTH}/${GAME_HEIGHT}`,
+            touchAction: 'manipulation',
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            WebkitTouchCallout: 'none'
+          }}
+          onClick={handleClick}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
         {/* Sun */}
         <div 
           className="absolute w-16 h-16 bg-yellow-300 rounded-full border-4 border-yellow-400 top-8 right-8"
@@ -543,10 +589,10 @@ const DinoGame = () => {
                 READY TO RUN?
               </h3>
               <div className="text-sm sm:text-base text-white/80 mb-6 space-y-2">
-                <p>• SPACE or ↑ to jump</p>
-                <p>• ↓ to duck under birds</p>
+                <p>• <span className="block sm:hidden">Tap to jump • Hold to duck</span><span className="hidden sm:block">SPACE or ↑ to jump</span></p>
+                <p className="hidden sm:block">• ↓ to duck under birds</p>
                 <p>• Avoid all obstacles!</p>
-                <p className="text-yellow-400">• ESC to pause</p>
+                <p className="text-yellow-400 hidden sm:block">• ESC to pause</p>
               </div>
               <motion.button
                 onClick={startGame}
@@ -634,41 +680,12 @@ const DinoGame = () => {
           )}
         </AnimatePresence>
 
-        {/* Mobile Instructions */}
-        {gameStarted && !isPaused && !gameOver && (
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 text-xs text-black/60 text-center block sm:hidden bg-white/40 px-3 py-1 rounded">
-            Use buttons below to play
-          </div>
-        )}
-      </div>
-
-      {/* Mobile Controls */}
-      <div className="mt-4 block sm:hidden">
-        <div className="flex justify-center gap-2 mb-2">
-          <motion.button
-            onTouchStart={jump}
-            className="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-4 rounded-lg border-2 border-green-400 text-lg"
-            whileTap={{ scale: 0.95 }}
-          >
-            🦘 JUMP
-          </motion.button>
-          <motion.button
-            onTouchStart={duck}
-            onTouchEnd={stopDuck}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-4 rounded-lg border-2 border-blue-400 text-lg"
-            whileTap={{ scale: 0.95 }}
-          >
-            🦢 DUCK
-          </motion.button>
-        </div>
-        <div className="text-center">
-          <motion.button
-            onClick={togglePause}
-            className="bg-gray-600 hover:bg-gray-700 text-white font-bold px-4 py-2 rounded border border-gray-400"
-            whileTap={{ scale: 0.95 }}
-          >
-            {isPaused ? "▶️ RESUME" : "⏸️ PAUSE"}
-          </motion.button>
+          {/* Mobile Instructions */}
+          {gameStarted && !isPaused && !gameOver && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-white/80 text-center block sm:hidden bg-black/40 px-3 py-1 rounded">
+              Tap to jump • Hold to duck
+            </div>
+          )}
         </div>
       </div>
     </div>
