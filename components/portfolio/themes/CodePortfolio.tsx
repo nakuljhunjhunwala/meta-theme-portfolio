@@ -4,6 +4,17 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { usePortfolioStore } from "@/stores/portfolioStore"
 import { personalInfo, getTotalYearsExperience, technicalSkills, projects, experiences } from "@/constants/portfolio"
+import { 
+  bucketList, 
+  travelExperiences, 
+ 
+  getBucketListStats, 
+  getCompletedBucketList, 
+  getPendingBucketList,
+  getVisitedPlaces,
+  getDreamDestinations,
+ 
+} from "@/constants/personal"
 import { CodeEditor } from "./CodeEditor"
 import { CodeFileTabs } from "./CodeFileTabs"
 import { CodeStatusBar } from "./CodeStatusBar"
@@ -14,6 +25,8 @@ export type PortfolioFileType =
   | "journey.tsx"
   | "skills.json"
   | "projects.md"
+  | "dreams.ts"
+  | "travel.json"
   | "contact.tsx"
 
 export default function CodePortfolio() {
@@ -152,6 +165,93 @@ export { journeyTimeline, journeyStats };`,
         )
         .join("\n\n---\n")}`,
     },
+    "dreams.ts": {
+      language: "typescript",
+      content: `// Life Dreams & Bucket List
+// Personal goals and aspirations with progress tracking
+
+interface BucketListItem {
+  id: string;
+  title: string;
+  description: string;
+  category: "travel" | "adventure" | "personal" | "professional" | "creative";
+  completed: boolean;
+  completedDate?: string;
+  priority: "high" | "medium" | "low";
+  timeframe?: string;
+  estimatedCost?: string;
+  story?: string;
+}
+
+const bucketListStats = {
+  total: ${getBucketListStats().total},
+  completed: ${getBucketListStats().completed},
+  pending: ${getBucketListStats().pending},
+  completionRate: ${getBucketListStats().completionRate}
+};
+
+// Completed Dreams 🏆
+const completedDreams: BucketListItem[] = [
+${getCompletedBucketList().map(item => `  {
+    id: "${item.id}",
+    title: "${item.title}",
+    description: "${item.description.replace(/"/g, '\\"')}",
+    category: "${item.category}",
+    completed: true,
+    completedDate: "${item.completedDate}",
+    priority: "${item.priority}",
+    ${item.story ? `story: "${item.story.replace(/"/g, '\\"')}"` : ''}
+  }`).join(',\n')}
+];
+
+// Pending Dreams ⏳
+const pendingDreams: BucketListItem[] = [
+${getPendingBucketList().map(item => `  {
+    id: "${item.id}",
+    title: "${item.title}",
+    description: "${item.description.replace(/"/g, '\\"')}",
+    category: "${item.category}",
+    completed: false,
+    priority: "${item.priority}",
+    ${item.timeframe ? `timeframe: "${item.timeframe}",` : ''}
+    ${item.estimatedCost ? `estimatedCost: "${item.estimatedCost}"` : ''}
+  }`).join(',\n')}
+];
+
+export { bucketListStats, completedDreams, pendingDreams };
+
+// 🎯 Next milestone: Complete ${getPendingBucketList().find(item => item.priority === 'high')?.title || 'high priority dreams'}!`,
+    },
+    "travel.json": {
+      language: "json",
+      content: JSON.stringify({
+        travelStats: {
+          placesVisited: getVisitedPlaces().length,
+          dreamDestinations: getDreamDestinations().length,
+          countries: [...new Set(travelExperiences.map(t => t.country))].length,
+          averageRating: Math.round(getVisitedPlaces().reduce((acc, p) => acc + p.rating, 0) / getVisitedPlaces().length || 0)
+        },
+        visitedPlaces: getVisitedPlaces().map(place => ({
+          id: place.id,
+          location: place.location,
+          country: place.country,
+          visitDate: place.visitDate,
+          duration: place.duration,
+          rating: place.rating,
+          category: place.category,
+          memories: place.memories,
+          highlights: place.highlights
+        })),
+        dreamDestinations: getDreamDestinations().map(place => ({
+          id: place.id,
+          location: place.location,
+          country: place.country,
+          category: place.category,
+          highlights: place.highlights
+        }))
+      }, null, 2),
+    },
+
     "contact.tsx": {
       language: "typescript",
       content: `import { Mail, MessageCircle, ExternalLink } from 'lucide-react';

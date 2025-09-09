@@ -2,6 +2,15 @@
 
 import { useCallback } from "react"
 import { personalInfo, projects, technicalSkills, experiences } from "@/constants/portfolio"
+import {
+    bucketList,
+    travelExperiences,
+    getBucketListStats,
+    getCompletedBucketList,
+    getPendingBucketList,
+    getVisitedPlaces,
+    getDreamDestinations
+} from "@/constants/personal"
 import type { Command } from "./TerminalPortfolio"
 
 const jokes = [
@@ -24,6 +33,9 @@ export const commandList = {
     resume: "Download my resume directly",
     socials: "Display my social media links",
     availability: "Check my current availability status",
+    dreams: "Show my bucket list and life goals. Usage: dreams [--completed|--pending]",
+    travel: "Display my travel experiences and destinations. Usage: travel [--visited|--planned]",
+
     whoami: "Display the current user",
     pwd: "Print the current working directory",
     ls: "List files in the current directory",
@@ -44,6 +56,17 @@ const files = {
         null,
         2
     ),
+    "bucket-list.md": bucketList
+        .map((item) => `### ${item.completed ? '✅' : '⏳'} ${item.title}\n\n**Status**: ${item.completed ? 'Completed' : 'In Progress'}\n**Icon**: ${item.icon}`)
+        .join("\n\n---\n\n"),
+    "travel.json": JSON.stringify(
+        travelExperiences.map(({ id, location, country, visited, visitDate, rating, memories }) => ({
+            id, location, country, visited, visitDate, rating: visited ? rating : null, memories: visited ? memories : "Upcoming destination"
+        })),
+        null,
+        2
+    ),
+
 }
 
 const levenshteinDistance = (a: string, b: string): number => {
@@ -206,6 +229,89 @@ export const useCommands = ({ setHistory }: { setHistory: React.Dispatch<React.S
                                 s.platform === 'WhatsApp' ? '💬' : '🔗'} ${s.platform}: ${s.url}`
                     ).join("\n") +
                     `\n\n🎯 Connect with me for collaborations, opportunities, or just to say hi!`,
+
+                dreams: (args) => {
+                    const stats = getBucketListStats()
+                    const completedItems = getCompletedBucketList()
+                    const pendingItems = getPendingBucketList()
+
+                    const filterArg = args.find(arg => arg === '--completed' || arg === '--pending')
+
+                    if (filterArg === '--completed') {
+                        return `🏆 Completed Dreams (${stats.completed}/${stats.total}):\n\n` +
+                            completedItems.map(item =>
+                                `✅ **${item.title}** ${item.icon}\n` +
+                                `   Achievement unlocked!\n` +
+                                `   Status: Completed ✅\n`
+                            ).join('\n') +
+                            `\n\n🎯 Success Rate: ${stats.completionRate}%`
+                    }
+
+                    if (filterArg === '--pending') {
+                        return `⏳ Pending Dreams (${stats.pending}/${stats.total}):\n\n` +
+                            pendingItems.map(item =>
+                                `🎯 **${item.title}** ${item.icon}\n` +
+                                `   Currently working towards this goal\n` +
+                                `   Status: In Progress ⏳\n`
+                            ).join('\n') +
+                            `\n\n💪 Keep pushing towards these goals!`
+                    }
+
+                    return `🌟 Life Dreams & Bucket List:\n\n` +
+                        `📊 Stats:\n` +
+                        `  ✅ Completed: ${stats.completed}\n` +
+                        `  ⏳ In Progress: ${stats.pending}\n` +
+                        `  📈 Success Rate: ${stats.completionRate}%\n\n` +
+                        `🎯 Recent Achievements:\n` +
+                        completedItems.slice(0, 3).map(item => `  ✅ ${item.title}`).join('\n') +
+                        `\n\n🚀 Upcoming Goals:\n` +
+                        pendingItems.slice(0, 3).map(item => `  🎯 ${item.title}`).join('\n') +
+                        `\n\nType "dreams --completed" or "dreams --pending" for detailed lists.`
+                },
+
+                travel: (args) => {
+                    const visitedPlaces = getVisitedPlaces()
+                    const dreamDestinations = getDreamDestinations()
+
+                    const filterArg = args.find(arg => arg === '--visited' || arg === '--planned')
+
+                    if (filterArg === '--visited') {
+                        return `✈️ Places I've Explored (${visitedPlaces.length}):\n\n` +
+                            visitedPlaces.map(place =>
+                                `🌍 **${place.location}, ${place.country}**\n` +
+                                `   Rating: ${'⭐'.repeat(place.rating)} (${place.rating}/5)\n` +
+                                `   Visited: ${place.visitDate} (${place.duration})\n` +
+                                `   ${place.memories}\n` +
+                                `   Category: ${place.category.charAt(0).toUpperCase() + place.category.slice(1)}\n`
+                            ).join('\n') +
+                            `\n🏆 Average Rating: ${Math.round(visitedPlaces.reduce((acc, p) => acc + p.rating, 0) / visitedPlaces.length || 0)}/5`
+                    }
+
+                    if (filterArg === '--planned') {
+                        return `🔮 Dream Destinations (${dreamDestinations.length}):\n\n` +
+                            dreamDestinations.map(place =>
+                                `✨ **${place.location}, ${place.country}**\n` +
+                                `   Category: ${place.category.charAt(0).toUpperCase() + place.category.slice(1)}\n` +
+                                `   Highlights to Experience:\n` +
+                                place.highlights.slice(0, 3).map(h => `     • ${h}`).join('\n') + '\n'
+                            ).join('\n') +
+                            `\n🌟 The adventure continues...`
+                    }
+
+                    return `🗺️ Travel Adventures:\n\n` +
+                        `📊 Travel Stats:\n` +
+                        `  ✈️ Places Visited: ${visitedPlaces.length}\n` +
+                        `  🌟 Dream Destinations: ${dreamDestinations.length}\n` +
+                        `  🌍 Countries: ${[...new Set(travelExperiences.map(t => t.country))].length}\n` +
+                        `  ⭐ Avg Rating: ${Math.round(visitedPlaces.reduce((acc, p) => acc + p.rating, 0) / visitedPlaces.length || 0)}/5\n\n` +
+                        `🏆 Recent Adventures:\n` +
+                        visitedPlaces.slice(0, 3).map(place => `  🌍 ${place.location}, ${place.country} (${'⭐'.repeat(place.rating)})`).join('\n') +
+                        `\n\n🔮 Next Destinations:\n` +
+                        dreamDestinations.slice(0, 3).map(place => `  ✨ ${place.location}, ${place.country}`).join('\n') +
+                        `\n\nType "travel --visited" or "travel --planned" for detailed lists.`
+                },
+
+
                 whoami: () => personalInfo.name,
                 pwd: () => "/home/portfolio",
                 ls: () => Object.keys(files).join("\n"),

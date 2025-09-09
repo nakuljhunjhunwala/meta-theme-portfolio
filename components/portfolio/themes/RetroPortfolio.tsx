@@ -5,9 +5,19 @@ import React, { useState, useEffect, Suspense } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { usePortfolioStore } from "@/stores/portfolioStore"
 import { personalInfo, technicalSkills, projects, experiences } from "@/constants/portfolio"
-import { Star, Trophy, Zap, Heart, Coins } from "lucide-react"
+import { 
+  bucketList, 
+  travelExperiences, 
+  getBucketListStats, 
+  getCompletedBucketList, 
+  getPendingBucketList,
+  getVisitedPlaces,
+  getDreamDestinations 
+} from "@/constants/personal"
+import { Star, Trophy, Zap, Heart, Coins, Map, Target } from "lucide-react"
 import GameModal from "./GameModal"
 import { playTone, unlockAudio } from "@/lib/audio"
+import RetroAdventures from "./RetroAdventures"
 
 // Lazy load games for better performance
 const TicTacToe = React.lazy(() => import("../games/TicTacToe"))
@@ -104,6 +114,8 @@ export default function RetroPortfolio() {
     { id: "journey", label: "JOURNEY", icon: "🎮", color: "bg-red-500" },
     { id: "skills", label: "SKILLS", icon: "⚡", color: "bg-yellow-500" },
     { id: "projects", label: "QUESTS", icon: "🎯", color: "bg-green-500" },
+    { id: "adventures", label: "ADVENTURES", icon: "🌟", color: "bg-pink-500" },
+
     { id: "games", label: "GAMES", icon: "🎮", color: "bg-purple-500" },
     { id: "contact", label: "CONTACT", icon: "📞", color: "bg-orange-500" },
   ]
@@ -297,6 +309,10 @@ export default function RetroPortfolio() {
               {currentSection === "projects" && (
                 <RetroProjects addScore={addScore} addCoins={addCoins} unlockAchievement={unlockRetroAchievement} />
               )}
+              {currentSection === "adventures" && (
+                <RetroAdventures addScore={addScore} addCoins={addCoins} unlockAchievement={unlockRetroAchievement} />
+              )}
+
               {currentSection === "games" && (
                 <div className="relative z-30">
                   <RetroGames
@@ -955,6 +971,320 @@ function RetroContact({
     </div>
   )
 }
+
+// Retro Bucket List Component - Adventure Quests
+function RetroBucketList({
+  addScore,
+  addCoins,
+  unlockAchievement,
+}: {
+  addScore: (points: number, playSound_?: boolean) => void
+  addCoins: (coins: number) => void
+  unlockAchievement: (achievement: string) => void
+}) {
+  const bucketStats = getBucketListStats()
+  const completedItems = getCompletedBucketList()
+  const pendingItems = getPendingBucketList()
+
+  useEffect(() => {
+    unlockAchievement("Adventure Explorer")
+  }, [unlockAchievement])
+
+  return (
+    <div className="space-y-4 sm:space-y-6 min-h-screen py-4 sm:py-8 px-2 sm:px-4">
+      <div className="text-center">
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-400 mb-4 drop-shadow-lg">🏆 LIFE ADVENTURES</h2>
+        <div className="text-white text-xs sm:text-sm md:text-base leading-tight max-w-xs sm:max-w-md lg:max-w-lg mx-auto px-2">Epic quests and life achievements!</div>
+      </div>
+
+      {/* Adventure Stats HUD */}
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-black/80 border-2 sm:border-4 border-yellow-400 rounded-lg p-2 sm:p-3 md:p-6 shadow-lg"
+      >
+        <h3 className="text-base sm:text-lg md:text-xl font-bold text-yellow-400 mb-4 text-center">📊 ADVENTURE STATS</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-1 sm:gap-2 md:gap-4 max-w-4xl mx-auto">
+          {[
+            { label: "COMPLETED", shortLabel: "DONE", value: bucketStats.completed, icon: "✅", color: "bg-green-500" },
+            { label: "IN PROGRESS", shortLabel: "ACTIVE", value: bucketStats.pending, icon: "⏳", color: "bg-yellow-500" },
+            { label: "TOTAL QUESTS", shortLabel: "TOTAL", value: bucketStats.total, icon: "🎯", color: "bg-blue-500" },
+            { label: "SUCCESS RATE", shortLabel: "RATE", value: `${bucketStats.completionRate}%`, icon: "📈", color: "bg-purple-500" },
+          ].map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1 }}
+              className={`${stat.color} border-2 sm:border-4 border-black rounded-lg p-1 sm:p-2 md:p-3 text-center shadow-lg min-h-[80px] sm:min-h-[100px] flex flex-col justify-center`}
+            >
+              <div className="text-base sm:text-lg md:text-xl lg:text-2xl mb-1">{stat.icon}</div>
+              <div className="text-white font-bold text-sm sm:text-base md:text-lg lg:text-xl">{stat.value}</div>
+              <div className="text-white text-xs sm:text-sm md:text-base leading-tight break-words">
+                <span className="hidden sm:inline">{stat.label}</span>
+                <span className="sm:hidden">{stat.shortLabel}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Completed Adventures */}
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        className="bg-black/80 border-2 sm:border-4 border-green-400 rounded-lg p-2 sm:p-3 md:p-6 shadow-lg"
+      >
+        <h3 className="text-base sm:text-lg md:text-xl font-bold text-yellow-400 mb-4 flex items-center">
+          <Trophy className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2" />
+          COMPLETED ADVENTURES
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          {completedItems.map((item, index) => (
+            <motion.button
+              key={item.id}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              onClick={() => {
+                addScore(25, true)
+                addCoins(5)
+                unlockAchievement(`${item.title} Revisited`)
+              }}
+              className="bg-green-500 border-2 sm:border-4 border-black rounded-lg p-2 sm:p-3 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg text-left min-h-[120px] sm:min-h-[140px] flex flex-col"
+            >
+              <div className="flex items-start justify-between mb-2">
+                <span className="text-lg sm:text-xl md:text-2xl flex-shrink-0">{item.icon}</span>
+                <span className="text-xs bg-yellow-400 text-black px-1 sm:px-2 py-1 rounded font-bold flex-shrink-0">DONE!</span>
+              </div>
+              <h4 className="text-white font-bold text-xs sm:text-sm md:text-base mb-1 leading-tight break-words flex-grow">{item.title}</h4>
+              <p className="text-white/90 text-xs sm:text-sm leading-tight">Completed Adventure Quest</p>
+                <div className="text-yellow-300 text-xs mt-2 font-bold">
+                ⭐ Achievement Unlocked!
+                </div>
+            </motion.button>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Pending Adventures */}
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        className="bg-black/80 border-2 sm:border-4 border-red-400 rounded-lg p-2 sm:p-3 md:p-6 shadow-lg"
+      >
+        <h3 className="text-base sm:text-lg md:text-xl font-bold text-yellow-400 mb-4 flex items-center">
+          <Target className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2" />
+          UPCOMING QUESTS
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 md:gap-4">
+          {pendingItems.map((item, index) => (
+            <motion.button
+              key={item.id}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              onClick={() => {
+                addScore(15, true)
+                addCoins(3)
+                unlockAchievement(`${item.title} Quest Accepted`)
+              }}
+              className="bg-red-500 border-2 sm:border-4 border-black rounded-lg p-2 sm:p-3 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg text-left relative overflow-hidden min-h-[120px] sm:min-h-[140px] flex flex-col"
+            >
+              {/* Animated quest glow */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
+              
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex items-start justify-between mb-2">
+                  <span className="text-lg sm:text-xl md:text-2xl flex-shrink-0">{item.icon}</span>
+                  <span className="text-xs px-2 py-1 rounded font-bold bg-red-400 text-white flex-shrink-0">
+                    QUEST
+                  </span>
+                </div>
+                <h4 className="text-white font-bold text-xs sm:text-sm md:text-base mb-1 leading-tight break-words flex-grow">{item.title}</h4>
+                <p className="text-white/90 text-xs sm:text-sm leading-tight mb-2">Upcoming Adventure Quest</p>
+                <div className="text-blue-300 text-xs font-bold">
+                  🎯 Quest in Progress...
+                </div>
+              </div>
+            </motion.button>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+// Retro Travel Map Component - World Exploration
+function RetroTravelMap({
+  addScore,
+  addCoins,
+  unlockAchievement,
+}: {
+  addScore: (points: number, playSound_?: boolean) => void
+  addCoins: (coins: number) => void
+  unlockAchievement: (achievement: string) => void
+}) {
+  const visitedPlaces = getVisitedPlaces()
+  const dreamDestinations = getDreamDestinations()
+
+  useEffect(() => {
+    unlockAchievement("World Explorer")
+  }, [unlockAchievement])
+
+  return (
+    <div className="space-y-6">
+      <div className="text-center">
+        <h2 className="text-2xl sm:text-4xl font-bold text-yellow-400 mb-4 drop-shadow-lg">🗺️ WORLD MAP</h2>
+        <div className="text-white text-sm sm:text-base">Explore my travel adventures around the world!</div>
+      </div>
+
+      {/* Travel Stats */}
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-black/80 border-4 border-cyan-400 rounded-lg p-3 sm:p-6 shadow-lg"
+      >
+        <h3 className="text-lg sm:text-xl font-bold text-yellow-400 mb-4 text-center">🌟 TRAVEL ACHIEVEMENTS</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            { label: "PLACES VISITED", value: visitedPlaces.length, icon: "✈️", color: "bg-green-500" },
+            { label: "DREAM DESTINATIONS", value: dreamDestinations.length, icon: "🌟", color: "bg-purple-500" },
+            { label: "COUNTRIES", value: [...new Set(travelExperiences.map(t => t.country))].length, icon: "🏰", color: "bg-blue-500" },
+            { label: "AVG RATING", value: `${Math.round(visitedPlaces.reduce((acc, p) => acc + p.rating, 0) / visitedPlaces.length || 0)}/5`, icon: "⭐", color: "bg-yellow-500" },
+          ].map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1 }}
+              className={`${stat.color} border-4 border-black rounded-lg p-2 sm:p-3 text-center shadow-lg`}
+            >
+              <div className="text-2xl sm:text-3xl mb-1">{stat.icon}</div>
+              <div className="text-white font-bold text-lg sm:text-xl">{stat.value}</div>
+              <div className="text-white text-xs sm:text-sm">{stat.label}</div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Visited Places - Mario Level Style */}
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        className="bg-black/80 border-4 border-green-400 rounded-lg p-3 sm:p-6 shadow-lg"
+      >
+        <h3 className="text-lg sm:text-xl font-bold text-yellow-400 mb-4 flex items-center">
+          <Map className="w-4 h-4 sm:w-6 sm:h-6 mr-2" />
+          COMPLETED LEVELS (VISITED)
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+          {visitedPlaces.map((place, index) => (
+            <motion.button
+              key={place.id}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              onClick={() => {
+                addScore(30, true)
+                addCoins(8)
+                unlockAchievement(`${place.location} Explorer`)
+              }}
+              className="bg-green-500 border-4 border-black rounded-lg p-3 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg text-left"
+            >
+              <div className="flex items-start justify-between mb-2">
+                <span className="text-2xl">
+                  {place.category === 'city' ? '🏙️' :
+                   place.category === 'nature' ? '🏔️' :
+                   place.category === 'historical' ? '🏛️' :
+                   place.category === 'adventure' ? '⛰️' : '🌅'}
+                </span>
+                <div className="flex">
+                  {[...Array(5)].map((_, starIndex) => (
+                    <Star
+                      key={starIndex}
+                      className={`w-3 h-3 ${
+                        starIndex < place.rating ? "text-yellow-400 fill-current" : "text-gray-600"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+              <h4 className="text-white font-bold text-sm sm:text-base mb-1">
+                {place.location}, {place.country}
+              </h4>
+              <p className="text-white/90 text-xs leading-tight mb-2">{place.memories}</p>
+              <div className="text-yellow-300 text-xs font-bold mb-1">
+                📅 Visited: {place.visitDate} • {place.duration}
+              </div>
+              <div className="text-blue-300 text-xs">
+                🏆 {place.highlights.length} highlights unlocked
+              </div>
+            </motion.button>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Dream Destinations - Locked Levels */}
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        className="bg-black/80 border-4 border-purple-400 rounded-lg p-3 sm:p-6 shadow-lg"
+      >
+        <h3 className="text-lg sm:text-xl font-bold text-yellow-400 mb-4 flex items-center">
+          <Target className="w-4 h-4 sm:w-6 sm:h-6 mr-2" />
+          LOCKED LEVELS (DREAM DESTINATIONS)
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+          {dreamDestinations.map((place, index) => (
+            <motion.button
+              key={place.id}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              onClick={() => {
+                addScore(20, true)
+                addCoins(5)
+                unlockAchievement(`${place.location} Dreamer`)
+              }}
+              className="bg-purple-500 border-4 border-black rounded-lg p-3 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg text-left relative overflow-hidden"
+            >
+              {/* Locked level shimmer effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
+              
+              <div className="relative z-10">
+                <div className="flex items-start justify-between mb-2">
+                  <span className="text-2xl">
+                    {place.category === 'city' ? '🏙️' :
+                     place.category === 'nature' ? '🏔️' :
+                     place.category === 'historical' ? '🏛️' :
+                     place.category === 'adventure' ? '⛰️' : '🌅'}
+                  </span>
+                  <span className="text-xs bg-red-400 text-white px-2 py-1 rounded font-bold">LOCKED</span>
+                </div>
+                <h4 className="text-white font-bold text-sm sm:text-base mb-1">
+                  {place.location}, {place.country}
+                </h4>
+                <div className="text-white/70 text-xs mb-2">
+                  🔒 Unlock requirements: Save more coins!
+                </div>
+                <div className="space-y-1">
+                  {place.highlights.slice(0, 3).map((highlight, hIndex) => (
+                    <div key={hIndex} className="text-blue-300 text-xs">
+                      ⭐ {highlight}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.button>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+
 
 // Interactive Mario Journey Component - Authentic 8-bit Experience
 function InteractiveMarioJourney({

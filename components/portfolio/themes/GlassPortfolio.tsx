@@ -4,6 +4,15 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { usePortfolioStore } from "@/stores/portfolioStore"
 import { personalInfo, projects, getSkillsByCategory, experiences } from "@/constants/portfolio"
+import { 
+  bucketList, 
+  travelExperiences, 
+  getBucketListStats, 
+  getCompletedBucketList, 
+  getPendingBucketList,
+  getVisitedPlaces,
+  getDreamDestinations 
+} from "@/constants/personal"
 import {
   Home,
   User,
@@ -22,9 +31,14 @@ import {
   GraduationCap,
   Building,
   Download,
+  Target,
+  Compass,
 } from "lucide-react"
+import PhysicsDreamsBucket from "./PhysicsDreamsBucket"
+import AdvancedGlassMap from "./AdvancedGlassMap"
 
-type SectionId = "home" | "about" | "journey" | "skills" | "projects" | "contact"
+
+type SectionId = "home" | "about" | "journey" | "skills" | "projects" | "adventures" | "contact"
 
 export default function GlassPortfolio() {
   const [activeSection, setActiveSection] = useState("home")
@@ -49,6 +63,8 @@ export default function GlassPortfolio() {
     { id: "journey", label: "Journey", icon: Calendar },
     { id: "skills", label: "Skills", icon: Code },
     { id: "projects", label: "Projects", icon: Briefcase },
+    { id: "adventures", label: "Adventures", icon: Compass },
+
     { id: "contact", label: "Contact", icon: Mail },
   ]
 
@@ -57,7 +73,7 @@ export default function GlassPortfolio() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div className="min-h-screen relative bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Dynamic Background with better contrast */}
       <div
         className="fixed inset-0 transition-all duration-1000 pointer-events-none"
@@ -105,24 +121,24 @@ export default function GlassPortfolio() {
       </div>
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/30 to-transparent backdrop-blur-xl py-2 md:py-3 min-h-[72px] md:min-h-[88px]">
-        <div className="max-w-6xl mx-auto">
-          <div className="backdrop-blur-xl bg-black/20 border border-white/20 rounded-2xl p-4 shadow-2xl">
-            <div className="flex flex-wrap justify-center gap-2 md:gap-4">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/30 to-transparent backdrop-blur-xl py-2 md:py-3">
+        <div className="max-w-6xl mx-auto px-2 sm:px-4">
+          <div className="backdrop-blur-xl bg-black/20 border border-white/20 rounded-2xl p-2 sm:p-4 shadow-2xl">
+            <div className="flex justify-center items-center gap-1 sm:gap-2 md:gap-4 overflow-x-auto scrollbar-hide">
               {sections.map((section) => {
                 const IconComponent = section.icon
                 return (
                   <button
                     key={section.id}
                     onClick={() => setActiveSection(section.id)}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all ${
+                    className={`flex items-center justify-center space-x-1 sm:space-x-2 px-2 sm:px-3 md:px-4 py-2 rounded-xl transition-all flex-shrink-0 min-w-[44px] ${
                       activeSection === section.id
                         ? "bg-white/30 text-white shadow-lg"
                         : "text-white/80 hover:text-white hover:bg-white/10"
                     }`}
                   >
-                    <IconComponent className="w-4 h-4" />
-                    <span className="hidden sm:inline text-sm font-medium">{section.label}</span>
+                    <IconComponent className="w-4 h-4 flex-shrink-0" />
+                    <span className="hidden sm:inline text-xs md:text-sm font-medium whitespace-nowrap">{section.label}</span>
                   </button>
                 )
               })}
@@ -132,7 +148,7 @@ export default function GlassPortfolio() {
       </nav>
 
       {/* Main Content */}
-      <main className="relative z-10 pt-[72px] md:pt-[88px]">
+      <main className="relative z-10 pt-[72px] md:pt-[88px] pb-8">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeSection}
@@ -140,13 +156,15 @@ export default function GlassPortfolio() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.5 }}
-            className="container mx-auto px-4 py-8"
+            className="container mx-auto px-4 py-8 min-h-[calc(100vh-160px)]"
           >
              {activeSection === "home" && <HomeSection onNavigate={handleNavigate} />}
             {activeSection === "about" && <AboutSection />}
             {activeSection === "journey" && <JourneySection />}
             {activeSection === "skills" && <SkillsSection />}
             {activeSection === "projects" && <ProjectsSection />}
+            {activeSection === "adventures" && <AdventuresSection />}
+
             {activeSection === "contact" && <ContactSection />}
           </motion.div>
         </AnimatePresence>
@@ -162,6 +180,17 @@ export default function GlassPortfolio() {
           )`,
         }}
       />
+
+      {/* Custom CSS for hiding scrollbars */}
+      <style jsx global>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </div>
   )
 }
@@ -564,6 +593,68 @@ function ContactSection() {
   )
 }
 
+
+
+function AdventuresSection() {
+  return (
+    <div className="min-h-screen p-6 space-y-8 pb-20">
+      {/* Travel Map - Top */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="w-full"
+      >
+        <div className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 rounded-3xl p-8 shadow-2xl">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+              <span className="text-3xl">🗺️</span>
+              Travel Journey
+            </h2>
+            <div className="text-emerald-300 text-sm bg-emerald-500/20 px-4 py-2 rounded-full border border-emerald-400/30">
+              Interactive
+            </div>
+          </div>
+          <div className="h-[450px] sm:h-[550px] md:h-[650px] lg:h-[700px] rounded-xl overflow-hidden relative">
+            <AdvancedGlassMap />
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Dreams Bucket - Bottom */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+        className="w-full"
+      >
+        <div className="backdrop-blur-xl bg-gradient-to-br from-white/8 to-white/3 border border-white/25 rounded-3xl p-8 shadow-2xl">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+              <span className="text-3xl">🪣</span>
+              Dreams Bucket
+            </h2>
+            <div className="text-purple-300 text-sm bg-purple-500/20 px-4 py-2 rounded-full border border-purple-400/30">
+              Drag & Drop
+            </div>
+          </div>
+          <div className="relative rounded-xl overflow-hidden" style={{ minHeight: '600px' }}>
+            <div 
+              className="absolute inset-0"
+              style={{
+                background: 'radial-gradient(ellipse at center, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0.02) 50%, transparent 100%)'
+              }}
+            />
+            <PhysicsDreamsBucket />
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+
+
 function JourneySection() {
   // Combine and sort experience and education data chronologically
   const journeyItems = [
@@ -605,7 +696,7 @@ function JourneySection() {
   })
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto pb-20">
       {/* Enhanced Glass Header */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}

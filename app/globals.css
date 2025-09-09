@@ -39,6 +39,74 @@
   image-rendering: crisp-edges;
 }
 
+/* 8-bit Pixel Perfect Styles */
+.pixel-perfect {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.retro-shadow {
+  filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.8));
+}
+
+.retro-glow {
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+.pixel-border {
+  border-image-source: url("data:image/svg+xml,%3csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m0,0l100,0l0,100l-100,0l0,-100z' fill='none' stroke='%23000' stroke-width='4'/%3e%3c/svg%3e");
+  border-image-slice: 4;
+  border-image-repeat: stretch;
+}
+
+.scanlines {
+  position: relative;
+}
+
+.scanlines::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    transparent 0%,
+    rgba(0, 255, 0, 0.03) 50%,
+    transparent 100%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+.retro-container {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  border: 4px solid #333;
+  box-shadow: 
+    inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.retro-button-3d {
+  background: linear-gradient(145deg, #4a4a4a, #2a2a2a);
+  border: 2px solid #666;
+  box-shadow: 
+    2px 2px 0px #000,
+    inset 1px 1px 0px rgba(255, 255, 255, 0.2);
+  transition: all 0.1s ease;
+}
+
+.retro-button-3d:active {
+  background: linear-gradient(145deg, #2a2a2a, #4a4a4a);
+  box-shadow: 
+    1px 1px 0px #000,
+    inset -1px -1px 0px rgba(255, 255, 255, 0.2);
+  transform: translate(1px, 1px);
+}
+
 /* CRT overlay effect */
 .crt-overlay {
   position: relative;
@@ -382,10 +450,557 @@
   }
 }
 
-/* High contrast mode */
+  /* Glass Theme Enhanced Styles */
+
+  /* Physics Dream Bucket Animations */
+  @keyframes completedGlow {
+    0%, 100% { 
+      box-shadow: 0 0 15px rgba(34, 197, 94, 0.3); 
+    }
+    50% { 
+      box-shadow: 0 0 25px rgba(34, 197, 94, 0.6); 
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% { 
+      opacity: 0.5; 
+      transform: scale(1); 
+    }
+    50% { 
+      opacity: 0.8; 
+      transform: scale(1.05); 
+    }
+  }
+
+  @keyframes expand {
+    0% { 
+      transform: scale(1); 
+      opacity: 1; 
+    }
+    100% { 
+      transform: scale(1.5); 
+      opacity: 0; 
+    }
+  }
+
+  @keyframes floatingDream {
+    0%, 100% { 
+      transform: translateY(0px) rotate(0deg); 
+    }
+    25% { 
+      transform: translateY(-5px) rotate(1deg); 
+    }
+    75% { 
+      transform: translateY(-3px) rotate(-1deg); 
+    }
+  }
+
+  .dream-ball.completed {
+    animation: completedGlow 2s infinite alternate;
+  }
+
+  .dream-ball.pending {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    animation: floatingDream 4s ease-in-out infinite;
+  }
+
+  /* Interactive World Map Styles */
+  .custom-travel-marker {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .custom-travel-marker:hover {
+    transform: scale(1.1) translateY(-5px);
+  }
+
+  .marker-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.3) 0%, transparent 70%);
+    animation: pulse 2s infinite;
+  }
+
+  .marker-glass-effect {
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .marker-core {
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .marker-icon {
+    font-size: 18px;
+    margin-bottom: -2px;
+  }
+
+  .rating-indicator {
+    font-size: 8px;
+    line-height: 1;
+  }
+
+  .marker-pulse {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid rgba(96, 165, 250, 0.5);
+    animation: expand 2s infinite;
+  }
+
+  .custom-travel-marker.visited .marker-glow {
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.3) 0%, transparent 70%);
+  }
+
+  .custom-travel-marker.visited .marker-pulse {
+    border-color: rgba(34, 197, 94, 0.5);
+  }
+
+  .custom-travel-marker.dream .marker-glow {
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, transparent 70%);
+  }
+
+  .custom-travel-marker.dream .marker-pulse {
+    border-color: rgba(168, 85, 247, 0.5);
+  }
+
+  /* Leaflet Popup Enhancements */
+  .leaflet-popup-content-wrapper {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .leaflet-popup-tip {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+  }
+
+  .leaflet-popup-close-button {
+    color: #666 !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+  }
+
+  .leaflet-popup-close-button:hover {
+    color: #333 !important;
+  }
+
+  .travel-popup-content {
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  /* Dynamic Memory Collage Styles */
+  .masonry-grid {
+    display: flex;
+    margin-left: -20px;
+    width: auto;
+  }
+
+  .masonry-grid-column {
+    padding-left: 20px;
+    background-clip: padding-box;
+  }
+
+  .memory-card {
+    transition: all 0.3s ease;
+    break-inside: avoid;
+    margin-bottom: 20px;
+  }
+
+  .memory-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Shimmer Effect for Memory Cards */
+  .shimmer-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    pointer-events: none;
+  }
+
+  /* Glass Effects and Enhancements */
+  .glass-bucket-enhanced {
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.1) 0%,
+      rgba(59, 130, 246, 0.2) 50%,
+      rgba(59, 130, 246, 0.3) 100%
+    );
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0 0 50px 50px;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 2px 16px rgba(255, 255, 255, 0.1);
+  }
+
+  .bucket-rim-enhanced {
+    position: absolute;
+    top: -10px;
+    left: -20px;
+    right: -20px;
+    height: 20px;
+    background: linear-gradient(
+      90deg,
+      rgba(59, 130, 246, 0.4),
+      rgba(168, 85, 247, 0.4),
+      rgba(59, 130, 246, 0.4)
+    );
+    border-radius: 25px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+  }
+
+  /* Enhanced Glass Stats Cards */
+  .stats-card-enhanced {
+    position: relative;
+    backdrop-filter: blur(20px);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .stats-card-enhanced:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-4px);
+  }
+
+  /* Category Pills Enhanced */
+  .category-pill-enhanced {
+    backdrop-filter: blur(15px);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .category-pill-enhanced.active {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .category-pill-enhanced:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+  }
+
+  /* Memory Particles Animation */
+  @keyframes memoryFloat {
+    0%, 100% { 
+      transform: translate(0, 0) scale(1); 
+      opacity: 0.1; 
+    }
+    25% { 
+      transform: translate(10px, -10px) scale(1.1); 
+      opacity: 0.3; 
+    }
+    50% { 
+      transform: translate(-5px, -20px) scale(0.9); 
+      opacity: 0.2; 
+    }
+    75% { 
+      transform: translate(-10px, -5px) scale(1.05); 
+      opacity: 0.25; 
+    }
+  }
+
+  .memory-particle {
+    animation: memoryFloat 8s ease-in-out infinite;
+  }
+
+  /* Travel Path Animations */
+  .travel-path {
+    stroke-dasharray: 10, 5;
+    stroke-dashoffset: 0;
+    animation: pathFlow 3s linear infinite;
+  }
+
+  @keyframes pathFlow {
+    to {
+      stroke-dashoffset: -15;
+    }
+  }
+
+  /* Physics Ball Interactions */
+  .physics-ball {
+    will-change: transform;
+    transition: filter 0.3s ease;
+  }
+
+  .physics-ball:hover {
+    filter: brightness(1.2) saturate(1.1);
+  }
+
+  .physics-ball.dropping {
+    animation: ballDrop 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  @keyframes ballDrop {
+    0% {
+      transform: translateY(-100px) rotate(0deg);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translateY(50px) rotate(180deg);
+      opacity: 1;
+    }
+    70% {
+      transform: translateY(-10px) rotate(270deg);
+    }
+    85% {
+      transform: translateY(5px) rotate(360deg);
+    }
+    100% {
+      transform: translateY(0) rotate(360deg);
+      opacity: 1;
+    }
+  }
+
+  /* Enhanced Tooltips */
+  .enhanced-tooltip {
+    backdrop-filter: blur(20px);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.8) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Physics Dreams Bucket Styles */
+  .physics-dreams-container {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+  }
+
+  .physics-canvas-wrapper {
+    position: relative;
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .physics-canvas-wrapper:active {
+    cursor: grabbing;
+  }
+
+  .physics-canvas-wrapper canvas {
+    touch-action: none;
+  }
+
+  .dream-labels-overlay {
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .dream-label {
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.8));
+    transition: opacity 0.2s ease;
+  }
+
+  .physics-instructions {
+    animation: fadeInOut 3s ease-in-out infinite;
+  }
+
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  .dreams-stats .stat-card {
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 16px;
+  }
+
+  .dreams-stats .stat-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .glass-rim {
+    position: relative;
+  }
+
+  .glass-rim::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: translateY(-50%);
+  }
+
+  .reset-container button {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reset-container button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .reset-container button:hover::before {
+    left: 100%;
+  }
+
+  /* Clean physics bucket styles - minimal glass effects */
+  .clean-glass-bucket {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .clean-bucket-rim {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+  }
+
+  .clean-reset-button {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease;
+  }
+
+  .clean-reset-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+
+  /* Removed sparkle effects - too distracting */
+
+  /* Clean dreams background - removed excessive blue gradient */
+
+  /* Clean physics dream pills - minimal effects */
+  .clean-dream-pill {
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 18px;
+    backdrop-filter: blur(8px);
+  }
+
+  .clean-dream-pill.completed {
+    border-color: rgba(34, 197, 94, 1);
+  }
+
+  /* Clean responsive design */
+  @media (max-width: 768px) {
+    .clean-glass-bucket {
+      border-width: 2px;
+      border-radius: 0 0 32px 32px;
+    }
+    
+    .clean-bucket-rim {
+      height: 12px;
+      border-radius: 12px;
+    }
+    
+    .clean-reset-button {
+      font-size: 11px;
+      padding: 8px 12px;
+    }
+  }
+
+  /* High contrast mode */
 @media (prefers-contrast: high) {
   .glass-effect {
     @apply bg-black/80 border-2 border-white;
+  }
+  
+  .custom-travel-marker,
+  .memory-card,
+  .stats-card-enhanced {
+    border-width: 2px;
+    border-color: white;
   }
 }
 
