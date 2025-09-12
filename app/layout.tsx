@@ -36,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${pressStart.variable}`}>
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${pressStart.variable}`} suppressHydrationWarning>
       <body className={`${inter.className} antialiased bg-[#0b0f17] text-white`}>
         <AudioUnlock />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>

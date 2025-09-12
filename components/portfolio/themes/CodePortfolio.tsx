@@ -5,15 +5,12 @@ import { motion } from "framer-motion"
 import { usePortfolioStore } from "@/stores/portfolioStore"
 import { personalInfo, getTotalYearsExperience, technicalSkills, projects, experiences } from "@/constants/portfolio"
 import { 
-  bucketList, 
   travelExperiences, 
- 
   getBucketListStats, 
   getCompletedBucketList, 
   getPendingBucketList,
   getVisitedPlaces,
   getDreamDestinations,
- 
 } from "@/constants/personal"
 import { CodeEditor } from "./CodeEditor"
 import { CodeFileTabs } from "./CodeFileTabs"
@@ -170,57 +167,46 @@ export { journeyTimeline, journeyStats };`,
       content: `// Life Dreams & Bucket List
 // Personal goals and aspirations with progress tracking
 
-interface BucketListItem {
+interface DreamItem {
   id: string;
   title: string;
-  description: string;
-  category: "travel" | "adventure" | "personal" | "professional" | "creative";
+  icon: string;
+  color: string;
   completed: boolean;
-  completedDate?: string;
-  priority: "high" | "medium" | "low";
-  timeframe?: string;
-  estimatedCost?: string;
-  story?: string;
 }
 
-const bucketListStats = {
+const dreamStats = {
   total: ${getBucketListStats().total},
   completed: ${getBucketListStats().completed},
   pending: ${getBucketListStats().pending},
   completionRate: ${getBucketListStats().completionRate}
 };
 
-// Completed Dreams 🏆
-const completedDreams: BucketListItem[] = [
+// Achieved Dreams 🏆
+const achievedDreams: DreamItem[] = [
 ${getCompletedBucketList().map(item => `  {
     id: "${item.id}",
     title: "${item.title}",
-    description: "${item.description.replace(/"/g, '\\"')}",
-    category: "${item.category}",
-    completed: true,
-    completedDate: "${item.completedDate}",
-    priority: "${item.priority}",
-    ${item.story ? `story: "${item.story.replace(/"/g, '\\"')}"` : ''}
+    icon: "${item.icon}",
+    color: "${item.color}",
+    completed: true
   }`).join(',\n')}
 ];
 
-// Pending Dreams ⏳
-const pendingDreams: BucketListItem[] = [
+// Future Dreams ⭐
+const futureDreams: DreamItem[] = [
 ${getPendingBucketList().map(item => `  {
     id: "${item.id}",
     title: "${item.title}",
-    description: "${item.description.replace(/"/g, '\\"')}",
-    category: "${item.category}",
-    completed: false,
-    priority: "${item.priority}",
-    ${item.timeframe ? `timeframe: "${item.timeframe}",` : ''}
-    ${item.estimatedCost ? `estimatedCost: "${item.estimatedCost}"` : ''}
+    icon: "${item.icon}",
+    color: "${item.color}",
+    completed: false
   }`).join(',\n')}
 ];
 
-export { bucketListStats, completedDreams, pendingDreams };
+export { dreamStats, achievedDreams, futureDreams };
 
-// 🎯 Next milestone: Complete ${getPendingBucketList().find(item => item.priority === 'high')?.title || 'high priority dreams'}!`,
+// 🎯 Next milestone: Complete ${getPendingBucketList()[0]?.title || 'next dream on the list'}!`,
     },
     "travel.json": {
       language: "json",
@@ -239,7 +225,6 @@ export { bucketListStats, completedDreams, pendingDreams };
           duration: place.duration,
           rating: place.rating,
           category: place.category,
-          memories: place.memories,
           highlights: place.highlights
         })),
         dreamDestinations: getDreamDestinations().map(place => ({
