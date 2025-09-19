@@ -613,6 +613,404 @@ export const projects: Project[] = [
     },
   },
   {
+    "id": "credit-card-recommendation-system",
+    "title": "Credit Card Recommendation System",
+    "subtitle": "AI-Powered PDF Analysis & Personalized Credit Card Optimization Platform",
+    "description": {
+      "elevator": "Revolutionary AI-powered system that analyzes credit card statements via PDF upload and provides personalized card recommendations to maximize rewards and optimize spending patterns",
+      "summary": "A comprehensive full-stack application that combines PDF statement processing with advanced AI transaction categorization, intelligent MCC discovery, and personalized credit card recommendations. Features Google Gemini AI integration, background job processing with real-time updates, secure session management, and advanced spending pattern analysis with savings calculations.",
+      "detailed": "The Credit Card Recommendation System represents a breakthrough in financial optimization technology. It seamlessly processes PDF credit card statements using advanced text extraction, leverages Google Gemini AI for intelligent transaction categorization with 90%+ accuracy, and employs sophisticated MCC (Merchant Category Code) discovery through fuzzy matching algorithms. The system features a self-improving database that gets smarter with each processed statement, background job processing with real-time progress updates, and generates personalized credit card recommendations with detailed savings analysis. The architecture includes secure session management, comprehensive error handling, rate limiting, and production-ready deployment configurations."
+    },
+    "category": "fintech-ai-platform",
+    "status": "completed",
+    "featured": true,
+    "techStack": [
+      "Node.js",
+      "TypeScript",
+      "Express.js",
+      "PostgreSQL",
+      "Prisma ORM",
+      "Google Gemini AI",
+      "React.js",
+      "Vite",
+      "Zustand",
+      "shadcn/ui",
+      "Tailwind CSS",
+      "PDF-Parse",
+      "Fuzzy Matching",
+      "Background Jobs",
+      "Rate Limiting",
+      "Session Management"
+    ],
+    "features": [
+      {
+        "title": "Intelligent PDF Statement Analysis",
+        "description": "Advanced PDF processing with text extraction, validation, and AI-powered transaction parsing using Google Gemini",
+        "impact": "Automated transaction extraction from any bank's PDF format with 95%+ accuracy and secure file handling"
+      },
+      {
+        "title": "AI-Powered Transaction Categorization",
+        "description": "Smart categorization using Google Gemini AI with merchant name standardization and MCC code assignment",
+        "impact": "90%+ categorization accuracy with self-improving algorithms and confidence scoring"
+      },
+      {
+        "title": "MCC Discovery & Research Engine",
+        "description": "Intelligent merchant category code identification through fuzzy matching and AI-enhanced research",
+        "impact": "Comprehensive MCC database that grows smarter with each processed statement"
+      },
+      {
+        "title": "Background Job Processing",
+        "description": "Asynchronous processing pipeline with real-time status updates and retry mechanisms",
+        "impact": "Scalable system handling intensive AI operations without blocking user experience"
+      },
+      {
+        "title": "Personalized Card Recommendations",
+        "description": "Advanced matching algorithms considering spending patterns, annual fees, and benefit optimization",
+        "impact": "Tailored recommendations with detailed savings projections and ROI calculations"
+      },
+      {
+        "title": "Advanced Spending Analytics",
+        "description": "Comprehensive spending pattern analysis with category breakdowns and trend identification",
+        "impact": "Deep insights into spending habits with actionable optimization recommendations"
+      },
+      {
+        "title": "Secure Session Management",
+        "description": "Session-based architecture with automatic cleanup and no persistent user data storage",
+        "impact": "Privacy-first approach with enterprise-level security and data protection"
+      },
+      {
+        "title": "Modern React Frontend",
+        "description": "Responsive UI with Zustand state management, shadcn/ui components, and real-time progress tracking",
+        "impact": "Intuitive user experience with seamless processing feedback and beautiful interface"
+      }
+    ],
+    "challenges": [
+      {
+        "title": "Multi-Format PDF Processing",
+        "description": "Handling diverse PDF layouts from different banks with varying transaction formats",
+        "solution": "Implemented robust PDF parsing with format detection and intelligent text preprocessing"
+      },
+      {
+        "title": "AI Transaction Accuracy",
+        "description": "Achieving high accuracy in transaction extraction and categorization from unstructured PDF text",
+        "solution": "Developed sophisticated prompt engineering with Google Gemini and confidence scoring validation"
+      },
+      {
+        "title": "MCC Code Discovery",
+        "description": "Identifying merchant category codes for unknown merchants while building comprehensive database",
+        "solution": "Created fuzzy matching algorithms with AI-powered research and self-improving database architecture"
+      },
+      {
+        "title": "Real-time Processing Updates",
+        "description": "Providing live progress updates for time-intensive background AI processing jobs",
+        "solution": "Implemented background job queue with status polling and real-time progress tracking"
+      },
+      {
+        "title": "Spending Pattern Analysis",
+        "description": "Accurately analyzing complex spending patterns to generate meaningful insights and recommendations",
+        "solution": "Built comprehensive analytics engine with statistical analysis and pattern recognition algorithms"
+      }
+    ],
+    "metrics": [
+      {
+        "label": "Transaction Accuracy",
+        "value": "95%+",
+        "description": "AI-powered extraction and categorization success rate"
+      },
+      {
+        "label": "Processing Speed",
+        "value": "<30s",
+        "description": "Average PDF statement processing time"
+      },
+      {
+        "label": "MCC Database",
+        "value": "4000+",
+        "description": "Comprehensive merchant category codes"
+      },
+      {
+        "label": "Categorization Accuracy",
+        "value": "90%+",
+        "description": "Smart transaction categorization success"
+      },
+      {
+        "label": "API Response Time",
+        "value": "<2s",
+        "description": "Average API endpoint response time"
+      },
+      {
+        "label": "System Uptime",
+        "value": "99.5%+",
+        "description": "Target system availability and reliability"
+      }
+    ],
+    "media": {
+      "hero": "/credit-card-system-hero.png",
+      "gallery": [
+        "/pdf-upload-interface.png",
+        "/ai-transaction-analysis.png",
+        "/spending-analytics-dashboard.png",
+        "/card-recommendations.png",
+        "/mcc-discovery-engine.png"
+      ]
+    },
+    "links": {
+      "github": "https://github.com/nakuljhunjhunwala/CreditCardSuggestor",
+      "documentation": "/credit-card-api-docs"
+    },
+    "timeline": {
+      "start": "2024-09-01",
+      "end": "2024-11-15",
+      "duration": "2.5 months of comprehensive development"
+    },
+    "team": {
+      "size": 1,
+      "role": "Lead Full-Stack Developer & AI Integration Specialist",
+      "responsibilities": [
+        "Architected complete AI-powered financial analysis system",
+        "Implemented advanced PDF processing and text extraction",
+        "Built intelligent MCC discovery and categorization engine",
+        "Designed comprehensive spending analytics and recommendation algorithms",
+        "Created modern React frontend with real-time progress tracking",
+        "Developed production-ready backend with security and scalability"
+      ]
+    },
+    "achievements": [
+      "Built comprehensive AI-powered financial analysis platform",
+      "Achieved 95%+ accuracy in PDF transaction extraction",
+      "Implemented self-improving MCC discovery system with 4000+ codes",
+      "Created advanced recommendation engine with savings calculations",
+      "Developed secure session-based architecture with automatic cleanup",
+      "Built scalable background job processing with real-time updates",
+      "Implemented comprehensive spending analytics and pattern recognition",
+      "Created production-ready system with full documentation and deployment guides"
+    ],
+    "testimonial": {
+      "text": "This project demonstrates exceptional fintech engineering capabilities, combining advanced AI integration with sophisticated financial analysis. The MCC discovery system and recommendation algorithms showcase senior-level problem-solving skills.",
+      "author": "Technical Review",
+      "role": "Senior Fintech Engineer",
+      "company": "Industry Expert"
+    }
+  }, {
+    "id": "meta-portfolio-website",
+    "title": "Meta Portfolio Website",
+    "subtitle": "Immersive Multi-Theme Portfolio with Interactive Gaming Experiences",
+    "description": {
+      "elevator": "Revolutionary portfolio website featuring multiple immersive themes including a retro arcade with playable mini-games, code editor interface, terminal experience, and glass morphism design",
+      "summary": "An innovative Next.js portfolio that transcends traditional presentation formats by offering multiple interactive experiences. Features a fully functional retro arcade with 9 playable games, a realistic code editor interface, an interactive terminal with real commands, and a stunning glass morphism theme. Built with performance, SEO optimization, and accessibility in mind while delivering unprecedented user engagement through gamification and interactive storytelling.",
+      "detailed": "The Meta Portfolio represents a paradigm shift in personal branding and portfolio presentation. It combines cutting-edge web technologies with creative interactive experiences to create an unforgettable user journey. The retro arcade theme features fully playable games including Breakout, Snake, Tetris, Space Invaders, and more, all built with HTML5 Canvas and optimized performance. The code editor theme presents information in a familiar IDE interface, while the terminal theme offers a fully functional command-line experience with real commands. The system includes advanced SEO optimization with JSON-LD structured data, route-based navigation with SSG, persistent user preferences, and comprehensive accessibility features."
+    },
+    "category": "interactive-portfolio",
+    "status": "completed",
+    "featured": true,
+    "techStack": [
+      "Next.js 15",
+      "TypeScript",
+      "Tailwind CSS",
+      "Zustand",
+      "Framer Motion",
+      "HTML5 Canvas",
+      "next-themes",
+      "Lucide Icons",
+      "shadcn/ui",
+      "JSON-LD",
+      "SSG",
+      "Accessibility APIs",
+      "Performance Optimization"
+    ],
+    "features": [
+      {
+        "title": "Retro Arcade Experience",
+        "description": "Fully functional retro gaming experience with 9 playable mini-games built with HTML5 Canvas",
+        "impact": "Revolutionary portfolio engagement with games including Breakout, Snake, Tetris, Space Invaders, Pong, Flappy Bird, Dino Game, Road Rush, and Tic-Tac-Toe"
+      },
+      {
+        "title": "Code Editor Interface",
+        "description": "Realistic IDE-style presentation of portfolio content with syntax highlighting and familiar developer experience",
+        "impact": "Appeals to technical audiences with authentic code editor aesthetics and functionality"
+      },
+      {
+        "title": "Interactive Terminal Experience",
+        "description": "Fully functional terminal interface with real commands for exploring portfolio content",
+        "impact": "Engaging command-line experience with commands like 'about', 'skills --category frontend', 'projects --id', 'neofetch', and more"
+      },
+      {
+        "title": "Glass Morphism Theme",
+        "description": "Modern glass morphism design with stunning visual effects and smooth animations",
+        "impact": "Cutting-edge aesthetic appeal with translucent elements and backdrop filters"
+      },
+      {
+        "title": "Route-Based Theme Navigation",
+        "description": "Direct URL access to specific themes with SSG optimization and canonical URLs",
+        "impact": "SEO-optimized theme routing with shareable links and fast loading through static generation"
+      },
+      {
+        "title": "Advanced SEO Optimization",
+        "description": "Comprehensive SEO with JSON-LD structured data, robots.txt, sitemap, and rich snippets",
+        "impact": "Maximum search engine visibility with structured data for Person, WebSite, and Project schemas"
+      },
+      {
+        "title": "Persistent User Preferences",
+        "description": "Zustand-powered state management with local storage persistence for theme preferences and visit stats",
+        "impact": "Personalized experience that remembers user choices and tracks engagement"
+      },
+      {
+        "title": "Performance & Accessibility",
+        "description": "Optimized performance with hydration guards, motion preferences, keyboard navigation, and high contrast support",
+        "impact": "Inclusive design meeting WCAG standards while maintaining exceptional performance"
+      }
+    ],
+    "challenges": [
+      {
+        "title": "Multi-Game Development",
+        "description": "Building 9 different playable games with consistent performance and responsive controls",
+        "solution": "Implemented optimized HTML5 Canvas rendering with efficient game loops and unified control schemes"
+      },
+      {
+        "title": "Theme System Architecture",
+        "description": "Creating seamless transitions between vastly different UI experiences without performance degradation",
+        "solution": "Developed route-based theme system with SSG optimization and eliminated global animations to prevent conflicts"
+      },
+      {
+        "title": "Terminal Command System",
+        "description": "Building a realistic terminal experience with actual command parsing and help systems",
+        "solution": "Created comprehensive command parser with auto-completion, help system, and contextual content delivery"
+      },
+      {
+        "title": "SEO for Dynamic Content",
+        "description": "Optimizing SEO for multiple themes while maintaining structured data and canonical URLs",
+        "solution": "Implemented advanced JSON-LD schemas with per-theme metadata and comprehensive sitemap generation"
+      },
+      {
+        "title": "Performance with Rich Interactions",
+        "description": "Maintaining 60fps performance across games and animations while supporting all devices",
+        "solution": "Optimized Canvas rendering, implemented efficient state management, and added performance monitoring"
+      }
+    ],
+    "metrics": [
+      {
+        "label": "Interactive Experiences",
+        "value": "4",
+        "description": "Retro Arcade, Code Editor, Terminal, Glass Morphism"
+      },
+      {
+        "label": "Playable Games",
+        "value": "9",
+        "description": "Fully functional mini-games with optimized performance"
+      },
+      {
+        "label": "Performance Score",
+        "value": "95+",
+        "description": "Lighthouse performance score across all themes"
+      },
+      {
+        "label": "SEO Score",
+        "value": "100",
+        "description": "Perfect SEO optimization with structured data"
+      },
+      {
+        "label": "Accessibility Score",
+        "value": "98+",
+        "description": "WCAG compliant with keyboard navigation"
+      },
+      {
+        "label": "Load Time",
+        "value": "<1.5s",
+        "description": "First contentful paint with SSG optimization"
+      }
+    ],
+    "media": {
+      "hero": "/meta-portfolio-hero.png",
+      "gallery": [
+        "/retro-arcade-games.png",
+        "/code-editor-interface.png",
+        "/terminal-experience.png",
+        "/glass-morphism-theme.png",
+        "/theme-switcher.png"
+      ]
+    },
+    "links": {
+      "live": "https://nakuljhunjhunwala.in",
+      "github": "https://github.com/nakuljhunjhunwala/portfolio",
+      "themes": {
+        "retro": "https://nakuljhunjhunwala.in/themes/retro",
+        "code": "https://nakuljhunjhunwala.in/themes/code",
+        "terminal": "https://nakuljhunjhunwala.in/themes/terminal",
+        "glass": "https://nakuljhunjhunwala.in/themes/glass"
+      }
+    },
+    "timeline": {
+      "start": "2024-10-01",
+      "end": "2024-12-15",
+      "duration": "2.5 months of creative development"
+    },
+    "team": {
+      "size": 1,
+      "role": "Lead Frontend Developer & UX Innovation Specialist",
+      "responsibilities": [
+        "Architected innovative multi-theme portfolio system",
+        "Developed 9 playable HTML5 Canvas games with optimized performance",
+        "Built realistic terminal interface with command parsing system",
+        "Implemented advanced SEO optimization with JSON-LD structured data",
+        "Created accessible design system supporting multiple interaction modes",
+        "Designed seamless theme switching with route-based navigation"
+      ]
+    },
+    "achievements": [
+      "Created revolutionary portfolio format with 4 distinct interactive experiences",
+      "Built 9 fully playable games with consistent 60fps performance",
+      "Achieved perfect SEO scores with comprehensive structured data",
+      "Implemented realistic terminal experience with 15+ functional commands",
+      "Developed innovative theme system with SSG optimization",
+      "Created accessible design supporting keyboard navigation and screen readers",
+      "Built comprehensive analytics tracking user engagement across themes",
+      "Established new paradigm for interactive portfolio presentation"
+    ],
+    "testimonial": {
+      "text": "This portfolio redefines what's possible in personal branding. The combination of technical excellence, creative vision, and flawless execution creates an unforgettable experience that showcases exceptional frontend engineering skills.",
+      "author": "Design Review",
+      "role": "Senior UX Engineer",
+      "company": "Industry Expert"
+    },
+    "gameDetails": {
+      "breakout": {
+        "description": "Classic brick-breaking game with paddle physics and power-ups",
+        "controls": "Arrow keys to move paddle, space to launch ball"
+      },
+      "snake": {
+        "description": "Traditional snake game with growing mechanics and collision detection",
+        "controls": "Arrow keys for direction, space to start/restart"
+      },
+      "tetris": {
+        "description": "Full Tetris implementation with line clearing and increasing speed",
+        "controls": "Arrow keys to move/rotate, space to drop"
+      },
+      "spaceInvaders": {
+        "description": "Classic space shooter with enemy waves and power-ups",
+        "controls": "Arrow keys to move, space to shoot"
+      },
+      "pong": {
+        "description": "Two-player Pong with AI opponent and physics",
+        "controls": "Arrow keys to move paddle"
+      },
+      "flappyBird": {
+        "description": "Bird flying game with obstacle avoidance mechanics",
+        "controls": "Space to flap wings"
+      },
+      "dinoGame": {
+        "description": "Chrome dinosaur-style endless runner",
+        "controls": "Space to jump over obstacles"
+      },
+      "roadRush": {
+        "description": "Car racing game with traffic dodging mechanics",
+        "controls": "Arrow keys to steer and accelerate"
+      },
+      "ticTacToe": {
+        "description": "Strategic tic-tac-toe with AI opponent",
+        "controls": "Click to place markers"
+      }
+    }
+  },
+  {
     id: "b2b-api-system",
     title: "B2B Model API System",
     subtitle: "Robust e-commerce backend with JWT authentication",
