@@ -51,9 +51,9 @@ export default function NeumorphismPortfolio() {
   const infoColor = "#4299e1" // Blue
 
   return (
-    <div className="min-h-screen relative" style={{ background: `linear-gradient(135deg, ${bgColor} 0%, #e8ebf0 100%)` }}>
+    <div className="min-h-screen relative" style={{ background: `linear-gradient(135deg, ${bgColor} 0%, #e8ebf0 100%)` }} role="main" aria-label="Neumorphism Portfolio">
       {/* Floating particles */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10" aria-hidden="true">
         {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
@@ -135,10 +135,11 @@ export default function NeumorphismPortfolio() {
 
 function HeroWidget({ accentColor }: { accentColor: string }) {
   return (
-    <motion.div
+    <motion.section
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="neuro-card rounded-3xl p-8 md:p-12"
+      aria-label="Hero section"
     >
       <div className="flex flex-col md:flex-row items-center gap-8">
         <motion.div
@@ -150,8 +151,9 @@ function HeroWidget({ accentColor }: { accentColor: string }) {
           >
             <img
               src={personalInfo.avatar}
-              alt={personalInfo.name}
+              alt={`${personalInfo.name} - ${personalInfo.title}`}
               className="w-full h-full object-cover rounded-full"
+              loading="eager"
             />
           </div>
           <motion.div
@@ -159,8 +161,10 @@ function HeroWidget({ accentColor }: { accentColor: string }) {
             style={{ background: accentColor, boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
             animate={{ scale: [1, 1.1, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
+            role="status"
+            aria-label="Featured profile"
           >
-            <Sparkles className="w-6 h-6 text-white" />
+            <Sparkles className="w-6 h-6 text-white" aria-hidden="true" />
           </motion.div>
         </motion.div>
         
@@ -184,15 +188,16 @@ function HeroWidget({ accentColor }: { accentColor: string }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="neuro-button w-12 h-12 rounded-full flex items-center justify-center text-gray-700 hover:text-gray-900"
+                  aria-label={`${social.platform} Profile`}
                 >
-                  <IconComponent className="w-5 h-5" />
+                  <IconComponent className="w-5 h-5" aria-hidden="true" />
                 </a>
               )
             })}
           </div>
         </div>
       </div>
-    </motion.div>
+    </motion.section>
   )
 }
 
@@ -205,13 +210,14 @@ function StatsWidget({ accentColor, successColor, warningColor, infoColor }: any
   ]
 
   return (
-    <motion.div
+    <motion.section
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       className="neuro-card rounded-3xl p-6"
+      aria-labelledby="stats-heading"
     >
-      <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-800">
-        <Trophy className="w-6 h-6" style={{ color: accentColor }} />
+      <h2 id="stats-heading" className="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-800">
+        <Trophy className="w-6 h-6" style={{ color: accentColor }} aria-hidden="true" />
         Career Stats
       </h2>
       <div className="grid grid-cols-2 gap-4">
@@ -225,8 +231,8 @@ function StatsWidget({ accentColor, successColor, warningColor, infoColor }: any
               transition={{ delay: index * 0.1 }}
               className="neuro-inset rounded-2xl p-4 text-center"
             >
-              <IconComponent className="w-8 h-8 mx-auto mb-2" style={{ color: stat.color }} />
-              <div className="text-3xl font-bold mb-1" style={{ color: stat.color }}>
+              <IconComponent className="w-8 h-8 mx-auto mb-2" style={{ color: stat.color }} aria-hidden="true" />
+              <div className="text-3xl font-bold mb-1" style={{ color: stat.color }} aria-label={`${stat.value} ${stat.unit}`}>
                 {stat.value}
               </div>
               <div className="text-xs text-gray-600">{stat.unit}</div>
@@ -235,7 +241,7 @@ function StatsWidget({ accentColor, successColor, warningColor, infoColor }: any
           )
         })}
       </div>
-    </motion.div>
+    </motion.section>
   )
 }
 
@@ -247,14 +253,15 @@ function QuickInfoWidget({ accentColor }: { accentColor: string }) {
   ]
 
   return (
-    <motion.div
+    <motion.section
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.2 }}
       className="neuro-card rounded-3xl p-6"
+      aria-labelledby="quickinfo-heading"
     >
-      <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-800">
-        <User className="w-6 h-6" style={{ color: accentColor }} />
+      <h2 id="quickinfo-heading" className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-800">
+        <User className="w-6 h-6" style={{ color: accentColor }} aria-hidden="true" />
         Quick Info
       </h2>
       <div className="space-y-3">
@@ -266,7 +273,7 @@ function QuickInfoWidget({ accentColor }: { accentColor: string }) {
                 className="w-10 h-10 rounded-xl neuro-inset flex items-center justify-center"
                 style={{ color: accentColor }}
               >
-                <IconComponent className="w-5 h-5" />
+                <IconComponent className="w-5 h-5" aria-hidden="true" />
               </div>
               <div>
                 <div className="text-xs text-gray-500">{item.label}</div>
@@ -276,7 +283,7 @@ function QuickInfoWidget({ accentColor }: { accentColor: string }) {
           )
         })}
       </div>
-    </motion.div>
+    </motion.section>
   )
 }
 
@@ -289,18 +296,20 @@ function SkillsWidget({ accentColor, successColor }: any) {
     : technicalSkills.filter(s => s.category === selectedCategory)
 
   return (
-    <motion.div
+    <motion.section
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="neuro-card rounded-3xl p-6 md:p-8"
+      id="skills"
+      aria-labelledby="skills-heading"
     >
-      <h2 className="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-2 text-gray-800">
-        <Code className="w-7 h-7" style={{ color: accentColor }} />
+      <h2 id="skills-heading" className="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-2 text-gray-800">
+        <Code className="w-7 h-7" style={{ color: accentColor }} aria-hidden="true" />
         Technical Skills
       </h2>
       
       {/* Category Pills */}
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-6" role="tablist" aria-label="Skill categories">
         {categories.map((cat) => (
           <button
             key={cat}
@@ -312,6 +321,10 @@ function SkillsWidget({ accentColor, successColor }: any) {
               background: `linear-gradient(135deg, ${accentColor}, ${successColor})`,
               boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
             } : {}}
+            role="tab"
+            aria-selected={selectedCategory === cat}
+            aria-controls={`${cat}-skills-panel`}
+            aria-label={`${cat} skills`}
           >
             {cat.charAt(0).toUpperCase() + cat.slice(1)}
           </button>
@@ -338,7 +351,7 @@ function SkillsWidget({ accentColor, successColor }: any) {
           </motion.div>
         ))}
       </div>
-    </motion.div>
+    </motion.section>
   )
 }
 
@@ -383,14 +396,16 @@ function ProjectsWidget({ accentColor }: { accentColor: string }) {
   const [flippedCard, setFlippedCard] = useState<string | null>(null)
 
   return (
-    <motion.div
+    <motion.section
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
       className="neuro-card rounded-3xl p-6 md:p-8"
+      id="projects"
+      aria-labelledby="projects-heading"
     >
-      <h2 className="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-2 text-gray-800">
-        <Briefcase className="w-7 h-7" style={{ color: accentColor }} />
+      <h2 id="projects-heading" className="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-2 text-gray-800">
+        <Briefcase className="w-7 h-7" style={{ color: accentColor }} aria-hidden="true" />
         Featured Projects
       </h2>
       
@@ -480,7 +495,7 @@ function ProjectsWidget({ accentColor }: { accentColor: string }) {
           </motion.div>
         ))}
       </div>
-    </motion.div>
+    </motion.section>
   )
 }
 
@@ -505,14 +520,16 @@ function JourneyWidget({ accentColor, infoColor, successColor }: any) {
   ]
 
   return (
-    <motion.div
+    <motion.section
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
       className="neuro-card rounded-3xl p-6 md:p-8"
+      id="work"
+      aria-labelledby="journey-heading"
     >
-      <h2 className="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-2 text-gray-800">
-        <Calendar className="w-7 h-7" style={{ color: accentColor }} />
+      <h2 id="journey-heading" className="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-2 text-gray-800">
+        <Calendar className="w-7 h-7" style={{ color: accentColor }} aria-hidden="true" />
         Professional Journey
       </h2>
       
@@ -560,7 +577,7 @@ function JourneyWidget({ accentColor, infoColor, successColor }: any) {
           </motion.div>
         ))}
       </div>
-    </motion.div>
+    </motion.section>
   )
 }
 
@@ -571,14 +588,15 @@ function AdventuresWidget({ accentColor, warningColor, successColor }: any) {
   const visitedPlaces = getVisitedPlaces()
 
   return (
-    <motion.div
+    <motion.section
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4 }}
       className="neuro-card rounded-3xl p-6 md:p-8"
+      aria-labelledby="adventures-heading"
     >
-      <h2 className="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-2 text-gray-800">
-        <Target className="w-7 h-7" style={{ color: accentColor }} />
+      <h2 id="adventures-heading" className="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-2 text-gray-800">
+        <Target className="w-7 h-7" style={{ color: accentColor }} aria-hidden="true" />
         Life Adventures
       </h2>
       
@@ -629,20 +647,22 @@ function AdventuresWidget({ accentColor, warningColor, successColor }: any) {
           </motion.div>
         ))}
       </div>
-    </motion.div>
+    </motion.section>
   )
 }
 
 function ContactWidget({ accentColor, successColor }: any) {
   return (
-    <motion.div
+    <motion.section
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
       className="neuro-card rounded-3xl p-6 md:p-8"
+      id="contact"
+      aria-labelledby="contact-heading"
     >
-      <h2 className="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-2 text-gray-800">
-        <Mail className="w-7 h-7" style={{ color: accentColor }} />
+      <h2 id="contact-heading" className="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-2 text-gray-800">
+        <Mail className="w-7 h-7" style={{ color: accentColor }} aria-hidden="true" />
         Let's Connect
       </h2>
       
@@ -701,7 +721,7 @@ function ContactWidget({ accentColor, successColor }: any) {
           className="flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium neuro-button hover:scale-105 transition-transform"
           style={{ background: `linear-gradient(135deg, ${accentColor}, ${successColor})` }}
         >
-          <Download className="w-5 h-5" />
+          <Download className="w-5 h-5" aria-hidden="true" />
           Download Resume
         </a>
         <a
@@ -710,11 +730,12 @@ function ContactWidget({ accentColor, successColor }: any) {
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-6 py-3 rounded-full neuro-button font-medium hover:scale-105 transition-transform"
           style={{ color: accentColor }}
+          aria-label="Visit LinkedIn Profile"
         >
-          <Linkedin className="w-5 h-5" />
+          <Linkedin className="w-5 h-5" aria-hidden="true" />
           LinkedIn
         </a>
       </div>
-    </motion.div>
+    </motion.section>
   )
 }

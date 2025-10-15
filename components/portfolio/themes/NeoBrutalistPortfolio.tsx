@@ -53,9 +53,9 @@ export default function NeoBrutalistPortfolio() {
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: colors.bg }}>
+    <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: colors.bg }} role="main" aria-label="Neo-Brutalism Portfolio">
       {/* Brutal Background Pattern */}
-      <div className="fixed inset-0 pointer-events-none" style={{ zIndex: -10 }}>
+      <div className="fixed inset-0 pointer-events-none" style={{ zIndex: -10 }} aria-hidden="true">
         <div className="w-full h-full" style={{
           backgroundImage: `
             repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px),
@@ -66,12 +66,14 @@ export default function NeoBrutalistPortfolio() {
       </div>
 
       {/* Fixed Header Bar */}
-      <div 
+      <header 
         className="fixed top-0 left-0 right-0 text-black border-b-4 md:border-b-8 border-black"
         style={{ 
           backgroundColor: colors.accent,
           zIndex: 30
         }}
+        role="banner"
+        aria-label="Site header"
       >
         <motion.div
           initial={{ y: -100 }}
@@ -79,10 +81,10 @@ export default function NeoBrutalistPortfolio() {
           transition={{ type: "spring", stiffness: 100, damping: 15 }}
         >
           <div className="container mx-auto px-4 py-3 md:py-4 flex items-center justify-between">
-            <div className="font-black text-xl md:text-2xl lg:text-3xl uppercase tracking-tight">
+            <div className="font-black text-xl md:text-2xl lg:text-3xl uppercase tracking-tight" aria-label="Name">
               {personalInfo.name.split(' ')[0]}
             </div>
-            <div className="flex gap-2">
+            <nav className="flex gap-2" role="navigation" aria-label="Main navigation">
               {["Skills", "Work", "Projects", "Contact"].map((item) => (
                 <button
                   key={item}
@@ -95,14 +97,15 @@ export default function NeoBrutalistPortfolio() {
                     backgroundColor: colors.white,
                     boxShadow: '4px 4px 0px 0px #000000'
                   }}
+                  aria-label={`Navigate to ${item} section`}
                 >
                   {item}
                 </button>
               ))}
-            </div>
+            </nav>
           </div>
         </motion.div>
-      </div>
+      </header>
 
       <div className="container mx-auto px-4 pt-24 md:pt-32 pb-40 md:pb-20">
         {/* Hero Section - Magazine Style */}
@@ -157,11 +160,12 @@ export default function NeoBrutalistPortfolio() {
 
 function HeroSection({ colors }: any) {
   return (
-    <motion.div 
+    <motion.section 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
       className="mb-16"
+      aria-label="Hero section"
     >
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
         {/* Left - Avatar */}
@@ -181,8 +185,9 @@ function HeroSection({ colors }: any) {
             >
               <img
                 src={personalInfo.avatar}
-                alt={personalInfo.name}
+                alt={`${personalInfo.name} - ${personalInfo.title}`}
                 className="w-full h-full object-cover border-4 border-black"
+                loading="eager"
               />
             </div>
             <motion.div
@@ -193,6 +198,8 @@ function HeroSection({ colors }: any) {
                 backgroundColor: colors.highlight,
                 boxShadow: '4px 4px 0px 0px #000000' 
               }}
+              role="status"
+              aria-label="Currently available for hire"
             >
               Available!
             </motion.div>
@@ -235,9 +242,9 @@ function HeroSection({ colors }: any) {
 
           <div className="flex flex-wrap gap-4">
             {[
-              { icon: Github, url: personalInfo.socialLinks.find(s => s.platform === "GitHub")?.url, color: colors.purple },
-              { icon: Linkedin, url: personalInfo.socialLinks.find(s => s.platform === "LinkedIn")?.url, color: colors.blue },
-              { icon: Mail, url: `mailto:${personalInfo.email}`, color: colors.red },
+              { icon: Github, url: personalInfo.socialLinks.find(s => s.platform === "GitHub")?.url, color: colors.primary, label: "GitHub Profile" },
+              { icon: Linkedin, url: personalInfo.socialLinks.find(s => s.platform === "LinkedIn")?.url, color: colors.cyan, label: "LinkedIn Profile" },
+              { icon: Mail, url: `mailto:${personalInfo.email}`, color: colors.secondary, label: "Send Email" },
             ].map((social, index) => {
               const IconComponent = social.icon
               return (
@@ -251,15 +258,16 @@ function HeroSection({ colors }: any) {
                   transition={{ delay: 0.3 + index * 0.1, type: "spring" }}
                   className="brutalist-button w-14 h-14 flex items-center justify-center bg-white"
                   style={{ backgroundColor: social.color }}
+                  aria-label={social.label}
                 >
-                  <IconComponent className="w-7 h-7 text-black" />
+                  <IconComponent className="w-7 h-7 text-black" aria-hidden="true" />
                 </motion.a>
               )
             })}
           </div>
         </div>
       </div>
-    </motion.div>
+    </motion.section>
   )
 }
 
@@ -272,7 +280,7 @@ function StatsBar({ colors }: any) {
   ]
 
   return (
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-12 md:mb-16">
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-12 md:mb-16" aria-label="Quick statistics">
         {stats.map((stat, index) => (
           <motion.div
             key={index}
@@ -285,11 +293,11 @@ function StatsBar({ colors }: any) {
               boxShadow: '4px 4px 0px 0px #000000'
             }}
           >
-            <div className="text-3xl md:text-4xl lg:text-5xl font-black mb-1 md:mb-2 text-black">{stat.value}</div>
+            <div className="text-3xl md:text-4xl lg:text-5xl font-black mb-1 md:mb-2 text-black" aria-label={`${stat.value} ${stat.label}`}>{stat.value}</div>
             <div className="text-xs md:text-sm lg:text-base font-bold uppercase text-black leading-tight">{stat.label}</div>
         </motion.div>
       ))}
-    </div>
+    </section>
   )
 }
 
@@ -298,8 +306,9 @@ function SkillsSection({ colors }: any) {
   const [selectedCat, setSelectedCat] = useState("frontend")
 
   return (
-    <div className="mb-16" id="skills">
+    <section className="mb-16" id="skills" aria-labelledby="skills-heading">
       <motion.h2 
+        id="skills-heading"
         initial={{ x: -20, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
         viewport={{ once: true }}
@@ -312,11 +321,11 @@ function SkillsSection({ colors }: any) {
           }}>
           Skills
         </span>
-        <ChevronRight className="w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12" />
+        <ChevronRight className="w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12" aria-hidden="true" />
       </motion.h2>
 
       {/* Category Tabs */}
-      <div className="flex flex-wrap gap-2 mb-8">
+      <div className="flex flex-wrap gap-2 mb-8" role="tablist" aria-label="Skill categories">
         {categories.map((cat) => (
           <button
             key={cat}
@@ -329,6 +338,10 @@ function SkillsSection({ colors }: any) {
             style={{
               backgroundColor: selectedCat === cat ? colors.black : colors.white
             }}
+            role="tab"
+            aria-selected={selectedCat === cat}
+            aria-controls={`${cat}-skills-panel`}
+            aria-label={`${cat} skills`}
           >
             {cat}
           </button>
@@ -365,17 +378,18 @@ function SkillsSection({ colors }: any) {
               <div className="text-xs font-bold uppercase text-gray-700">
                 {skill.yearsExperience}y experience
               </div>
-            </motion.div>
-          ))}
+          </motion.div>
+        ))}
       </div>
-    </div>
+    </section>
   )
 }
 
 function ProjectsSection({ colors }: any) {
   return (
-    <div className="mb-16" id="projects">
+    <section className="mb-16" id="projects" aria-labelledby="projects-heading">
       <motion.h2 
+        id="projects-heading"
         initial={{ x: -20, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
         viewport={{ once: true }}
@@ -388,7 +402,7 @@ function ProjectsSection({ colors }: any) {
           }}>
           Projects
         </span>
-        <ChevronRight className="w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12" />
+        <ChevronRight className="w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12" aria-hidden="true" />
       </motion.h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -459,7 +473,7 @@ function ProjectsSection({ colors }: any) {
           </motion.div>
         ))}
       </div>
-    </div>
+    </section>
   )
 }
 
@@ -472,7 +486,7 @@ function ExperienceSection({ colors }: any) {
       date: `${exp.duration.start} - ${exp.duration.current ? 'Present' : exp.duration.end}`,
       location: exp.location,
       description: exp.description,
-      color: colors.blue,
+      color: colors.cyan,
     })),
     ...personalInfo.education.map(edu => ({
       type: 'education',
@@ -486,8 +500,9 @@ function ExperienceSection({ colors }: any) {
   ]
 
   return (
-    <div className="mb-16" id="work">
+    <section className="mb-16" id="work" aria-labelledby="experience-heading">
       <motion.h2 
+        id="experience-heading"
         initial={{ x: -20, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
         viewport={{ once: true }}
@@ -500,7 +515,7 @@ function ExperienceSection({ colors }: any) {
           }}>
           Experience
         </span>
-        <ChevronRight className="w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12" />
+        <ChevronRight className="w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12" aria-hidden="true" />
       </motion.h2>
 
       <div className="space-y-6">
@@ -546,7 +561,7 @@ function ExperienceSection({ colors }: any) {
           </motion.div>
         ))}
       </div>
-    </div>
+    </section>
   )
 }
 
@@ -629,8 +644,9 @@ function AdventuresSection({ colors }: any) {
 
 function ContactSection({ colors }: any) {
   return (
-    <div className="mb-16" id="contact">
+    <section className="mb-16" id="contact" aria-labelledby="contact-heading">
       <motion.h2 
+        id="contact-heading"
         initial={{ x: -20, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
         viewport={{ once: true }}
@@ -643,7 +659,7 @@ function ContactSection({ colors }: any) {
           }}>
           Contact
         </span>
-        <ChevronRight className="w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12" />
+        <ChevronRight className="w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12" aria-hidden="true" />
       </motion.h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -664,13 +680,13 @@ function ContactSection({ colors }: any) {
           
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <Mail className="w-6 h-6" />
-              <a href={`mailto:${personalInfo.email}`} className="text-lg font-bold hover:underline">
+              <Mail className="w-6 h-6" aria-hidden="true" />
+              <a href={`mailto:${personalInfo.email}`} className="text-lg font-bold hover:underline" aria-label={`Email ${personalInfo.email}`}>
                 {personalInfo.email}
               </a>
             </div>
             <div className="flex items-center gap-3">
-              <MapPin className="w-6 h-6" />
+              <MapPin className="w-6 h-6" aria-hidden="true" />
               <span className="text-lg font-bold">{personalInfo.location}</span>
             </div>
           </div>
@@ -725,7 +741,7 @@ function ContactSection({ colors }: any) {
           })}
         </motion.div>
       </div>
-    </div>
+    </section>
   )
 }
 

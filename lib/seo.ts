@@ -20,7 +20,7 @@ export function getMetadataBase(): URL {
 
 export function buildSiteMetadata(): Metadata {
     const title = `${personalInfo.name} – ${personalInfo.title} | Interactive Portfolio`
-    const description = `${personalInfo.bio.medium} | Interactive portfolio with 4 unique themes: Retro Gaming, VS Code, Glass Morphism & Terminal. Explore projects, skills, and contact information.`
+    const description = `${personalInfo.bio.medium} | Interactive portfolio with 6 unique themes: Retro Gaming, VS Code, Glass Morphism, Terminal, Neumorphism & Neo-Brutalism. Explore projects, skills, and contact information.`
 
     const keywords = getKeywords()
 
@@ -165,6 +165,20 @@ export function getWebsiteJsonLd() {
                     name: "Terminal Theme",
                     description: "Command-line interface for the tech-savvy",
                     url: `${baseUrl}/themes/terminal`
+                },
+                {
+                    "@type": "ListItem",
+                    position: 5,
+                    name: "Neumorphism Theme",
+                    description: "Soft UI design with subtle shadows and elegant depth",
+                    url: `${baseUrl}/themes/neuro`
+                },
+                {
+                    "@type": "ListItem",
+                    position: 6,
+                    name: "Neo-Brutalism Theme",
+                    description: "Bold design with thick borders and high contrast aesthetics",
+                    url: `${baseUrl}/themes/brutal`
                 }
             ]
         }
@@ -315,6 +329,18 @@ export function getSiteNavigationJsonLd() {
                         name: "Terminal Portfolio",
                         description: "Command-line interface for the tech-savvy",
                         url: `${baseUrl}/themes/terminal`
+                    },
+                    {
+                        "@type": "WebPage",
+                        name: "Neumorphism Portfolio",
+                        description: "Soft UI design with subtle shadows and elegant depth",
+                        url: `${baseUrl}/themes/neuro`
+                    },
+                    {
+                        "@type": "WebPage",
+                        name: "Neo-Brutalism Portfolio",
+                        description: "Bold design with thick borders and high contrast",
+                        url: `${baseUrl}/themes/brutal`
                     }
                 ]
             }
@@ -329,7 +355,9 @@ export function getThemeJsonLd(theme: string) {
         retro: "Interactive retro gaming portfolio featuring classic arcade games, achievements system, and 8-bit aesthetics showcasing full-stack development skills",
         code: "VS Code inspired portfolio theme with syntax highlighting, file explorer, and IDE interface demonstrating professional development environment",
         glass: "Modern glass morphism portfolio with frosted glass effects, smooth animations, and contemporary design showcasing frontend expertise",
-        terminal: "Command-line interface portfolio with interactive terminal commands, showcasing system administration and backend development skills"
+        terminal: "Command-line interface portfolio with interactive terminal commands, showcasing system administration and backend development skills",
+        neuro: "Neumorphism soft UI portfolio with subtle shadows, elegant depth, and modern design showcasing contemporary UI/UX expertise",
+        brutal: "Neo-brutalist portfolio with bold thick borders, high contrast design, and raw aesthetic showcasing modern frontend expertise and bold design choices"
     }
 
     return {
@@ -443,6 +471,18 @@ export function buildSitemap(): MetadataRoute.Sitemap {
                 changeFrequency: "weekly",
                 priority: 0.8,
             },
+            {
+                url: `${base}/themes/neuro`,
+                lastModified: now,
+                changeFrequency: "weekly",
+                priority: 0.8,
+            },
+            {
+                url: `${base}/themes/brutal`,
+                lastModified: now,
+                changeFrequency: "weekly",
+                priority: 0.8,
+            },
         ]
 
         return sitemap
@@ -495,7 +535,7 @@ export function getFAQJsonLd() {
                 name: "Can I view different portfolio themes?",
                 acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Yes! The portfolio features 4 interactive themes: Retro Gaming (8-bit arcade experience), VS Code (professional IDE interface), Glass Morphism (modern design), and Terminal (command-line interface). Each showcases the same projects in different experiences."
+                    text: "Yes! The portfolio features 6 interactive themes: Retro Gaming (8-bit arcade experience), VS Code (professional IDE interface), Glass Morphism (modern design), Terminal (command-line interface), Neumorphism (soft UI with subtle shadows), and Neo-Brutalism (bold design with thick borders). Each showcases the same projects in different experiences."
                 }
             },
             {
