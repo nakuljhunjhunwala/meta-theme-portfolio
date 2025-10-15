@@ -44,6 +44,14 @@ const themes = [
         color: "from-gray-400 to-gray-600",
         bestFor: "DevOps, system admins, CLI enthusiasts",
     },
+    {
+        id: "neuro",
+        name: "Neumorphism",
+        description: "Soft UI design with subtle shadows and elegant depth",
+        icon: "🎨",
+        color: "from-indigo-400 to-purple-600",
+        bestFor: "Modern design lovers, UI enthusiasts",
+    },
 ]
 
 const LandingPage = ({}: LandingPageProps) => {
@@ -195,7 +203,7 @@ const LandingPage = ({}: LandingPageProps) => {
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mb-12">
                         {themes.map((theme, index) => (
                             <motion.button
                                 key={theme.id}

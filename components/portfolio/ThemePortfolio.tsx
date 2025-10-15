@@ -5,6 +5,7 @@ import RetroPortfolio from "./themes/RetroPortfolio"
 import CodePortfolio from "./themes/CodePortfolio"
 import GlassPortfolio from "./themes/GlassPortfolio"
 import TerminalPortfolio from "./themes/TerminalPortfolio"
+import NeumorphismPortfolio from "./themes/NeumorphismPortfolio"
 import ThemeSwitcher from "./ThemeSwitcher"
 import JourneyManager from "@/components/storytelling/JourneyManager"
 import { motion } from "framer-motion"
@@ -54,6 +55,8 @@ export default function ThemePortfolio({ onBackToLanding }: ThemePortfolioProps)
         return <GlassPortfolio />
       case "terminal":
         return <TerminalPortfolio />
+      case "neuro":
+        return <NeumorphismPortfolio />
       default:
         return (
           <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">

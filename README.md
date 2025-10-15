@@ -7,6 +7,7 @@ An immersive, route-based portfolio that lets you explore my work in multiple ex
 - Code Editor interface
 - Terminal interface with real commands
 - Glass Morphism presentation
+- Neumorphism soft UI design
 
 Built for performance, SEO, and delight.
 
@@ -16,7 +17,7 @@ Built for performance, SEO, and delight.
 
 ## Features at a Glance
 
-- Multiple themed experiences (Retro, Code Editor, Glass, Terminal)
+- Multiple themed experiences (Retro, Code Editor, Glass, Terminal, Neumorphism)
 - Route-based navigation: direct links to theme pages
 - Smooth UX with native theme animations (no global double animations)
 - Hydration guard on first load to prevent mismatches
@@ -49,6 +50,7 @@ Built for performance, SEO, and delight.
 - `/themes/code` – Code Editor theme
 - `/themes/glass` – Glass Morphism theme
 - `/themes/terminal` – Terminal theme
+- `/themes/neuro` – Neumorphism theme
 
 Each theme route has canonical metadata and JSON-LD for rich results. Routes are pre-generated via `generateStaticParams` for fast loads.
 
@@ -86,6 +88,15 @@ neofetch
 joke
 clear
 ```
+
+## Neumorphism Theme
+Soft UI design with subtle depth:
+- Elegant soft shadows creating depth
+- Light background with subtle contrasts
+- Smooth hover and active states
+- Modern, clean aesthetic
+- Mobile responsive with touch-friendly elements
+- Professional presentation ideal for modern portfolios
 
 ## SEO & Rich Results
 

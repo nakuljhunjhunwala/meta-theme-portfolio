@@ -77,6 +77,15 @@ const config: Config = {
           black: "#000000",
           "gray-dark": "#1a1a1a",
         },
+        neuro: {
+          bg: "#dde1e7",
+          light: "#ffffff",
+          dark: "#a3b1c6",
+          accent: "#667eea",
+          success: "#48bb78",
+          warning: "#ed8936",
+          info: "#4299e1",
+        },
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],

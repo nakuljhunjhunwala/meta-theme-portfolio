@@ -1,7 +1,7 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
-export type ThemeType = "retro" | "code" | "glass" | "terminal"
+export type ThemeType = "retro" | "code" | "glass" | "terminal" | "neuro"
 export type JourneyType = "quick" | "guided" | "explore"
 
 interface UserPreferences {

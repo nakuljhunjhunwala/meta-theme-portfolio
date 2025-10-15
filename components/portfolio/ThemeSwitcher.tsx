@@ -13,6 +13,7 @@ const themes = [
     { id: "code", name: "VS Code", icon: "💻", color: "from-blue-400 to-blue-600" },
     { id: "glass", name: "Glass Morphism", icon: "✨", color: "from-purple-400 to-pink-600" },
     { id: "terminal", name: "Terminal", icon: "⚡", color: "from-gray-400 to-gray-600" },
+    { id: "neuro", name: "Neumorphism", icon: "🎨", color: "from-indigo-400 to-purple-600" },
 ]
 
 export default function ThemeSwitcher() {

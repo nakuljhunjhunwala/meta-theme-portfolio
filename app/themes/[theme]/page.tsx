@@ -4,7 +4,7 @@ import { ThemeView } from "./view"
 import { getMetadataBase, getThemeJsonLd, getThemeBreadcrumbJsonLd } from "@/lib/seo"
 import { personalInfo } from "@/constants/portfolio"
 
-const validThemes = ["retro", "code", "glass", "terminal"] as const
+const validThemes = ["retro", "code", "glass", "terminal", "neuro"] as const
 type ThemeParam = (typeof validThemes)[number]
 
 export function generateStaticParams() {
@@ -35,6 +35,11 @@ export async function generateMetadata({ params }: { params: Promise<{ theme: st
       title: `${personalInfo.name} – Terminal Command Portfolio`,
       description: "Command-line interface portfolio with interactive terminal commands, showcasing system administration, backend development, and CLI expertise.",
       keywords: ["terminal portfolio", "command line", "CLI interface", "system admin", "terminal commands", "backend development", "shell interface"]
+    },
+    neuro: {
+      title: `${personalInfo.name} – Neumorphism Soft UI Portfolio`,
+      description: "Modern neumorphism portfolio with soft shadows, subtle depth, and elegant design showcasing frontend expertise and contemporary UI/UX design.",
+      keywords: ["neumorphism", "soft ui", "neomorphism", "modern design", "soft shadows", "UI design", "frontend portfolio", "contemporary design"]
     }
   }
 
