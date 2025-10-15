@@ -8,6 +8,7 @@ An immersive, route-based portfolio that lets you explore my work in multiple ex
 - Terminal interface with real commands
 - Glass Morphism presentation
 - Neumorphism soft UI design
+- Neo-Brutalism bold design
 
 Built for performance, SEO, and delight.
 
@@ -17,7 +18,7 @@ Built for performance, SEO, and delight.
 
 ## Features at a Glance
 
-- Multiple themed experiences (Retro, Code Editor, Glass, Terminal, Neumorphism)
+- Multiple themed experiences (Retro, Code Editor, Glass, Terminal, Neumorphism, Neo-Brutalism)
 - Route-based navigation: direct links to theme pages
 - Smooth UX with native theme animations (no global double animations)
 - Hydration guard on first load to prevent mismatches
@@ -51,6 +52,7 @@ Built for performance, SEO, and delight.
 - `/themes/glass` – Glass Morphism theme
 - `/themes/terminal` – Terminal theme
 - `/themes/neuro` – Neumorphism theme
+- `/themes/brutal` – Neo-Brutalism theme
 
 Each theme route has canonical metadata and JSON-LD for rich results. Routes are pre-generated via `generateStaticParams` for fast loads.
 
@@ -97,6 +99,18 @@ Soft UI design with subtle depth:
 - Modern, clean aesthetic
 - Mobile responsive with touch-friendly elements
 - Professional presentation ideal for modern portfolios
+
+## Neo-Brutalism Theme
+Bold, raw design with high contrast:
+- Thick 4px black borders on all elements
+- Bold offset shadows (8px+) for depth
+- High contrast color palette (yellow, red, blue, green)
+- Magazine/collage-style layout
+- Sharp, professional animations
+- Sticky sidebar for consistent navigation
+- Typography-heavy presentation
+- Mobile responsive with touch-friendly interactions
+- Perfect for bold, creative portfolios
 
 ## SEO & Rich Results
 

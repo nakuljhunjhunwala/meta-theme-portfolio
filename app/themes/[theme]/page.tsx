@@ -4,7 +4,7 @@ import { ThemeView } from "./view"
 import { getMetadataBase, getThemeJsonLd, getThemeBreadcrumbJsonLd } from "@/lib/seo"
 import { personalInfo } from "@/constants/portfolio"
 
-const validThemes = ["retro", "code", "glass", "terminal", "neuro"] as const
+const validThemes = ["retro", "code", "glass", "terminal", "neuro", "brutal"] as const
 type ThemeParam = (typeof validThemes)[number]
 
 export function generateStaticParams() {
@@ -40,6 +40,11 @@ export async function generateMetadata({ params }: { params: Promise<{ theme: st
       title: `${personalInfo.name} – Neumorphism Soft UI Portfolio`,
       description: "Modern neumorphism portfolio with soft shadows, subtle depth, and elegant design showcasing frontend expertise and contemporary UI/UX design.",
       keywords: ["neumorphism", "soft ui", "neomorphism", "modern design", "soft shadows", "UI design", "frontend portfolio", "contemporary design"]
+    },
+    brutal: {
+      title: `${personalInfo.name} – Neo-Brutalism Portfolio`,
+      description: "Bold neo-brutalist portfolio with thick borders, high contrast design, and raw aesthetic showcasing modern frontend expertise and bold design choices.",
+      keywords: ["neo-brutalism", "brutalist design", "bold design", "high contrast", "modern portfolio", "UI design", "frontend portfolio", "contemporary design", "bold borders"]
     }
   }
 
