@@ -70,20 +70,6 @@ export const bucketList: BucketListItem[] = [
         icon: "🌌",
         color: "#818CF8"
     },
-    {
-        id: "mount-everest-base-camp",
-        title: "Trek to Mount Everest Base Camp",
-        completed: false,
-        icon: "⛰️",
-        color: "#94A3B8"
-    },
-    {
-        id: "hot-air-balloon",
-        title: "Hot Air Balloon Ride Over Cappadocia",
-        completed: false,
-        icon: "🎈",
-        color: "#F472B6"
-    },
 
     // =============================
     // PERSONAL & LIFE GOALS 💫
@@ -94,13 +80,6 @@ export const bucketList: BucketListItem[] = [
         completed: false,
         icon: "💕",
         color: "#FDE2E4"
-    },
-    {
-        id: "build-dream-home",
-        title: "Design & Build My Dream Smart Home",
-        completed: false,
-        icon: "🏡",
-        color: "#6EE7B7"
     },
     {
         id: "financial-freedom",
@@ -127,20 +106,6 @@ export const bucketList: BucketListItem[] = [
         icon: "🏃‍♂️",
         color: "#EF4444"
     },
-    {
-        id: "learn-martial-arts",
-        title: "Learn Martial Arts & Earn Black Belt",
-        completed: false,
-        icon: "🥋",
-        color: "#1F2937"
-    },
-    {
-        id: "summit-mountain",
-        title: "Summit a 6000m+ Peak in Himalayas",
-        completed: false,
-        icon: "🧗‍♂️",
-        color: "#64748B"
-    },
 
     // =============================
     // CAREER & TECHNOLOGY 🚀
@@ -158,13 +123,6 @@ export const bucketList: BucketListItem[] = [
         completed: false,
         icon: "💻",
         color: "#10B981"
-    },
-    {
-        id: "tech-conference-speaker",
-        title: "Speak at International Tech Conference",
-        completed: false,
-        icon: "🎤",
-        color: "#F59E0B"
     },
     {
         id: "ai-product-launch",
@@ -191,27 +149,6 @@ export const bucketList: BucketListItem[] = [
         icon: "🎹",
         color: "#C084FC"
     },
-    {
-        id: "learn-guitar",
-        title: "Learn Guitar & Write Original Music",
-        completed: false,
-        icon: "🎸",
-        color: "#F97316"
-    },
-    {
-        id: "photography-exhibition",
-        title: "Host Photography Exhibition of Travel Photos",
-        completed: false,
-        icon: "📸",
-        color: "#0EA5E9"
-    },
-    {
-        id: "write-book",
-        title: "Write & Publish a Technical Book",
-        completed: false,
-        icon: "📚",
-        color: "#8B5CF6"
-    },
 
     // =============================
     // SOCIAL IMPACT 🌱
@@ -222,13 +159,6 @@ export const bucketList: BucketListItem[] = [
         completed: false,
         icon: "🎓",
         color: "#22C55E"
-    },
-    {
-        id: "sustainability-project",
-        title: "Launch Environmental Sustainability Initiative",
-        completed: false,
-        icon: "♻️",
-        color: "#16A34A"
     }
 ]
 
@@ -587,46 +517,6 @@ export const travelExperiences: TravelExperience[] = [
         coordinates: { lat: 35.6762, lng: 139.6503 }
     },
     {
-        id: "iceland-future",
-        location: "Iceland",
-        country: "Iceland",
-        visited: false,
-        highlights: [
-            "Northern Lights (Aurora Borealis) viewing",
-            "Blue Lagoon geothermal spa experience",
-            "Dramatic waterfalls - Gullfoss, Seljalandsfoss",
-            "Golden Circle geological wonders",
-            "Midnight sun in summer, darkness in winter",
-            "Black sand beaches and volcanic landscapes",
-            "Whale watching and puffin colonies",
-            "Game of Thrones filming locations"
-        ],
-        rating: 0,
-        memories: "",
-        category: "nature",
-        coordinates: { lat: 64.9631, lng: -19.0208 }
-    },
-    {
-        id: "new-zealand-future",
-        location: "New Zealand",
-        country: "New Zealand",
-        visited: false,
-        highlights: [
-            "Lord of the Rings filming locations",
-            "Milford Sound fjords and waterfalls",
-            "Adventure capital Queenstown - bungee, skydiving",
-            "Maori culture and traditional performances",
-            "Pristine hiking trails and national parks",
-            "Geothermal wonders in Rotorua",
-            "Stunning landscapes from mountains to beaches",
-            "Hobbiton movie set tour"
-        ],
-        rating: 0,
-        memories: "",
-        category: "adventure",
-        coordinates: { lat: -40.9006, lng: 174.8860 }
-    },
-    {
         id: "maldives-future",
         location: "Maldives",
         country: "Maldives",
@@ -645,26 +535,6 @@ export const travelExperiences: TravelExperience[] = [
         memories: "",
         category: "nature",
         coordinates: { lat: 3.2028, lng: 73.2207 }
-    },
-    {
-        id: "norway-future",
-        location: "Norway",
-        country: "Norway",
-        visited: false,
-        highlights: [
-            "Spectacular Norwegian fjords - Geirangerfjord",
-            "Northern Lights viewing in Tromsø",
-            "Midnight sun and polar nights experience",
-            "Viking history museums and heritage",
-            "Scenic train rides - Flåm Railway",
-            "Pulpit Rock (Preikestolen) hiking",
-            "Colorful Bergen waterfront and fish market",
-            "Arctic wildlife and glacier tours"
-        ],
-        rating: 0,
-        memories: "",
-        category: "nature",
-        coordinates: { lat: 60.4720, lng: 8.4689 }
     },
 
     // Domestic Dream Destinations 🇮🇳
@@ -709,26 +579,6 @@ export const travelExperiences: TravelExperience[] = [
         coordinates: { lat: 34.1526, lng: 77.5770 }
     },
     {
-        id: "arunachal-pradesh-future",
-        location: "Arunachal Pradesh",
-        country: "India",
-        visited: false,
-        highlights: [
-            "Land of dawn-lit mountains - India's first sunrise",
-            "Pristine forests and biodiversity hotspot",
-            "Tawang Monastery - largest in India at 10,000 feet",
-            "26 major tribal cultures and traditional festivals",
-            "Ziro Valley UNESCO heritage site and Apatani tribe",
-            "Bumla Pass at 15,200 feet near China border",
-            "Sangti Valley winter home of black-necked cranes",
-            "Unexplored wilderness and authentic adventure"
-        ],
-        rating: 0,
-        memories: "",
-        category: "adventure",
-        coordinates: { lat: 28.2180, lng: 94.7278 }
-    },
-    {
         id: "goa-future",
         location: "Goa",
         country: "India",
@@ -767,26 +617,6 @@ export const travelExperiences: TravelExperience[] = [
         memories: "",
         category: "nature",
         coordinates: { lat: 11.7401, lng: 92.6586 }
-    },
-    {
-        id: "kerala-backwaters-future",
-        location: "Kerala",
-        country: "India",
-        visited: false,
-        highlights: [
-            "Serene backwaters houseboat cruise in Alleppey",
-            "Munnar tea plantations and misty hills",
-            "Ayurvedic treatments and wellness spas",
-            "Kathakali dance and traditional art forms",
-            "Periyar wildlife sanctuary elephant spotting",
-            "Pristine Varkala and Kovalam beaches",
-            "Delicious Kerala cuisine and seafood",
-            "God's Own Country natural beauty"
-        ],
-        rating: 0,
-        memories: "",
-        category: "nature",
-        coordinates: { lat: 10.8505, lng: 76.2711 }
     }
 ]
 
