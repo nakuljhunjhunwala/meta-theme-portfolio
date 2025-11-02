@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { usePortfolioStore } from "@/stores/portfolioStore"
 import { personalInfo, projects, getSkillsByCategory, experiences } from "@/constants/portfolio"
+import { getAvatarSrc, getProjectImageSrc, handleImageError } from "@/lib/utils"
 import { 
   bucketList, 
   travelExperiences, 
@@ -206,9 +207,10 @@ function HomeSection({ onNavigate }: { onNavigate: (id: SectionId) => void }) {
           className="w-24 h-24 sm:w-28 sm:h-28 md:w-40 md:h-40 mx-auto mb-4 md:mb-8 rounded-full backdrop-blur-xl bg-black/20 border border-white/30 flex items-center justify-center text-4xl md:text-6xl shadow-2xl overflow-hidden"
         >
           <img
-            src={personalInfo.avatar || "/placeholder.svg"}
+            src={getAvatarSrc(personalInfo.avatar)}
             alt={personalInfo.name}
             className="w-full h-full object-cover"
+            onError={(e) => handleImageError(e, '/placeholder.svg')}
           />
         </motion.div>
 
@@ -416,16 +418,13 @@ function ProjectsSection() {
               className="backdrop-blur-xl bg-black/20 border border-white/30 rounded-2xl overflow-hidden hover:bg-black/30 transition-all transform hover:scale-105 shadow-2xl"
             >
               <div className="aspect-video bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center text-4xl">
-                {project.media?.hero ? (
-                  <img
-                    src={project.media.hero}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-white/40">No preview</div>
-                )}
+                <img
+                  src={getProjectImageSrc(project.media?.hero)}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  onError={handleImageError}
+                />
               </div>
 
               <div className="p-6">

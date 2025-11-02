@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { usePortfolioStore } from "@/stores/portfolioStore"
 import { personalInfo, projects, technicalSkills, experiences } from "@/constants/portfolio"
+import { getAvatarSrc, handleImageError } from "@/lib/utils"
 import { 
   bucketList, 
   travelExperiences,
@@ -184,10 +185,11 @@ function HeroSection({ colors }: any) {
               }}
             >
               <img
-                src={personalInfo.avatar}
+                src={getAvatarSrc(personalInfo.avatar)}
                 alt={`${personalInfo.name} - ${personalInfo.title}`}
                 className="w-full h-full object-cover border-4 border-black"
                 loading="eager"
+                onError={(e) => handleImageError(e, '/placeholder.svg')}
               />
             </div>
             <motion.div

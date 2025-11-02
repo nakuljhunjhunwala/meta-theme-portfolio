@@ -28,6 +28,9 @@ export interface TravelExperience {
 // =============================================================================
 
 export const bucketList: BucketListItem[] = [
+    // =============================
+    // COMPLETED ACHIEVEMENTS ✅
+    // =============================
     {
         id: "spiti-valley-trip",
         title: "Explore Spiti Valley's Moon-like Landscape",
@@ -35,6 +38,10 @@ export const bucketList: BucketListItem[] = [
         icon: "🏔️",
         color: "#A78BFA"
     },
+
+    // =============================
+    // ADVENTURE & TRAVEL 🌍
+    // =============================
     {
         id: "ladakh-bike-trip",
         title: "Epic Ladakh Bike Trip on Royal Enfield",
@@ -43,6 +50,45 @@ export const bucketList: BucketListItem[] = [
         color: "#60A5FA"
     },
     {
+        id: "sky-diving",
+        title: "Experience Skydiving from 15,000 Feet",
+        completed: false,
+        icon: "🪂",
+        color: "#F59E0B"
+    },
+    {
+        id: "scuba-diving",
+        title: "Scuba Dive in the Great Barrier Reef",
+        completed: false,
+        icon: "🤿",
+        color: "#0EA5E9"
+    },
+    {
+        id: "northern-lights",
+        title: "Witness Northern Lights in Iceland",
+        completed: false,
+        icon: "🌌",
+        color: "#818CF8"
+    },
+    {
+        id: "mount-everest-base-camp",
+        title: "Trek to Mount Everest Base Camp",
+        completed: false,
+        icon: "⛰️",
+        color: "#94A3B8"
+    },
+    {
+        id: "hot-air-balloon",
+        title: "Hot Air Balloon Ride Over Cappadocia",
+        completed: false,
+        icon: "🎈",
+        color: "#F472B6"
+    },
+
+    // =============================
+    // PERSONAL & LIFE GOALS 💫
+    // =============================
+    {
         id: "fall-in-love",
         title: "Find True Love & Life Partner",
         completed: false,
@@ -50,53 +96,139 @@ export const bucketList: BucketListItem[] = [
         color: "#FDE2E4"
     },
     {
+        id: "build-dream-home",
+        title: "Design & Build My Dream Smart Home",
+        completed: false,
+        icon: "🏡",
+        color: "#6EE7B7"
+    },
+    {
+        id: "financial-freedom",
+        title: "Achieve Financial Independence",
+        completed: false,
+        icon: "💰",
+        color: "#FCD34D"
+    },
+
+    // =============================
+    // FITNESS & HEALTH 💪
+    // =============================
+    {
         id: "learn-swimming",
-        title: "Learn Swimming Properly",
+        title: "Master Swimming & Complete 1km Open Water",
         completed: false,
         icon: "🏊‍♂️",
         color: "#34D399"
     },
     {
-        id: "sky-diving",
-        title: "Experience Skydiving Adventure",
+        id: "fitness-marathon",
+        title: "Complete a Full Marathon (42km)",
         completed: false,
-        icon: "🪂",
-        color: "#F59E0B"
+        icon: "🏃‍♂️",
+        color: "#EF4444"
     },
     {
-        id: "scuba-diving",
-        title: "Explore Underwater World - Scuba Diving",
+        id: "learn-martial-arts",
+        title: "Learn Martial Arts & Earn Black Belt",
         completed: false,
-        icon: "🤿",
-        color: "#0EA5E9"
+        icon: "🥋",
+        color: "#1F2937"
     },
+    {
+        id: "summit-mountain",
+        title: "Summit a 6000m+ Peak in Himalayas",
+        completed: false,
+        icon: "🧗‍♂️",
+        color: "#64748B"
+    },
+
+    // =============================
+    // CAREER & TECHNOLOGY 🚀
+    // =============================
     {
         id: "tech-startup",
-        title: "Launch My Own Tech Startup",
+        title: "Launch My Own Successful Tech Startup",
         completed: false,
         icon: "🚀",
         color: "#8B5CF6"
     },
     {
         id: "open-source-contribution",
-        title: "Contribute to Major Open Source Project",
+        title: "Become Core Contributor to Major OSS Project",
         completed: false,
         icon: "💻",
         color: "#10B981"
     },
     {
+        id: "tech-conference-speaker",
+        title: "Speak at International Tech Conference",
+        completed: false,
+        icon: "🎤",
+        color: "#F59E0B"
+    },
+    {
+        id: "ai-product-launch",
+        title: "Build & Launch AI Product with 10K+ Users",
+        completed: false,
+        icon: "🤖",
+        color: "#06B6D4"
+    },
+    {
+        id: "mentor-developers",
+        title: "Mentor 100+ Aspiring Developers",
+        completed: false,
+        icon: "👨‍🏫",
+        color: "#84CC16"
+    },
+
+    // =============================
+    // CREATIVE & HOBBIES 🎨
+    // =============================
+    {
         id: "learn-piano",
-        title: "Master Playing Piano",
+        title: "Master Piano & Perform Publicly",
         completed: false,
         icon: "🎹",
         color: "#C084FC"
     },
     {
-        id: "fitness-marathon",
-        title: "Complete a Full Marathon",
+        id: "learn-guitar",
+        title: "Learn Guitar & Write Original Music",
         completed: false,
-        icon: "🏃‍♂️",
-        color: "#EF4444"
+        icon: "🎸",
+        color: "#F97316"
+    },
+    {
+        id: "photography-exhibition",
+        title: "Host Photography Exhibition of Travel Photos",
+        completed: false,
+        icon: "📸",
+        color: "#0EA5E9"
+    },
+    {
+        id: "write-book",
+        title: "Write & Publish a Technical Book",
+        completed: false,
+        icon: "📚",
+        color: "#8B5CF6"
+    },
+
+    // =============================
+    // SOCIAL IMPACT 🌱
+    // =============================
+    {
+        id: "teach-underprivileged",
+        title: "Teach Coding to Underprivileged Children",
+        completed: false,
+        icon: "🎓",
+        color: "#22C55E"
+    },
+    {
+        id: "sustainability-project",
+        title: "Launch Environmental Sustainability Initiative",
+        completed: false,
+        icon: "♻️",
+        color: "#16A34A"
     }
 ]
 
@@ -372,20 +504,22 @@ export const travelExperiences: TravelExperience[] = [
     // =============================
     // DREAM DESTINATIONS 🌟
     // =============================
+
+    // International Destinations 🌎
     {
         id: "dubai-future",
         location: "Dubai",
         country: "UAE",
         visited: false,
         highlights: [
-            "Burj Khalifa - world's tallest building",
+            "Burj Khalifa - world's tallest building at 828m",
             "Luxury shopping in Dubai Mall and Gold Souk",
-            "Desert safari with camel riding",
-            "Dubai Fountain show and Marina walks",
-            "Modern architecture meets Arabian culture",
-            "World-class dining and nightlife",
-            "Palm Jumeirah and Atlantis resort",
-            "Burj Al Arab iconic sail-shaped hotel"
+            "Desert safari with dune bashing and camel riding",
+            "Dubai Fountain spectacular light and water show",
+            "Modern futuristic architecture meets Arabian culture",
+            "World-class dining and Michelin-star restaurants",
+            "Palm Jumeirah artificial island and Atlantis resort",
+            "Burj Al Arab iconic 7-star sail-shaped hotel"
         ],
         rating: 0,
         memories: "",
@@ -398,14 +532,14 @@ export const travelExperiences: TravelExperience[] = [
         country: "France",
         visited: false,
         highlights: [
-            "Eiffel Tower and romantic Seine river",
-            "Louvre Museum and world-class art",
-            "Notre-Dame Cathedral and Gothic architecture",
-            "Champs-Élysées shopping and cafes",
-            "Montmartre and Sacré-Cœur Basilica",
-            "French cuisine and wine culture",
-            "Palace of Versailles day trip",
-            "Romantic walks along cobblestone streets"
+            "Eiffel Tower illumination and romantic Seine river cruises",
+            "Louvre Museum with Mona Lisa and world-class art",
+            "Notre-Dame Cathedral and stunning Gothic architecture",
+            "Champs-Élysées luxury shopping and sidewalk cafes",
+            "Montmartre artist district and Sacré-Cœur Basilica",
+            "Authentic French cuisine, wine, and croissants",
+            "Palace of Versailles opulent gardens and Hall of Mirrors",
+            "Romantic walks along charming cobblestone streets"
         ],
         rating: 0,
         memories: "",
@@ -413,19 +547,141 @@ export const travelExperiences: TravelExperience[] = [
         coordinates: { lat: 48.8566, lng: 2.3522 }
     },
     {
+        id: "switzerland-future",
+        location: "Switzerland",
+        country: "Switzerland",
+        visited: false,
+        highlights: [
+            "Majestic Swiss Alps and snow-capped mountains",
+            "Scenic train rides on Glacier Express",
+            "Interlaken adventure sports capital",
+            "Crystal clear lakes - Geneva, Lucerne, Zurich",
+            "Swiss chocolate factories and cheese fondue",
+            "Jungfraujoch - Top of Europe at 3,454m",
+            "Pristine villages and chalets",
+            "World-class skiing and hiking trails"
+        ],
+        rating: 0,
+        memories: "",
+        category: "nature",
+        coordinates: { lat: 46.8182, lng: 8.2275 }
+    },
+    {
+        id: "japan-future",
+        location: "Tokyo & Kyoto",
+        country: "Japan",
+        visited: false,
+        highlights: [
+            "Cherry blossoms in spring and fall foliage",
+            "Ancient temples and modern skyscrapers coexist",
+            "Mount Fuji views and hot spring onsens",
+            "Authentic sushi, ramen, and Japanese cuisine",
+            "Bullet train (Shinkansen) experience",
+            "Traditional geisha districts in Kyoto",
+            "Shibuya crossing and neon-lit Tokyo nights",
+            "Rich samurai history and zen gardens"
+        ],
+        rating: 0,
+        memories: "",
+        category: "cultural",
+        coordinates: { lat: 35.6762, lng: 139.6503 }
+    },
+    {
+        id: "iceland-future",
+        location: "Iceland",
+        country: "Iceland",
+        visited: false,
+        highlights: [
+            "Northern Lights (Aurora Borealis) viewing",
+            "Blue Lagoon geothermal spa experience",
+            "Dramatic waterfalls - Gullfoss, Seljalandsfoss",
+            "Golden Circle geological wonders",
+            "Midnight sun in summer, darkness in winter",
+            "Black sand beaches and volcanic landscapes",
+            "Whale watching and puffin colonies",
+            "Game of Thrones filming locations"
+        ],
+        rating: 0,
+        memories: "",
+        category: "nature",
+        coordinates: { lat: 64.9631, lng: -19.0208 }
+    },
+    {
+        id: "new-zealand-future",
+        location: "New Zealand",
+        country: "New Zealand",
+        visited: false,
+        highlights: [
+            "Lord of the Rings filming locations",
+            "Milford Sound fjords and waterfalls",
+            "Adventure capital Queenstown - bungee, skydiving",
+            "Maori culture and traditional performances",
+            "Pristine hiking trails and national parks",
+            "Geothermal wonders in Rotorua",
+            "Stunning landscapes from mountains to beaches",
+            "Hobbiton movie set tour"
+        ],
+        rating: 0,
+        memories: "",
+        category: "adventure",
+        coordinates: { lat: -40.9006, lng: 174.8860 }
+    },
+    {
+        id: "maldives-future",
+        location: "Maldives",
+        country: "Maldives",
+        visited: false,
+        highlights: [
+            "Overwater bungalows and luxury resorts",
+            "Crystal clear turquoise waters and coral reefs",
+            "World-class snorkeling and scuba diving",
+            "Swimming with manta rays and whale sharks",
+            "Private island paradises and pristine beaches",
+            "Bioluminescent plankton beaches at night",
+            "Romantic sunset cruises on traditional dhoni",
+            "Fresh seafood and tropical island cuisine"
+        ],
+        rating: 0,
+        memories: "",
+        category: "nature",
+        coordinates: { lat: 3.2028, lng: 73.2207 }
+    },
+    {
+        id: "norway-future",
+        location: "Norway",
+        country: "Norway",
+        visited: false,
+        highlights: [
+            "Spectacular Norwegian fjords - Geirangerfjord",
+            "Northern Lights viewing in Tromsø",
+            "Midnight sun and polar nights experience",
+            "Viking history museums and heritage",
+            "Scenic train rides - Flåm Railway",
+            "Pulpit Rock (Preikestolen) hiking",
+            "Colorful Bergen waterfront and fish market",
+            "Arctic wildlife and glacier tours"
+        ],
+        rating: 0,
+        memories: "",
+        category: "nature",
+        coordinates: { lat: 60.4720, lng: 8.4689 }
+    },
+
+    // Domestic Dream Destinations 🇮🇳
+    {
         id: "meghalaya-future",
         location: "Meghalaya",
         country: "India",
         visited: false,
         highlights: [
-            "Living root bridges in Cherrapunji",
+            "Living root bridges in Cherrapunji (bioengineering marvel)",
             "Cleanest village in Asia - Mawlynnong",
-            "Crystal clear Umngot river in Dawki",
-            "Wettest place on earth - unique ecosystem",
+            "Crystal clear Umngot river in Dawki (boat appears floating)",
+            "Wettest place on earth - unique rainforest ecosystem",
             "Double-decker living root bridge trek",
-            "Khasi and Jaintia tribal culture",
-            "Limestone caves and waterfalls",
-            "Scotland of the East landscapes"
+            "Khasi and Jaintia tribal culture and traditions",
+            "Mystical limestone caves and spectacular waterfalls",
+            "Scotland of the East rolling hills landscape"
         ],
         rating: 0,
         memories: "",
@@ -438,14 +694,14 @@ export const travelExperiences: TravelExperience[] = [
         country: "India",
         visited: false,
         highlights: [
-            "World's highest motorable roads",
-            "Pangong Tso and Tso Moriri pristine lakes",
-            "Buddhist monasteries - Hemis, Thiksey, Diskit",
-            "Nubra Valley sand dunes and double-humped camels",
-            "Magnetic Hill and gravity-defying phenomena",
-            "High altitude desert and barren mountains",
-            "Adventure biking on Khardung La Pass",
-            "Tibetan Buddhist culture and traditions"
+            "World's highest motorable roads - Khardung La at 5,359m",
+            "Pangong Tso blue lake and Tso Moriri pristine waters",
+            "Ancient Buddhist monasteries - Hemis, Thiksey, Diskit",
+            "Nubra Valley sand dunes and rare double-humped Bactrian camels",
+            "Magnetic Hill gravity-defying phenomenon",
+            "High altitude cold desert and barren mountain beauty",
+            "Royal Enfield bike adventure on winding mountain roads",
+            "Rich Tibetan Buddhist culture and prayer flags"
         ],
         rating: 0,
         memories: "",
@@ -458,14 +714,14 @@ export const travelExperiences: TravelExperience[] = [
         country: "India",
         visited: false,
         highlights: [
-            "Land of dawn-lit mountains",
+            "Land of dawn-lit mountains - India's first sunrise",
             "Pristine forests and biodiversity hotspot",
-            "Tawang Monastery - largest in India",
-            "Tribal cultures and traditional festivals",
-            "Ziro Valley and Apatani tribe",
-            "Bumla Pass near China border",
-            "Sangti Valley and black-necked cranes",
-            "Unexplored wilderness and adventure"
+            "Tawang Monastery - largest in India at 10,000 feet",
+            "26 major tribal cultures and traditional festivals",
+            "Ziro Valley UNESCO heritage site and Apatani tribe",
+            "Bumla Pass at 15,200 feet near China border",
+            "Sangti Valley winter home of black-necked cranes",
+            "Unexplored wilderness and authentic adventure"
         ],
         rating: 0,
         memories: "",
@@ -478,19 +734,59 @@ export const travelExperiences: TravelExperience[] = [
         country: "India",
         visited: false,
         highlights: [
-            "Beautiful beaches - Baga, Calangute, Anjuna",
-            "Portuguese heritage and colonial architecture",
-            "Vibrant nightlife and beach parties",
-            "Water sports and marine adventures",
-            "Delicious seafood and Goan cuisine",
-            "Historic churches and temples",
-            "Spice plantations and cashew farms",
-            "Relaxed coastal lifestyle and festivities"
+            "Beautiful beaches - Baga, Calangute, Anjuna, Palolem",
+            "Portuguese colonial heritage and colorful architecture",
+            "Vibrant nightlife, beach parties, and trance music",
+            "Water sports - parasailing, jet skiing, banana boat",
+            "Delicious seafood, Goan fish curry, and feni liquor",
+            "Historic UNESCO churches - Basilica of Bom Jesus",
+            "Spice plantations tours and cashew farms",
+            "Relaxed coastal hippie culture and beach shacks"
         ],
         rating: 0,
         memories: "",
         category: "nature",
         coordinates: { lat: 15.2993, lng: 74.1240 }
+    },
+    {
+        id: "andaman-nicobar-future",
+        location: "Andaman & Nicobar Islands",
+        country: "India",
+        visited: false,
+        highlights: [
+            "Pristine Radhanagar Beach (Asia's best beach)",
+            "Underwater coral reefs and marine biodiversity",
+            "Scuba diving and snorkeling in crystal waters",
+            "Cellular Jail historical significance",
+            "Bioluminescent beach at Havelock Island",
+            "Mangrove kayaking and limestone caves",
+            "Untouched islands and exotic beaches",
+            "Sea walking and water sports paradise"
+        ],
+        rating: 0,
+        memories: "",
+        category: "nature",
+        coordinates: { lat: 11.7401, lng: 92.6586 }
+    },
+    {
+        id: "kerala-backwaters-future",
+        location: "Kerala",
+        country: "India",
+        visited: false,
+        highlights: [
+            "Serene backwaters houseboat cruise in Alleppey",
+            "Munnar tea plantations and misty hills",
+            "Ayurvedic treatments and wellness spas",
+            "Kathakali dance and traditional art forms",
+            "Periyar wildlife sanctuary elephant spotting",
+            "Pristine Varkala and Kovalam beaches",
+            "Delicious Kerala cuisine and seafood",
+            "God's Own Country natural beauty"
+        ],
+        rating: 0,
+        memories: "",
+        category: "nature",
+        coordinates: { lat: 10.8505, lng: 76.2711 }
     }
 ]
 
@@ -514,7 +810,7 @@ export const getDreamDestinations = () => {
 export const getTotalTravelStats = () => {
     const visited = getVisitedPlaces().length
     const planned = getDreamDestinations().length
-    const countries = [...new Set(travelExperiences.map(t => t.country))].length
+    const countries = Array.from(new Set(travelExperiences.map(t => t.country))).length
 
     return {
         placesVisited: visited,

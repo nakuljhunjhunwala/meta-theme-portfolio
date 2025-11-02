@@ -162,14 +162,14 @@ export interface Certification {
 
 export const personalInfo: PersonalInfo = {
   name: "Nakul Jhunjhunwala",
-  title: "Senior Full-Stack Developer & AI Integration Specialist",
-  tagline: "Building intelligent, user-centric applications with cutting-edge AI and modern cloud architecture",
+  title: "Senior Full-Stack Developer & AI-Driven Development Specialist",
+  tagline: "Pioneering AI-driven development to achieve 80-90% productivity gains while building scalable, user-centric applications",
   bio: {
-    short: "5+ year Full-Stack Developer specializing in AI-powered applications, multi-provider integrations, and scalable cloud architecture.",
+    short: "4.6+ year Full-Stack Developer specializing in AI-driven development, achieving 80-90% productivity increases and reducing development cycles from weeks to days.",
     medium:
-      "Experienced full-stack developer with 5+ years specializing in React, Node.js, AI integrations, and cloud architecture. Expert in building production-grade applications with multi-provider AI systems, real-time notifications, and enterprise-level security. Passionate about creating intelligent, user-centric solutions that leverage cutting-edge technologies.",
+      "Passionate full-stack developer with 4.6+ years of experience in AI-driven development, modern web technologies, and cloud architecture. Pioneered AI development tool adoption achieving 80-90% productivity gains, reducing 4-week cycles to 2-3 days. Expert in React, Node.js, NestJS, microservices architecture, and enterprise-scale solutions. Google Cloud Professional & Associate Certified architect with proven track record of 100% on-time delivery and technical leadership.",
     detailed:
-      "I'm a senior full-stack developer with over 5 years of experience building production-grade web applications, AI-powered systems, and scalable cloud infrastructure. My expertise spans modern JavaScript ecosystems, multi-provider AI integrations, real-time notification systems, and enterprise security implementations. I've successfully delivered complex projects including AI story generation platforms, multi-tenant notification frameworks, and sophisticated OAuth integrations. I'm passionate about creating maintainable, secure code and leveraging AI to build intelligent user experiences that solve real-world problems.",
+      "I'm a senior full-stack developer with 4.6+ years of experience revolutionizing development workflows through AI-driven tools and modern web technologies. I pioneered AI development adoption at UnicoConnect, achieving 80-90% productivity increases and compressing 4-week development cycles into 2-3 days. My expertise spans the entire stack: React, Vue.js, Node.js, NestJS, TypeScript, microservices architecture, and cloud platforms (AWS, GCP). I've architected enterprise-scale notification frameworks processing high-throughput communications, built AI-powered financial analysis platforms, and created innovative portfolio experiences. As a Google Cloud Professional & Associate Certified architect, I combine technical excellence with business impact, maintaining a 100% on-time delivery record while leading teams through AI transformation. I'm passionate about leveraging cutting-edge AI tools to build intelligent, scalable solutions that solve real-world problems.",
   },
   location: "Mumbai, India",
   avatar: "/profile_photo.jpg",
@@ -258,12 +258,23 @@ export const personalInfo: PersonalInfo = {
 }
 
 export const technicalSkills: TechnicalSkill[] = [
-  // Frontend
+  // Frontend & Languages
+  {
+    name: "JavaScript",
+    category: "frontend",
+    proficiency: 95,
+    yearsExperience: 4.6,
+    icon: "javascript",
+    color: "#F7DF1E",
+    description: "Expert-level JavaScript (ES6+) with deep understanding of async/await, closures, prototypes, and modern language features",
+    projects: ["storytime-calendar", "digicard", "b2b-api-system", "nlp-chatbot", "unicoconnect-backend"],
+    lastUsed: "2024-12",
+  },
   {
     name: "React.js",
     category: "frontend",
     proficiency: 95,
-    yearsExperience: 5,
+    yearsExperience: 4.6,
     icon: "react",
     color: "#61DAFB",
     description: "Advanced React development with hooks, context, custom components, and modern patterns",
@@ -274,7 +285,7 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "TypeScript",
     category: "frontend",
     proficiency: 92,
-    yearsExperience: 4,
+    yearsExperience: 4.6,
     icon: "typescript",
     color: "#3178C6",
     description: "Advanced TypeScript with complex type systems, generics, and enterprise-level type safety",
@@ -320,7 +331,7 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Node.js",
     category: "backend",
     proficiency: 95,
-    yearsExperience: 5,
+    yearsExperience: 4.6,
     icon: "nodejs",
     color: "#339933",
     description: "Advanced Node.js development with microservices, async patterns, and performance optimization",
@@ -328,10 +339,21 @@ export const technicalSkills: TechnicalSkill[] = [
     lastUsed: "2024-12",
   },
   {
+    name: "NestJS",
+    category: "backend",
+    proficiency: 90,
+    yearsExperience: 1.5,
+    icon: "nestjs",
+    color: "#E0234E",
+    description: "Enterprise-grade backend framework with TypeScript, dependency injection, and microservices architecture for scalable notification systems",
+    projects: ["unicoconnect-notification-system", "enterprise-backend-projects"],
+    lastUsed: "2024-12",
+  },
+  {
     name: "Express.js",
     category: "backend",
     proficiency: 92,
-    yearsExperience: 5,
+    yearsExperience: 4.6,
     icon: "express",
     color: "#000000",
     description: "Enterprise-level API development with middleware, authentication, and scalable architecture",
@@ -371,6 +393,28 @@ export const technicalSkills: TechnicalSkill[] = [
     projects: ["storytime-calendar", "ai-content-generation"],
     lastUsed: "2024-12",
   },
+  {
+    name: "RESTful APIs",
+    category: "backend",
+    proficiency: 95,
+    yearsExperience: 4.6,
+    icon: "api",
+    color: "#009688",
+    description: "Expert in designing and implementing RESTful API architectures with proper HTTP methods, status codes, and API versioning",
+    projects: ["storytime-calendar", "b2b-api-system", "digicard", "unicoconnect-backend"],
+    lastUsed: "2024-12",
+  },
+  {
+    name: "Microservices Architecture",
+    category: "backend",
+    proficiency: 88,
+    yearsExperience: 2.5,
+    icon: "microservices",
+    color: "#FF6B6B",
+    description: "Design and implementation of microservices-based architectures with service isolation, API gateways, and inter-service communication",
+    projects: ["unicoconnect-notification-system", "prosperoware-integrations", "scalable-backend-systems"],
+    lastUsed: "2024-12",
+  },
 
   // Database
   {
@@ -388,22 +432,77 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "MongoDB",
     category: "database",
     proficiency: 88,
-    yearsExperience: 4,
+    yearsExperience: 4.6,
     icon: "mongodb",
     color: "#47A248",
     description: "Document modeling and database design with Mongoose and aggregation pipelines",
-    projects: ["b2b-api-system", "digicard"],
-    lastUsed: "2024-07",
+    projects: ["b2b-api-system", "digicard", "nlp-chatbot"],
+    lastUsed: "2024-12",
   },
   {
     name: "Redis",
     category: "database",
-    proficiency: 82,
-    yearsExperience: 2,
+    proficiency: 85,
+    yearsExperience: 1.5,
     icon: "redis",
     color: "#DC382D",
-    description: "Caching strategies, session management, and real-time data storage",
+    description: "High-performance caching, session management, queue systems for enterprise notification frameworks",
     projects: ["storytime-calendar", "unicoconnect-notification-system"],
+    lastUsed: "2024-12",
+  },
+  {
+    name: "DynamoDB",
+    category: "database",
+    proficiency: 78,
+    yearsExperience: 2,
+    icon: "dynamodb",
+    color: "#4053D6",
+    description: "NoSQL database design with AWS DynamoDB for serverless applications and high-throughput workloads",
+    projects: ["prosperoware-integrations", "aws-serverless-apps"],
+    lastUsed: "2023-06",
+  },
+  {
+    name: "MySQL",
+    category: "database",
+    proficiency: 82,
+    yearsExperience: 3,
+    icon: "mysql",
+    color: "#4479A1",
+    description: "Relational database design, query optimization, and data integrity management",
+    projects: ["enterprise-applications", "backend-systems"],
+    lastUsed: "2024-06",
+  },
+  {
+    name: "Elasticsearch",
+    category: "database",
+    proficiency: 75,
+    yearsExperience: 1.5,
+    icon: "elasticsearch",
+    color: "#005571",
+    description: "Full-text search, log analytics, and real-time data indexing for enterprise applications",
+    projects: ["prosperoware-integrations", "search-systems"],
+    lastUsed: "2023-06",
+  },
+  {
+    name: "Firebase",
+    category: "database",
+    proficiency: 80,
+    yearsExperience: 2,
+    icon: "firebase",
+    color: "#FFCA28",
+    description: "Real-time database, authentication, and cloud functions for rapid application development",
+    projects: ["real-time-apps", "mobile-backend"],
+    lastUsed: "2023-12",
+  },
+  {
+    name: "SQL",
+    category: "database",
+    proficiency: 85,
+    yearsExperience: 4.6,
+    icon: "sql",
+    color: "#00758F",
+    description: "Advanced SQL query writing, database design, optimization, and data manipulation across PostgreSQL and MySQL",
+    projects: ["storytime-calendar", "enterprise-applications", "backend-systems"],
     lastUsed: "2024-12",
   },
 
@@ -442,16 +541,71 @@ export const technicalSkills: TechnicalSkill[] = [
     projects: ["prosperoware-integrations", "b2b-api-system"],
     lastUsed: "2023-06",
   },
-  // Development Tools
+  // Development Tools & AI
+  {
+    name: "AI-Driven Development",
+    category: "ai",
+    proficiency: 95,
+    yearsExperience: 1.5,
+    icon: "ai-tools",
+    color: "#10A37F",
+    description: "Pioneered AI development tool adoption (Cursor IDE, code generation) achieving 80-90% productivity gains and reducing development cycles from 4 weeks to 2-3 days",
+    projects: ["unicoconnect-ai-transformation", "rapid-development-projects"],
+    lastUsed: "2024-12",
+  },
   {
     name: "Git",
     category: "devops",
     proficiency: 92,
-    yearsExperience: 5,
+    yearsExperience: 4.6,
     icon: "git",
     color: "#F05032",
     description: "Advanced version control, branching strategies, and collaborative development workflows",
     projects: ["all-projects"],
+    lastUsed: "2024-12",
+  },
+  {
+    name: "CI/CD",
+    category: "devops",
+    proficiency: 82,
+    yearsExperience: 3,
+    icon: "cicd",
+    color: "#2088FF",
+    description: "Continuous integration and deployment pipelines with automated testing and release management",
+    projects: ["enterprise-applications", "automated-deployments"],
+    lastUsed: "2024-12",
+  },
+  {
+    name: "Serverless Architecture",
+    category: "cloud",
+    proficiency: 85,
+    yearsExperience: 2.5,
+    icon: "serverless",
+    color: "#FD5750",
+    description: "AWS Lambda, serverless frameworks, and event-driven architectures for cost-effective scalability",
+    projects: ["prosperoware-integrations", "aws-lambda-functions"],
+    lastUsed: "2023-06",
+  },
+  {
+    name: "Agile/Scrum",
+    category: "other",
+    proficiency: 90,
+    yearsExperience: 3.5,
+    icon: "agile",
+    color: "#0052CC",
+    description: "Expert in Agile methodologies, sprint planning, daily standups, retrospectives, and delivering in iterative cycles with 95% on-time success rate",
+    projects: ["prosperoware-integrations", "codeflip-projects", "unicoconnect-development"],
+    lastUsed: "2024-12",
+  },
+  {
+    name: "Performance Optimization",
+    category: "other",
+    proficiency: 88,
+    yearsExperience: 4,
+    icon: "performance",
+    color: "#00D084",
+    description: "Code optimization, database query tuning, caching strategies, and application performance monitoring",
+    projects: ["prosperoware-integrations", "unicoconnect-backend", "storytime-calendar"],
     lastUsed: "2024-12",
   }
 ]
@@ -574,7 +728,8 @@ export const projects: Project[] = [
         "/slack-integration.png",
         "/calendar-sync.png",
         "/security-settings.png",
-      ]
+      ],
+      demo: "https://github.com/nakuljhunjhunwala/StoryTimeCalendar#demo"
     },
     links: {
       github: "https://github.com/nakuljhunjhunwala/StoryTimeCalendar"
@@ -621,7 +776,7 @@ export const projects: Project[] = [
       "summary": "A comprehensive full-stack application that combines PDF statement processing with advanced AI transaction categorization, intelligent MCC discovery, and personalized credit card recommendations. Features Google Gemini AI integration, background job processing with real-time updates, secure session management, and advanced spending pattern analysis with savings calculations.",
       "detailed": "The Credit Card Recommendation System represents a breakthrough in financial optimization technology. It seamlessly processes PDF credit card statements using advanced text extraction, leverages Google Gemini AI for intelligent transaction categorization with 90%+ accuracy, and employs sophisticated MCC (Merchant Category Code) discovery through fuzzy matching algorithms. The system features a self-improving database that gets smarter with each processed statement, background job processing with real-time progress updates, and generates personalized credit card recommendations with detailed savings analysis. The architecture includes secure session management, comprehensive error handling, rate limiting, and production-ready deployment configurations."
     },
-    "category": "fintech-ai-platform",
+    "category": "ai-platform",
     "status": "completed",
     "featured": true,
     "techStack": [
@@ -755,7 +910,7 @@ export const projects: Project[] = [
     },
     "links": {
       "github": "https://github.com/nakuljhunjhunwala/CreditCardSuggestor",
-      "documentation": "/credit-card-api-docs"
+      "caseStudy": "https://github.com/nakuljhunjhunwala/CreditCardSuggestor#readme"
     },
     "timeline": {
       "start": "2024-09-01",
@@ -799,7 +954,7 @@ export const projects: Project[] = [
       "summary": "An innovative Next.js portfolio that transcends traditional presentation formats by offering multiple interactive experiences. Features a fully functional retro arcade with 9 playable games, a realistic code editor interface, an interactive terminal with real commands, and a stunning glass morphism theme. Built with performance, SEO optimization, and accessibility in mind while delivering unprecedented user engagement through gamification and interactive storytelling.",
       "detailed": "The Meta Portfolio represents a paradigm shift in personal branding and portfolio presentation. It combines cutting-edge web technologies with creative interactive experiences to create an unforgettable user journey. The retro arcade theme features fully playable games including Breakout, Snake, Tetris, Space Invaders, and more, all built with HTML5 Canvas and optimized performance. The code editor theme presents information in a familiar IDE interface, while the terminal theme offers a fully functional command-line experience with real commands. The system includes advanced SEO optimization with JSON-LD structured data, route-based navigation with SSG, persistent user preferences, and comprehensive accessibility features."
     },
-    "category": "interactive-portfolio",
+    "category": "web-app",
     "status": "completed",
     "featured": true,
     "techStack": [
@@ -931,12 +1086,7 @@ export const projects: Project[] = [
     "links": {
       "live": "https://nakuljhunjhunwala.in",
       "github": "https://github.com/nakuljhunjhunwala/portfolio",
-      "themes": {
-        "retro": "https://nakuljhunjhunwala.in/themes/retro",
-        "code": "https://nakuljhunjhunwala.in/themes/code",
-        "terminal": "https://nakuljhunjhunwala.in/themes/terminal",
-        "glass": "https://nakuljhunjhunwala.in/themes/glass"
-      }
+      "caseStudy": "https://github.com/nakuljhunjhunwala/portfolio#themes"
     },
     "timeline": {
       "start": "2024-10-01",
@@ -970,44 +1120,6 @@ export const projects: Project[] = [
       "author": "Design Review",
       "role": "Senior UX Engineer",
       "company": "Industry Expert"
-    },
-    "gameDetails": {
-      "breakout": {
-        "description": "Classic brick-breaking game with paddle physics and power-ups",
-        "controls": "Arrow keys to move paddle, space to launch ball"
-      },
-      "snake": {
-        "description": "Traditional snake game with growing mechanics and collision detection",
-        "controls": "Arrow keys for direction, space to start/restart"
-      },
-      "tetris": {
-        "description": "Full Tetris implementation with line clearing and increasing speed",
-        "controls": "Arrow keys to move/rotate, space to drop"
-      },
-      "spaceInvaders": {
-        "description": "Classic space shooter with enemy waves and power-ups",
-        "controls": "Arrow keys to move, space to shoot"
-      },
-      "pong": {
-        "description": "Two-player Pong with AI opponent and physics",
-        "controls": "Arrow keys to move paddle"
-      },
-      "flappyBird": {
-        "description": "Bird flying game with obstacle avoidance mechanics",
-        "controls": "Space to flap wings"
-      },
-      "dinoGame": {
-        "description": "Chrome dinosaur-style endless runner",
-        "controls": "Space to jump over obstacles"
-      },
-      "roadRush": {
-        "description": "Car racing game with traffic dodging mechanics",
-        "controls": "Arrow keys to steer and accelerate"
-      },
-      "ticTacToe": {
-        "description": "Strategic tic-tac-toe with AI opponent",
-        "controls": "Click to place markers"
-      }
     }
   },
   {
@@ -1073,6 +1185,7 @@ export const projects: Project[] = [
     },
     links: {
       github: "https://github.com/nakuljhunjhunwala/b2b-model-api",
+      caseStudy: "https://github.com/nakuljhunjhunwala/b2b-model-api#readme"
     },
     timeline: {
       start: "2021-03",
@@ -1095,12 +1208,12 @@ export const projects: Project[] = [
       summary:
         "Developed an intelligent NLP chatbot using Wit.ai integrated with WhatsApp, providing informative responses, entertainment features, and context-aware holiday information.",
       detailed:
-        "A sophisticated chatbot that combines natural language processing with WhatsApp integration to deliver personalized user experiences. The bot provides weather information, location-based services, entertainment content, and context-aware responses including upcoming holiday information based on user location.",
+        "A sophisticated chatbot that combines natural language processing with WhatsApp integration to deliver personalized user experiences. The bot provides weather information, location-based services, entertainment content, and context-aware responses including upcoming holiday information based on user location. Published as an NPM package with 500+ downloads.",
     },
     category: "ml",
     status: "completed",
     featured: true,
-    techStack: ["Node.js", "Wit.ai", "WhatsApp Web.js", "Multiple APIs"],
+    techStack: ["Node.js", "Wit.ai", "WhatsApp Web.js", "Multiple APIs", "Natural Language Processing"],
     features: [
       {
         title: "Natural Language Processing",
@@ -1167,6 +1280,109 @@ export const projects: Project[] = [
       "Integrated multiple APIs for comprehensive functionality",
       "Built robust WhatsApp integration",
     ],
+  },
+  {
+    id: "digicard",
+    title: "DigiCard - Digital Business Card Platform",
+    subtitle: "User-friendly digital card creation and sharing platform",
+    description: {
+      elevator: "Effortless creation and sharing of personalized digital business cards for streamlined professional connections",
+      summary:
+        "Built a comprehensive digital business card platform using ReactJS, ExpressJS, and MongoDB for creating and sharing professional e-cards. Features an intuitive interface that simplifies the creation process, making it accessible for everyone to create personalized digital cards.",
+      detailed:
+        "DigiCard is a modern digital business card platform that revolutionizes how professionals share their information. Built with the MERN stack, it provides a seamless experience for creating, customizing, and sharing digital cards that showcase GitHub profiles, contact information, social links, and professional details. The platform features an intuitive card creation interface, real-time preview, responsive design for all devices, and instant sharing capabilities. Future enhancements include customizable card templates for further personalization and increased user engagement.",
+    },
+    category: "web-app",
+    status: "completed",
+    featured: true,
+    techStack: ["React.js", "Express.js", "Node.js", "MongoDB", "JavaScript", "REST APIs", "Responsive Design"],
+    features: [
+      {
+        title: "Comprehensive Professional Information",
+        description: "Digital cards showcase GitHub profiles, phone numbers, email, social media links, and professional details",
+        impact: "Streamlines professional networking by consolidating all contact information in one place",
+      },
+      {
+        title: "Intuitive Card Creation Interface",
+        description: "Simplified creation process with user-friendly interface accessible to everyone",
+        impact: "Enables anyone to create professional digital cards without technical expertise",
+      },
+      {
+        title: "Real-Time Preview & Customization",
+        description: "Live preview of card design with instant updates during editing",
+        impact: "Enhanced user experience with immediate visual feedback",
+      },
+      {
+        title: "Instant Sharing Capabilities",
+        description: "Easy sharing of digital cards via links, QR codes, and social media",
+        impact: "Facilitates quick professional connections and networking",
+      },
+      {
+        title: "Responsive Design",
+        description: "Fully responsive cards that look great on all devices",
+        impact: "Ensures consistent professional presentation across mobile, tablet, and desktop",
+      },
+    ],
+    challenges: [
+      {
+        title: "User-Friendly Design",
+        description: "Creating an interface simple enough for non-technical users while powerful enough for customization",
+        solution: "Implemented intuitive drag-and-drop interface with smart defaults and progressive disclosure of advanced features",
+      },
+      {
+        title: "Data Management",
+        description: "Efficiently storing and retrieving card data with quick load times",
+        solution: "Optimized MongoDB schemas with proper indexing and implemented caching strategies",
+      },
+      {
+        title: "Cross-Platform Compatibility",
+        description: "Ensuring cards display correctly across different devices and screen sizes",
+        solution: "Built responsive design system with mobile-first approach and extensive device testing",
+      },
+    ],
+    metrics: [
+      { label: "Card Creation Time", value: "<3min", description: "Average time to create a complete digital card" },
+      { label: "Platform Stack", value: "MERN", description: "MongoDB, Express, React, Node.js" },
+      { label: "Response Time", value: "<1s", description: "Card loading and sharing speed" },
+      { label: "User Accessibility", value: "100%", description: "No technical knowledge required" },
+    ],
+    media: {
+      hero: "/digicard-hero.png",
+      gallery: [
+        "/digicard-dashboard.png",
+        "/card-creation-interface.png",
+        "/card-preview-mobile.png",
+        "/sharing-options.png",
+      ],
+      demo: "https://digicard.netlify.app/owner",
+    },
+    links: {
+      live: "https://digicard.netlify.app/owner",
+      github: "https://github.com/nakuljhunjhunwala/digicard",
+    },
+    timeline: {
+      start: "2020-07",
+      end: "2020-08",
+      duration: "2 months",
+    },
+    team: {
+      size: 1,
+      role: "Full-Stack Developer",
+      responsibilities: [
+        "Designed and implemented complete MERN stack application",
+        "Built intuitive user interface with React.js",
+        "Developed RESTful APIs with Express.js and Node.js",
+        "Designed database schema and data models with MongoDB",
+        "Implemented responsive design for cross-device compatibility",
+      ],
+    },
+    achievements: [
+      "Successfully launched digital card platform with MERN stack",
+      "Created intuitive interface requiring zero technical knowledge",
+      "Built comprehensive card sharing system with multiple options",
+      "Implemented responsive design working across all devices",
+      "Designed scalable architecture for future template customization",
+    ],
   }
 ]
 
@@ -1183,22 +1399,26 @@ export const experiences: Experience[] = [
     location: "Mumbai, India",
     remote: false,
     description:
-      "Leading full-stack development with AI-driven approaches, architecting scalable systems, and building complex data synchronization pipelines for educational technology solutions.",
+      "Pioneering AI-driven development adoption to revolutionize productivity, architecting enterprise-scale notification frameworks, and leading full-stack development as sole backend engineer for critical client projects.",
     responsibilities: [
-      "Accelerate full-stack delivery using AI-driven development for same-day implementation",
-      "Architect scalable notification frameworks with microservice-based systems",
-      "Build complex data synchronization pipelines for SIS integration",
-      "Develop reusable React components with 95%+ design fidelity",
-      "Optimize core UI features and accelerate frontend delivery by 50%",
+      "Pioneered AI-driven development adoption: Research, implement, and train teams on AI development tools, achieving 80-90% productivity increase",
+      "Architect scalable notification framework: Deliver mission-critical communication service (push, email, SMS) for largest client's Brain app using NestJS, Redis queues, and microservices",
+      "Lead full-stack development as sole backend engineer: Successfully replicate entire Brain app functionality for Unischool project with same-day API delivery",
+      "Maintain technical excellence: Achieve 100% on-time delivery record while establishing comprehensive documentation standards for code and no-code platforms (Xano)",
+      "Demonstrate technical leadership: Conduct cross-functional training sessions and voluntarily manage challenging client engagements",
     ],
     achievements: [
-      "Achieved same-day implementation of backend services and pixel-perfect UIs",
-      "Improved system reliability by 40% through microservice architecture",
-      "Enabled real-time data accuracy across thousands of records with zero data loss",
-      "Accelerated frontend delivery by 50% with reusable components",
+      "Reduced 4-week development cycles to 2-3 days across full-stack projects through AI-driven tools",
+      "Achieved 80-90% productivity increase by pioneering AI development adoption and training teams",
+      "Improved system reliability by 40% through microservices architecture for enterprise notification framework",
+      "Maintained 100% on-time delivery record across all projects",
+      "Delivered mission-critical notification service (push, email, SMS) within 30 days for largest client",
+      "Successfully replicated entire Brain app functionality maintaining same-day API delivery pace and 95%+ design fidelity",
+      "Earned GCP certifications (Associate Cloud Engineer, Professional Cloud Architect)",
+      "Established comprehensive documentation standards for both code and no-code platforms",
     ],
-    technologies: ["React.js", "NestJS", "Redis", "Node.js", "TypeScript", "Microservices"],
-    projects: ["unicoconnect-notification-system", "unicoconnect-ui", "data-sync-pipeline"],
+    technologies: ["React.js", "NestJS", "Redis", "Node.js", "TypeScript", "Microservices", "AI Development Tools", "Xano", "Google Cloud Platform"],
+    projects: ["unicoconnect-notification-system", "brain-app-replication", "unischool-backend", "ai-driven-development"],
     teamSize: 8,
     companyInfo: {
       industry: "Educational Technology",
@@ -1206,9 +1426,10 @@ export const experiences: Experience[] = [
       description: "Providing comprehensive educational management solutions for institutions",
     },
     highlights: [
-      "Led AI-driven development initiatives",
-      "Architected high-throughput notification system",
-      "Achieved zero data loss in complex integrations",
+      "Pioneered AI-driven development achieving 80-90% productivity gains",
+      "Architected high-throughput enterprise notification system improving reliability by 40%",
+      "100% on-time delivery record as sole backend engineer",
+      "GCP Associate & Professional Cloud Architect certified",
     ],
   },
   {
@@ -1224,22 +1445,23 @@ export const experiences: Experience[] = [
     location: "Mumbai, India",
     remote: false,
     description:
-      "Streamlined UI development by creating comprehensive UI kits for CometChat platform using multiple frontend technologies and publishing open-source components.",
+      "Led creation of comprehensive UI kits for CometChat platform using Vue, React, and Lit Element, streamlining UI development and publishing open-source components to expand platform accessibility.",
     responsibilities: [
-      "Lead creation of UI kits for CometChat using Vue, React, and Lit Element",
-      "Build reusable and independent UI components with granular control",
-      "Implement dynamic UI using decorator patterns for flexible view exchange",
-      "Publish well-documented components on NPM for broader accessibility",
-      "Ensure consistent user experience across different framework implementations",
+      "Streamlined UI development: Led creation of UI kits for CometChat leveraging Vue, React, and Lit Element to boost efficiency and consistency",
+      "Built reusable UI components: Crafted versatile and independent components empowering users with granular control over features, styling, and smooth view transitions",
+      "Implemented dynamic UI using decorator patterns: Employed decorator patterns to implement complex UIs, enabling flexible and efficient view exchange",
+      "Enhanced accessibility through open-source: Published well-documented components on NPM, expanding reach and promoting broader accessibility",
+      "Ensured consistent user experience across different framework implementations",
     ],
     achievements: [
-      "Successfully created multi-framework UI kits boosting development efficiency",
-      "Built versatile components enabling smooth view transitions",
-      "Published accessible open-source components expanding platform reach",
-      "Implemented complex UI patterns using decorator design patterns",
+      "Successfully created multi-framework UI kits (Vue, React, Lit Element) boosting development efficiency and consistency",
+      "Built versatile and independent components with granular control enabling smooth view transitions",
+      "Published well-documented open-source components on NPM, expanding platform reach and accessibility",
+      "Implemented complex UI patterns using decorator design patterns for flexible view exchange",
+      "Enhanced developer experience across multiple frontend frameworks",
     ],
-    technologies: ["Vue.js", "React.js", "Lit Element", "TypeScript", "NPM", "Component Libraries"],
-    projects: ["cometchat-ui-kits", "component-library"],
+    technologies: ["Vue.js", "React.js", "Lit Element", "TypeScript", "NPM", "Component Libraries", "Decorator Patterns", "UI/UX Design"],
+    projects: ["cometchat-ui-kits", "component-library", "npm-packages"],
     teamSize: 6,
     companyInfo: {
       industry: "Communication Technology",
@@ -1248,9 +1470,10 @@ export const experiences: Experience[] = [
       description: "Leading provider of chat APIs and messaging SDKs for applications",
     },
     highlights: [
-      "Multi-framework expertise with Vue, React, and Lit Element",
-      "Published components on NPM for open-source community",
-      "Enhanced platform accessibility and developer experience",
+      "Led multi-framework UI kit development (Vue, React, Lit Element)",
+      "Published NPM packages expanding open-source accessibility",
+      "Implemented decorator patterns for complex UI functionality",
+      "Enhanced platform developer experience and consistency",
     ],
   },
   {
@@ -1266,22 +1489,24 @@ export const experiences: Experience[] = [
     location: "Mumbai, India",
     remote: false,
     description:
-      "Developed legal workflow automation software, implemented content movement solutions, and modernized legacy codebases while working in Agile teams.",
+      "Developed legal workflow automation software achieving 50% reduction in manual processes, designed AWS-based content migration solutions for major platforms, and maintained 95% on-time delivery rate in Agile environment.",
     responsibilities: [
-      "Develop software solutions for law firms to automate manual processes",
-      "Design and implement content transfer modules using AWS services",
-      "Collaborate in Agile teams to deliver scalable solutions on time",
-      "Modernize legacy codebases and implement performance optimizations",
-      "Implement NPM packages and microservices for scalable backend architecture",
+      "Legal workflow automation: Developed software for law firms achieving 50% reduction in manual data management processes",
+      "Collaborative content movement: Designed and implemented modules using AWS (Lambda, S3, SNS, SQS, SES) to seamlessly transfer content between IManage, Teams, and NetDocuments",
+      "Agile delivery champion: Achieved 95% success rate in meeting project deadlines and delivering scalable solutions through Agile team collaboration",
+      "Code revitalization: Modernized legacy codebases, optimized performance, and implemented NPM packages for improved functionality",
+      "Scalable architecture: Utilized microservices for scalable backend architecture and cloud-based solutions",
     ],
     achievements: [
-      "Achieved 50% reduction in manual data management processes for law firms",
-      "Successfully delivered seamless content transfer between major platforms",
-      "Maintained 95% success rate in meeting project deadlines",
-      "Modernized legacy systems improving performance and maintainability",
+      "Achieved 50% reduction in manual data management processes for law firms through workflow automation",
+      "Successfully delivered seamless content transfer between IManage, Teams, and NetDocuments using AWS services",
+      "Maintained 95% success rate in meeting project deadlines across all projects",
+      "Modernized legacy codebases improving performance and maintainability",
+      "Implemented NPM packages and microservices for scalable backend architecture",
+      "Delivered scalable solutions through effective Agile team collaboration",
     ],
-    technologies: ["Node.js", "AWS", "Lambda", "S3", "Microservices", "JavaScript", "Express.js"],
-    projects: ["legal-workflow-automation", "content-migration-system"],
+    technologies: ["Node.js", "AWS Lambda", "AWS S3", "AWS SNS", "AWS SQS", "AWS SES", "Microservices", "JavaScript", "Express.js", "NPM", "Agile/Scrum"],
+    projects: ["legal-workflow-automation", "content-migration-system", "imanage-integration", "teams-netdocuments-transfer"],
     teamSize: 10,
     companyInfo: {
       industry: "Legal Technology",
@@ -1290,9 +1515,10 @@ export const experiences: Experience[] = [
       description: "Providing document and workflow management solutions for legal professionals",
     },
     highlights: [
-      "Specialized in legal industry workflow automation",
-      "Implemented AWS-based content migration solutions",
-      "Strong track record of on-time project delivery",
+      "50% reduction in manual processes through workflow automation",
+      "AWS-based content migration between major platforms (IManage, Teams, NetDocuments)",
+      "95% on-time delivery rate in Agile environment",
+      "Legacy code modernization and performance optimization",
     ],
   },
   {
@@ -1383,7 +1609,7 @@ export const getCurrentExperience = () => {
 }
 
 export const getTotalYearsExperience = () => {
-  return 5
+  return 4.6
 }
 
 export const getSkillCategories = () => {

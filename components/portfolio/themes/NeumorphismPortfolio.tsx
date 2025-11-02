@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { usePortfolioStore } from "@/stores/portfolioStore"
 import { personalInfo, projects, technicalSkills, experiences } from "@/constants/portfolio"
+import { getAvatarSrc, handleImageError } from "@/lib/utils"
 import { 
   bucketList, 
   travelExperiences, 
@@ -150,10 +151,11 @@ function HeroWidget({ accentColor }: { accentColor: string }) {
             className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden neuro-card p-2"
           >
             <img
-              src={personalInfo.avatar}
+              src={getAvatarSrc(personalInfo.avatar)}
               alt={`${personalInfo.name} - ${personalInfo.title}`}
               className="w-full h-full object-cover rounded-full"
               loading="eager"
+              onError={(e) => handleImageError(e, '/placeholder.svg')}
             />
           </div>
           <motion.div
