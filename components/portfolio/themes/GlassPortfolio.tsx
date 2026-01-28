@@ -5,14 +5,14 @@ import { motion, AnimatePresence } from "framer-motion"
 import { usePortfolioStore } from "@/stores/portfolioStore"
 import { personalInfo, projects, getSkillsByCategory, experiences } from "@/constants/portfolio"
 import { getAvatarSrc, getProjectImageSrc, handleImageError } from "@/lib/utils"
-import { 
-  bucketList, 
-  travelExperiences, 
-  getBucketListStats, 
-  getCompletedBucketList, 
+import {
+  bucketList,
+  travelExperiences,
+  getBucketListStats,
+  getCompletedBucketList,
   getPendingBucketList,
   getVisitedPlaces,
-  getDreamDestinations 
+  getDreamDestinations
 } from "@/constants/personal"
 import {
   Home,
@@ -132,11 +132,10 @@ export default function GlassPortfolio() {
                   <button
                     key={section.id}
                     onClick={() => setActiveSection(section.id)}
-                    className={`flex items-center justify-center space-x-1 sm:space-x-2 px-2 sm:px-3 md:px-4 py-2 rounded-xl transition-all flex-shrink-0 min-w-[44px] ${
-                      activeSection === section.id
+                    className={`flex items-center justify-center space-x-1 sm:space-x-2 px-2 sm:px-3 md:px-4 py-2 rounded-xl transition-all flex-shrink-0 min-w-[44px] ${activeSection === section.id
                         ? "bg-white/30 text-white shadow-lg"
                         : "text-white/80 hover:text-white hover:bg-white/10"
-                    }`}
+                      }`}
                   >
                     <IconComponent className="w-4 h-4 flex-shrink-0" />
                     <span className="hidden sm:inline text-xs md:text-sm font-medium whitespace-nowrap">{section.label}</span>
@@ -159,7 +158,7 @@ export default function GlassPortfolio() {
             transition={{ duration: 0.5 }}
             className="container mx-auto px-4 py-8 min-h-[calc(100vh-160px)]"
           >
-             {activeSection === "home" && <HomeSection onNavigate={handleNavigate} />}
+            {activeSection === "home" && <HomeSection onNavigate={handleNavigate} />}
             {activeSection === "about" && <AboutSection />}
             {activeSection === "journey" && <JourneySection />}
             {activeSection === "skills" && <SkillsSection />}
@@ -382,11 +381,10 @@ function SkillsSection() {
                       {[...Array(5)].map((_, starIndex) => (
                         <Star
                           key={starIndex}
-                          className={`w-4 h-4 ${
-                            starIndex < Math.floor(skill.proficiency / 20)
+                          className={`w-4 h-4 ${starIndex < Math.floor(skill.proficiency / 20)
                               ? "text-yellow-400 fill-current"
                               : "text-white/30"
-                          }`}
+                            }`}
                         />
                       ))}
                     </div>
@@ -545,7 +543,7 @@ function ContactSection() {
                 {contact.label === "WhatsApp" ? (
                   <div className="w-8 h-8 text-white mx-auto mb-3 flex items-center justify-center text-2xl">💬</div>
                 ) : (
-                <IconComponent className="w-8 h-8 text-white mx-auto mb-3" />
+                  <IconComponent className="w-8 h-8 text-white mx-auto mb-3" />
                 )}
                 <div className={`text-sm mb-1 drop-shadow-sm ${contact.isPrimary ? 'text-green-300' : 'text-white/70'}`}>
                   {contact.label}
@@ -573,14 +571,14 @@ function ContactSection() {
           </a>
           <a
             href={`mailto:${personalInfo.email}?subject=Hi%20Nakul!%20Let's%20collaborate&body=Hi%20Nakul,%0A%0AI%20came%20across%20your%20portfolio%20and%20I'm%20impressed%20with%20your%20work.%20I'd%20love%20to%20discuss%20potential%20opportunities.%0A%0ABest%20regards`}
-          className="inline-flex items-center space-x-2 px-8 py-4 backdrop-blur-xl bg-purple-500/30 border border-purple-400/50 rounded-full text-white font-semibold hover:bg-purple-500/40 transition-all transform hover:scale-105 shadow-lg"
-        >
-          <Mail className="w-5 h-5" />
+            className="inline-flex items-center space-x-2 px-8 py-4 backdrop-blur-xl bg-purple-500/30 border border-purple-400/50 rounded-full text-white font-semibold hover:bg-purple-500/40 transition-all transform hover:scale-105 shadow-lg"
+          >
+            <Mail className="w-5 h-5" />
             <span>Send Email</span>
           </a>
           <a
             href={personalInfo.resumeUrl}
-            download="Nakul_Jhunjhunwala_Resume.docx"
+            download="Nakul_Jhunjhunwala_Resume.pdf"
             className="inline-flex items-center space-x-2 px-8 py-4 backdrop-blur-xl bg-blue-500/30 border border-blue-400/50 rounded-full text-white font-semibold hover:bg-blue-500/40 transition-all transform hover:scale-105 shadow-lg"
           >
             <Download className="w-5 h-5" />
@@ -638,7 +636,7 @@ function AdventuresSection() {
             </div>
           </div>
           <div className="relative rounded-xl overflow-hidden" style={{ minHeight: '600px' }}>
-            <div 
+            <div
               className="absolute inset-0"
               style={{
                 background: 'radial-gradient(ellipse at center, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0.02) 50%, transparent 100%)'
@@ -678,11 +676,11 @@ function JourneySection() {
       startDate: edu.year.split('-')[0],
       endDate: edu.year.split('-')[1] || edu.year.split('-')[0],
       location: edu.location,
-      description: edu.degree.includes('Computer') ? 
+      description: edu.degree.includes('Computer') ?
         "Focused on software development, programming fundamentals, database management, and computer science principles." :
         edu.degree.includes('Commerce') ?
-        "Studied business fundamentals, commerce principles, and analytical thinking skills." :
-        "Built strong foundational knowledge and critical thinking skills.",
+          "Studied business fundamentals, commerce principles, and analytical thinking skills." :
+          "Built strong foundational knowledge and critical thinking skills.",
       achievements: edu.honors ? [edu.honors] : [],
       technologies: [],
       isCurrent: false
@@ -726,18 +724,17 @@ function JourneySection() {
               key={item.id}
               initial={{ opacity: 0, y: 50, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ 
+              transition={{
                 delay: index * 0.1,
                 type: "spring",
                 stiffness: 100,
                 damping: 10
               }}
-              className={`relative flex flex-col md:flex-row items-start ${
-                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-              }`}
+              className={`relative flex flex-col md:flex-row items-start ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                }`}
             >
               {/* Enhanced Timeline Node - Fixed positioning to match timeline exactly */}
-              <motion.div 
+              <motion.div
                 className="absolute left-6 md:left-1/2 top-6 md:transform md:-translate-x-1/2 z-20"
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -745,31 +742,29 @@ function JourneySection() {
               >
                 <div className="relative w-6 h-6 flex items-center justify-center">
                   {/* Timeline dot */}
-                  <div className={`w-6 h-6 rounded-full border-4 border-white shadow-2xl ${
-                    item.type === 'experience' 
-                      ? 'bg-gradient-to-r from-purple-400 to-blue-400' 
+                  <div className={`w-6 h-6 rounded-full border-4 border-white shadow-2xl ${item.type === 'experience'
+                      ? 'bg-gradient-to-r from-purple-400 to-blue-400'
                       : 'bg-gradient-to-r from-pink-400 to-purple-400'
-                  }`}></div>
-                  
+                    }`}></div>
+
                   {/* Emoji positioned exactly on center */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <span className="text-[10px] leading-none filter drop-shadow-sm">
                       {item.type === 'experience' ? '💼' : '🎓'}
                     </span>
                   </div>
-                  
+
                   {/* Pulse effect */}
                   <div className="absolute inset-0 rounded-full bg-white/20 animate-ping"></div>
                 </div>
               </motion.div>
 
               {/* Enhanced Content Card with proper responsive sizing */}
-              <div className={`w-full md:w-[45%] pl-16 md:pl-0 pr-4 md:pr-0 ${
-                index % 2 === 0 ? "md:mr-auto md:pr-12" : "md:ml-auto md:pl-12"
-              }`}>
+              <div className={`w-full md:w-[45%] pl-16 md:pl-0 pr-4 md:pr-0 ${index % 2 === 0 ? "md:mr-auto md:pr-12" : "md:ml-auto md:pl-12"
+                }`}>
                 <motion.div
-                  whileHover={{ 
-                    scale: 1.02, 
+                  whileHover={{
+                    scale: 1.02,
                     y: -5,
                     boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
                   }}
@@ -778,13 +773,12 @@ function JourneySection() {
                 >
                   {/* Glass Shine Effect */}
                   <div className="absolute inset-0 rounded-2xl md:rounded-3xl bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  
+
                   {/* Type Badge */}
-                  <div className={`absolute -top-2 -right-2 md:-top-3 md:-right-3 px-2 py-0.5 md:px-3 md:py-1 text-[10px] md:text-xs font-bold rounded-full border-2 backdrop-blur-xl ${
-                    item.type === 'experience' 
-                      ? 'bg-purple-500/30 border-purple-400/50 text-purple-200' 
+                  <div className={`absolute -top-2 -right-2 md:-top-3 md:-right-3 px-2 py-0.5 md:px-3 md:py-1 text-[10px] md:text-xs font-bold rounded-full border-2 backdrop-blur-xl ${item.type === 'experience'
+                      ? 'bg-purple-500/30 border-purple-400/50 text-purple-200'
                       : 'bg-pink-500/30 border-pink-400/50 text-pink-200'
-                  }`}>
+                    }`}>
                     {item.type === 'experience' ? 'WORK' : 'STUDY'}
                   </div>
 
@@ -793,9 +787,8 @@ function JourneySection() {
                     <div className="flex items-start justify-between">
                       <div className="flex-1 pr-2">
                         <h3 className="text-lg md:text-xl font-bold text-white drop-shadow-lg mb-1 leading-tight">{item.title}</h3>
-                        <p className={`text-sm md:text-base font-medium ${
-                          item.type === 'experience' ? 'text-purple-300' : 'text-pink-300'
-                        }`}>{item.subtitle}</p>
+                        <p className={`text-sm md:text-base font-medium ${item.type === 'experience' ? 'text-purple-300' : 'text-pink-300'
+                          }`}>{item.subtitle}</p>
                       </div>
                       {item.isCurrent && (
                         <motion.div

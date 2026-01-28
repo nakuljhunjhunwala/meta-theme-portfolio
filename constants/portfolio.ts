@@ -176,7 +176,7 @@ export const personalInfo: PersonalInfo = {
   email: "jhunjhunwalanakul@gmail.com",
   website: "https://nakuljhunjhunwala.in",
   whatsappNumber: 8856020006,
-  resumeUrl: "/resume.docx",
+  resumeUrl: "/resume.pdf",
   socialLinks: [
     {
       platform: "LinkedIn",

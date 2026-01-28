@@ -204,12 +204,12 @@ export const useCommands = ({ setHistory }: { setHistory: React.Dispatch<React.S
                     if (typeof window !== 'undefined') {
                         const link = document.createElement('a')
                         link.href = personalInfo.resumeUrl
-                        link.download = 'Nakul_Jhunjhunwala_Resume.docx'
+                        link.download = 'Nakul_Jhunjhunwala_Resume.pdf'
                         document.body.appendChild(link)
                         link.click()
                         document.body.removeChild(link)
                     }
-                    return `📄 Downloading resume...\n\n✅ Resume download initiated!\n\nFile: Nakul_Jhunjhunwala_Resume.docx\nLocation: ${personalInfo.resumeUrl}\n\n📝 The resume includes:\n• 4.5+ years of full-stack development experience\n• Technical skills and certifications\n• Project portfolio and achievements\n• Contact information\n\nType "contact" for more ways to reach me!`
+                    return `📄 Downloading resume...\n\n✅ Resume download initiated!\n\nFile: Nakul_Jhunjhunwala_Resume.pdf\nLocation: ${personalInfo.resumeUrl}\n\n📝 The resume includes:\n• 4.5+ years of full-stack development experience\n• Technical skills and certifications\n• Project portfolio and achievements\n• Contact information\n\nType "contact" for more ways to reach me!`
                 },
 
                 availability: () =>

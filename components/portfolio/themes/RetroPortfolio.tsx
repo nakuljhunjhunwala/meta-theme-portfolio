@@ -5,14 +5,14 @@ import React, { useState, useEffect, Suspense } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { usePortfolioStore } from "@/stores/portfolioStore"
 import { personalInfo, technicalSkills, projects, experiences } from "@/constants/portfolio"
-import { 
-  bucketList, 
-  travelExperiences, 
-  getBucketListStats, 
-  getCompletedBucketList, 
+import {
+  bucketList,
+  travelExperiences,
+  getBucketListStats,
+  getCompletedBucketList,
   getPendingBucketList,
   getVisitedPlaces,
-  getDreamDestinations 
+  getDreamDestinations
 } from "@/constants/personal"
 import { Star, Trophy, Zap, Heart, Coins, Map, Target } from "lucide-react"
 import GameModal from "./GameModal"
@@ -28,7 +28,7 @@ const Tetris = React.lazy(() => import("../games/Tetris"))
 const SpaceInvaders = React.lazy(() => import("../games/SpaceInvaders"))
 const FlappyBird = React.lazy(() => import("../games/FlappyBird"))
 const DinoGame = React.lazy(() => import("../games/DinoGame"))
-  const RoadRush = React.lazy(() => import("../games/RoadRush"))
+const RoadRush = React.lazy(() => import("../games/RoadRush"))
 
 interface GameState {
   score: number
@@ -62,7 +62,7 @@ export default function RetroPortfolio() {
   // Minimal Mario-style sound effects - Only key moments
   const playSound = (type: string) => {
     unlockAudio() // Ensure audio is unlocked on mobile
-    
+
     switch (type) {
       case "jump":
         playTone(660, 150, 0.06, "square") // Mario jump sound
@@ -239,11 +239,10 @@ export default function RetroPortfolio() {
                 addScore(10, true) // Sound for navigation
                 addCoins(1)
               }}
-              className={`flex flex-col items-center px-2 py-1 rounded transition-all font-bold text-xs ${
-                currentSection === section.id
+              className={`flex flex-col items-center px-2 py-1 rounded transition-all font-bold text-xs ${currentSection === section.id
                   ? "bg-yellow-400 text-black shadow-lg"
                   : `${section.color} text-white hover:brightness-110`
-              }`}
+                }`}
             >
               <span className="text-lg mb-1">{section.icon}</span>
               <span className="text-xs">{section.label.split(' ')[1] || section.label}</span>
@@ -266,11 +265,10 @@ export default function RetroPortfolio() {
                   addScore(10, true) // Sound for navigation
                   addCoins(1)
                 }}
-                className={`w-full flex items-center space-x-2 px-3 py-2 rounded transition-all font-bold text-sm ${
-                  currentSection === section.id
+                className={`w-full flex items-center space-x-2 px-3 py-2 rounded transition-all font-bold text-sm ${currentSection === section.id
                     ? "bg-yellow-400 text-black shadow-lg transform scale-110"
                     : `${section.color} text-white hover:brightness-110 shadow-md`
-                }`}
+                  }`}
               >
                 <span className="text-lg">{section.icon}</span>
                 <span className="hidden lg:inline">{section.label}</span>
@@ -295,10 +293,10 @@ export default function RetroPortfolio() {
                 <RetroAbout addScore={addScore} addCoins={addCoins} unlockAchievement={unlockRetroAchievement} />
               )}
               {currentSection === "journey" && (
-                <InteractiveMarioJourney 
-                  addScore={addScore} 
-                  addCoins={addCoins} 
-                  unlockAchievement={unlockRetroAchievement} 
+                <InteractiveMarioJourney
+                  addScore={addScore}
+                  addCoins={addCoins}
+                  unlockAchievement={unlockRetroAchievement}
                   gameState={gameState}
                   playSound={playSound}
                 />
@@ -562,11 +560,10 @@ function RetroSkills({
                       {[...Array(5)].map((_, starIndex) => (
                         <Star
                           key={starIndex}
-                          className={`w-3 h-3 sm:w-4 sm:h-4 ${
-                            starIndex < Math.floor(skill.proficiency / 20)
+                          className={`w-3 h-3 sm:w-4 sm:h-4 ${starIndex < Math.floor(skill.proficiency / 20)
                               ? "text-yellow-400 fill-current"
                               : "text-gray-600"
-                          }`}
+                            }`}
                         />
                       ))}
                     </div>
@@ -789,7 +786,7 @@ function RetroGames({
             transition={{ delay: index * 0.2 }}
             onClick={() => setActiveGame(game.id)}
             className={`${game.color} border-4 border-black rounded-lg p-3 sm:p-6 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg flex flex-col items-center justify-center text-center relative z-10 cursor-pointer select-none`}
-            style={{ 
+            style={{
               backgroundImage: `
                 linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
                 linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
@@ -851,7 +848,7 @@ function RetroContact({
         <p className="text-white mb-6 leading-relaxed text-sm sm:text-base">
           I'm passionate about turning ideas into reality! Whether you need a full-stack web application, want to discuss a challenging project, or just say hi - I'd love to hear from you. Let's create something amazing together! 🚀
         </p>
-        
+
         <div className="text-center mb-4">
           <div className="text-green-400 text-sm font-bold animate-pulse">
             💡 Quick Response Guaranteed • Available for Immediate Projects
@@ -860,24 +857,24 @@ function RetroContact({
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
           {[
-            { 
-              label: "EMAIL", 
-              value: personalInfo.email, 
-              icon: "📧", 
+            {
+              label: "EMAIL",
+              value: personalInfo.email,
+              icon: "📧",
               color: "bg-red-500",
               action: () => window.open(`mailto:${personalInfo.email}?subject=Hi%20Nakul!%20Let's%20collaborate&body=Hi%20Nakul,%0A%0AI%20came%20across%20your%20portfolio%20and%20I'm%20impressed%20with%20your%20work.%20I'd%20love%20to%20discuss%20potential%20opportunities.%0A%0ABest%20regards`, '_blank')
             },
-            { 
-              label: "WHATSAPP", 
-              value: `+91 ${personalInfo.whatsappNumber}`, 
-              icon: "💬", 
+            {
+              label: "WHATSAPP",
+              value: `+91 ${personalInfo.whatsappNumber}`,
+              icon: "💬",
               color: "bg-green-600",
               action: () => window.open(`https://wa.me/91${personalInfo.whatsappNumber}?text=Hi%20Nakul!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20potential%20opportunities.%20Are%20you%20available%20for%20a%20quick%20chat%3F`, '_blank')
             },
-            { 
-              label: "LOCATION", 
-              value: personalInfo.location, 
-              icon: "📍", 
+            {
+              label: "LOCATION",
+              value: personalInfo.location,
+              icon: "📍",
               color: "bg-blue-500",
               action: null
             },
@@ -938,7 +935,7 @@ function RetroContact({
           </a>
           <a
             href={personalInfo.resumeUrl}
-            download="Nakul_Jhunjhunwala_Resume.docx"
+            download="Nakul_Jhunjhunwala_Resume.pdf"
             className="bg-purple-500 text-white px-4 sm:px-6 py-3 rounded font-bold hover:bg-purple-400 transition-colors border-4 border-black shadow-lg text-sm sm:text-base"
             onClick={() => {
               addScore(75, true) // Sound for resume download
@@ -962,7 +959,7 @@ function RetroContact({
         </div>
       </motion.div>
 
-              <div className="text-center">
+      <div className="text-center">
         <div className="text-yellow-400 animate-pulse text-lg font-bold">
           🎉 QUEST COMPLETED! THANKS FOR PLAYING! 🎉
         </div>
@@ -1059,9 +1056,9 @@ function RetroBucketList({
               </div>
               <h4 className="text-white font-bold text-xs sm:text-sm md:text-base mb-1 leading-tight break-words flex-grow">{item.title}</h4>
               <p className="text-white/90 text-xs sm:text-sm leading-tight">Completed Adventure Quest</p>
-                <div className="text-yellow-300 text-xs mt-2 font-bold">
+              <div className="text-yellow-300 text-xs mt-2 font-bold">
                 ⭐ Achievement Unlocked!
-                </div>
+              </div>
             </motion.button>
           ))}
         </div>
@@ -1093,7 +1090,7 @@ function RetroBucketList({
             >
               {/* Animated quest glow */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
-              
+
               <div className="relative z-10 flex flex-col h-full">
                 <div className="flex items-start justify-between mb-2">
                   <span className="text-lg sm:text-xl md:text-2xl flex-shrink-0">{item.icon}</span>
@@ -1195,17 +1192,16 @@ function RetroTravelMap({
               <div className="flex items-start justify-between mb-2">
                 <span className="text-2xl">
                   {place.category === 'city' ? '🏙️' :
-                   place.category === 'nature' ? '🏔️' :
-                   place.category === 'historical' ? '🏛️' :
-                   place.category === 'adventure' ? '⛰️' : '🌅'}
+                    place.category === 'nature' ? '🏔️' :
+                      place.category === 'historical' ? '🏛️' :
+                        place.category === 'adventure' ? '⛰️' : '🌅'}
                 </span>
                 <div className="flex">
                   {[...Array(5)].map((_, starIndex) => (
                     <Star
                       key={starIndex}
-                      className={`w-3 h-3 ${
-                        starIndex < place.rating ? "text-yellow-400 fill-current" : "text-gray-600"
-                      }`}
+                      className={`w-3 h-3 ${starIndex < place.rating ? "text-yellow-400 fill-current" : "text-gray-600"
+                        }`}
                     />
                   ))}
                 </div>
@@ -1251,14 +1247,14 @@ function RetroTravelMap({
             >
               {/* Locked level shimmer effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
-              
+
               <div className="relative z-10">
                 <div className="flex items-start justify-between mb-2">
                   <span className="text-2xl">
                     {place.category === 'city' ? '🏙️' :
-                     place.category === 'nature' ? '🏔️' :
-                     place.category === 'historical' ? '🏛️' :
-                     place.category === 'adventure' ? '⛰️' : '🌅'}
+                      place.category === 'nature' ? '🏔️' :
+                        place.category === 'historical' ? '🏛️' :
+                          place.category === 'adventure' ? '⛰️' : '🌅'}
                   </span>
                   <span className="text-xs bg-red-400 text-white px-2 py-1 rounded font-bold">LOCKED</span>
                 </div>
@@ -1314,10 +1310,10 @@ function InteractiveMarioJourney({
   const [touchStartY, setTouchStartY] = useState<number | null>(null)
   const [isTouchMoving, setIsTouchMoving] = useState(false)
   const [screenDimensions, setScreenDimensions] = useState({ width: 0, height: 0 })
-  
+
   const WORLD_WIDTH = 5000
   const VIEWPORT_WIDTH = screenDimensions.width || (typeof window !== 'undefined' ? window.innerWidth : 1200)
-  
+
   // Handle screen dimensions and responsiveness
   useEffect(() => {
     const updateDimensions = () => {
@@ -1325,17 +1321,17 @@ function InteractiveMarioJourney({
       const height = window.innerHeight
       setScreenDimensions({ width, height })
     }
-    
+
     updateDimensions()
     window.addEventListener('resize', updateDimensions)
     window.addEventListener('orientationchange', updateDimensions)
-    
+
     return () => {
       window.removeEventListener('resize', updateDimensions)
       window.removeEventListener('orientationchange', updateDimensions)
     }
   }, [])
-  
+
   // Create timeline locations with proper spacing for scrolling world
   const timelineLocations = [
     ...experiences.map((exp, index) => ({
@@ -1358,11 +1354,11 @@ function InteractiveMarioJourney({
       title: edu.degree,
       subtitle: edu.institution,
       worldX: 400 + (experiences.length + index) * 600,
-      description: edu.degree.includes('Computer') ? 
+      description: edu.degree.includes('Computer') ?
         "Focused on software development, programming fundamentals, and computer science principles." :
         edu.degree.includes('Commerce') ?
-        "Studied business fundamentals, commerce principles, and analytical thinking." :
-        "Built strong foundational knowledge and critical thinking skills.",
+          "Studied business fundamentals, commerce principles, and analytical thinking." :
+          "Built strong foundational knowledge and critical thinking skills.",
       startDate: edu.year.split('-')[0],
       endDate: edu.year.split('-')[1] || edu.year.split('-')[0],
       location: edu.location,
@@ -1394,7 +1390,7 @@ function InteractiveMarioJourney({
     const handleKeyPress = (e: KeyboardEvent) => {
       const speed = screenDimensions.width < 640 ? 12 : 20 // Slower mobile, faster desktop
       setIsWalking(true)
-      
+
       switch (e.key) {
         case 'ArrowLeft':
         case 'a':
@@ -1436,7 +1432,7 @@ function InteractiveMarioJourney({
           }
           break
       }
-      
+
       setTimeout(() => setIsWalking(false), 200)
     }
 
@@ -1463,19 +1459,19 @@ function InteractiveMarioJourney({
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!touchStartX || !touchStartY) return
-    
+
     const touch = e.touches[0]
     const deltaX = touch.clientX - touchStartX
     const deltaY = touch.clientY - touchStartY
     const minSwipeDistance = 30
-    
+
     setIsTouchMoving(true)
-    
+
     // Prevent default scrolling when we're handling game controls
     if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) {
       e.preventDefault()
     }
-    
+
     // Horizontal swipe for movement
     if (Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaX) > Math.abs(deltaY)) {
       if (deltaX > 0) {
@@ -1493,7 +1489,7 @@ function InteractiveMarioJourney({
       // Single tap for jump
       handleMobileJump()
     }
-    
+
     setTouchStartX(null)
     setTouchStartY(null)
     setIsTouchMoving(false)
@@ -1503,7 +1499,7 @@ function InteractiveMarioJourney({
   const handleMobileMove = (direction: 'left' | 'right') => {
     const speed = 15 // Balanced mobile speed
     setIsWalking(true)
-    
+
     if (direction === 'left') {
       setMarioPosition(prev => {
         const newWorldX = Math.max(50, prev.worldX - speed)
@@ -1525,7 +1521,7 @@ function InteractiveMarioJourney({
       })
       setFacingRight(true)
     }
-    
+
     addScore(1, false) // No sound for walking
     setTimeout(() => setIsWalking(false), 200)
   }
@@ -1542,7 +1538,7 @@ function InteractiveMarioJourney({
   // Check for location interactions
   useEffect(() => {
     let nearbyLocation = null
-    
+
     for (const location of timelineLocations) {
       const distance = Math.abs(marioPosition.worldX - location.worldX)
       if (distance < 150) {
@@ -1554,7 +1550,7 @@ function InteractiveMarioJourney({
           addCoins(location.type === 'experience' ? 15 : 10)
           unlockAchievement(`Discovered ${location.title}`)
           playSound("achievement")
-          
+
           // Show Mario-style score popup
           setScorePopup({
             points,
@@ -1562,94 +1558,92 @@ function InteractiveMarioJourney({
             x: marioPosition.x,
             y: 200
           })
-          
+
           // Clear popup after animation
           setTimeout(() => setScorePopup(null), 2500)
         }
         break
       }
     }
-    
+
     setCurrentLocationInfo(nearbyLocation)
   }, [marioPosition.worldX, visitedLocations, addScore, addCoins, unlockAchievement, playSound])
 
   // Classic 8-bit Mario Sprite - Like Reference Image
-  const Mario8BitSprite = ({ isWalking, isJumping, facingRight, walkFrame }: { 
-    isWalking: boolean, 
-    isJumping: boolean, 
+  const Mario8BitSprite = ({ isWalking, isJumping, facingRight, walkFrame }: {
+    isWalking: boolean,
+    isJumping: boolean,
     facingRight: boolean,
-    walkFrame: number 
+    walkFrame: number
   }) => {
     // Responsive Mario size based on screen
     const marioScale = screenDimensions.width < 640 ? 3 : screenDimensions.width < 1024 ? 4 : 5
-    
+
     return (
-    <div className={`relative ${facingRight ? '' : 'scale-x-[-1]'}`} style={{ imageRendering: 'pixelated' }}>
-      <div 
-        className="relative w-4 h-5" 
-        style={{ 
-          imageRendering: 'pixelated',
-          transform: `scale(${marioScale})`
-        }}
-      >
-        {/* Row 1 - Red Cap */}
-        <div className="absolute top-0 left-1 w-2 h-1 bg-red-600"></div>
-        
-        {/* Row 2 - Cap and Hair */}
-        <div className="absolute top-0.25 left-0.5 w-3 h-1 bg-red-600"></div>
-        <div className="absolute top-0.25 left-3.5 w-0.5 h-1 bg-amber-800"></div>
-        
-        {/* Row 3 - Face */}
-        <div className="absolute top-0.5 left-0.5 w-0.5 h-1 bg-red-600"></div>
-        <div className="absolute top-0.5 left-1 w-2.5 h-1 bg-orange-200"></div>
-        <div className="absolute top-0.5 left-3.5 w-0.5 h-1 bg-orange-200"></div>
-        
-        {/* Row 4 - Eyes and Hair */}
-        <div className="absolute top-0.75 left-0 w-0.5 h-1 bg-amber-800"></div>
-        <div className="absolute top-0.75 left-0.5 w-0.5 h-1 bg-orange-200"></div>
-        <div className="absolute top-0.75 left-1 w-0.5 h-1 bg-black"></div>
-        <div className="absolute top-0.75 left-1.5 w-1 h-1 bg-orange-200"></div>
-        <div className="absolute top-0.75 left-2.5 w-0.5 h-1 bg-black"></div>
-        <div className="absolute top-0.75 left-3 w-1 h-1 bg-orange-200"></div>
-        
-        {/* Row 5 - Mustache */}
-        <div className="absolute top-1 left-0 w-0.5 h-1 bg-amber-800"></div>
-        <div className="absolute top-1 left-0.5 w-2.5 h-1 bg-orange-200"></div>
-        <div className="absolute top-1 left-3 w-1 h-1 bg-orange-200"></div>
-        
-        {/* Row 6 - Mustache */}
-        <div className="absolute top-1.25 left-0 w-0.5 h-1 bg-amber-800"></div>
-        <div className="absolute top-1.25 left-0.5 w-3 h-1 bg-black"></div>
-        <div className="absolute top-1.25 left-3.5 w-0.5 h-1 bg-black"></div>
-        
-        {/* Row 7 - Red Shirt */}
-        <div className="absolute top-1.5 left-0.5 w-3 h-1 bg-red-600"></div>
-        
-        {/* Row 8 - Arms and Overalls */}
-        <div className="absolute top-1.75 left-0 w-1 h-1 bg-orange-200"></div>
-        <div className="absolute top-1.75 left-1 w-2 h-1 bg-blue-600"></div>
-        <div className="absolute top-1.75 left-3 w-1 h-1 bg-orange-200"></div>
-        
-        {/* Row 9 - Overalls with Button */}
-        <div className="absolute top-2 left-1 w-2 h-1 bg-blue-600"></div>
-        <div className="absolute top-2 left-2 w-0.5 h-0.5 bg-yellow-400"></div>
-        
-        {/* Row 10 - More Overalls */}
-        <div className="absolute top-2.25 left-1 w-2 h-1 bg-blue-600"></div>
-        
-        {/* Row 11 - Legs with walk animation */}
-        <div className={`absolute top-2.5 left-1 w-0.5 h-1 bg-blue-600 transition-transform duration-100 ${
-          isWalking && !isJumping ? (walkFrame % 2 === 0 ? 'transform translate-x-0.25' : 'transform -translate-x-0.25') : ''
-        }`}></div>
-        <div className={`absolute top-2.5 left-2.5 w-0.5 h-1 bg-blue-600 transition-transform duration-100 ${
-          isWalking && !isJumping ? (walkFrame % 2 === 0 ? 'transform -translate-x-0.25' : 'transform translate-x-0.25') : ''
-        }`}></div>
-        
-        {/* Row 12 - Brown Shoes */}
-        <div className="absolute top-2.75 left-0.5 w-1 h-1 bg-amber-800"></div>
-        <div className="absolute top-2.75 left-2.5 w-1 h-1 bg-amber-800"></div>
+      <div className={`relative ${facingRight ? '' : 'scale-x-[-1]'}`} style={{ imageRendering: 'pixelated' }}>
+        <div
+          className="relative w-4 h-5"
+          style={{
+            imageRendering: 'pixelated',
+            transform: `scale(${marioScale})`
+          }}
+        >
+          {/* Row 1 - Red Cap */}
+          <div className="absolute top-0 left-1 w-2 h-1 bg-red-600"></div>
+
+          {/* Row 2 - Cap and Hair */}
+          <div className="absolute top-0.25 left-0.5 w-3 h-1 bg-red-600"></div>
+          <div className="absolute top-0.25 left-3.5 w-0.5 h-1 bg-amber-800"></div>
+
+          {/* Row 3 - Face */}
+          <div className="absolute top-0.5 left-0.5 w-0.5 h-1 bg-red-600"></div>
+          <div className="absolute top-0.5 left-1 w-2.5 h-1 bg-orange-200"></div>
+          <div className="absolute top-0.5 left-3.5 w-0.5 h-1 bg-orange-200"></div>
+
+          {/* Row 4 - Eyes and Hair */}
+          <div className="absolute top-0.75 left-0 w-0.5 h-1 bg-amber-800"></div>
+          <div className="absolute top-0.75 left-0.5 w-0.5 h-1 bg-orange-200"></div>
+          <div className="absolute top-0.75 left-1 w-0.5 h-1 bg-black"></div>
+          <div className="absolute top-0.75 left-1.5 w-1 h-1 bg-orange-200"></div>
+          <div className="absolute top-0.75 left-2.5 w-0.5 h-1 bg-black"></div>
+          <div className="absolute top-0.75 left-3 w-1 h-1 bg-orange-200"></div>
+
+          {/* Row 5 - Mustache */}
+          <div className="absolute top-1 left-0 w-0.5 h-1 bg-amber-800"></div>
+          <div className="absolute top-1 left-0.5 w-2.5 h-1 bg-orange-200"></div>
+          <div className="absolute top-1 left-3 w-1 h-1 bg-orange-200"></div>
+
+          {/* Row 6 - Mustache */}
+          <div className="absolute top-1.25 left-0 w-0.5 h-1 bg-amber-800"></div>
+          <div className="absolute top-1.25 left-0.5 w-3 h-1 bg-black"></div>
+          <div className="absolute top-1.25 left-3.5 w-0.5 h-1 bg-black"></div>
+
+          {/* Row 7 - Red Shirt */}
+          <div className="absolute top-1.5 left-0.5 w-3 h-1 bg-red-600"></div>
+
+          {/* Row 8 - Arms and Overalls */}
+          <div className="absolute top-1.75 left-0 w-1 h-1 bg-orange-200"></div>
+          <div className="absolute top-1.75 left-1 w-2 h-1 bg-blue-600"></div>
+          <div className="absolute top-1.75 left-3 w-1 h-1 bg-orange-200"></div>
+
+          {/* Row 9 - Overalls with Button */}
+          <div className="absolute top-2 left-1 w-2 h-1 bg-blue-600"></div>
+          <div className="absolute top-2 left-2 w-0.5 h-0.5 bg-yellow-400"></div>
+
+          {/* Row 10 - More Overalls */}
+          <div className="absolute top-2.25 left-1 w-2 h-1 bg-blue-600"></div>
+
+          {/* Row 11 - Legs with walk animation */}
+          <div className={`absolute top-2.5 left-1 w-0.5 h-1 bg-blue-600 transition-transform duration-100 ${isWalking && !isJumping ? (walkFrame % 2 === 0 ? 'transform translate-x-0.25' : 'transform -translate-x-0.25') : ''
+            }`}></div>
+          <div className={`absolute top-2.5 left-2.5 w-0.5 h-1 bg-blue-600 transition-transform duration-100 ${isWalking && !isJumping ? (walkFrame % 2 === 0 ? 'transform -translate-x-0.25' : 'transform translate-x-0.25') : ''
+            }`}></div>
+
+          {/* Row 12 - Brown Shoes */}
+          <div className="absolute top-2.75 left-0.5 w-1 h-1 bg-amber-800"></div>
+          <div className="absolute top-2.75 left-2.5 w-1 h-1 bg-amber-800"></div>
+        </div>
       </div>
-    </div>
     )
   }
 
@@ -1661,8 +1655,8 @@ function InteractiveMarioJourney({
         <motion.div
           key={`question-${index}`}
           className="absolute"
-          style={{ 
-            left: x - cameraOffset, 
+          style={{
+            left: x - cameraOffset,
             bottom: 140,
             transform: x - cameraOffset < -50 || x - cameraOffset > VIEWPORT_WIDTH + 50 ? 'scale(0)' : 'scale(1)'
           }}
@@ -1674,14 +1668,14 @@ function InteractiveMarioJourney({
           </div>
         </motion.div>
       ))}
-      
+
       {/* Pipes */}
       {[1000, 1800, 3200].map((x, index) => (
         <div
           key={`pipe-${index}`}
           className="absolute"
-          style={{ 
-            left: x - cameraOffset, 
+          style={{
+            left: x - cameraOffset,
             bottom: 80,
             transform: x - cameraOffset < -100 || x - cameraOffset > VIEWPORT_WIDTH + 100 ? 'scale(0)' : 'scale(1)'
           }}
@@ -1691,14 +1685,14 @@ function InteractiveMarioJourney({
           </div>
         </div>
       ))}
-      
+
       {/* Classic Mario Clouds - White and fluffy */}
       {[150, 400, 700, 1200, 1600, 2200, 2800, 3400, 4000, 4400].map((x, index) => (
         <div
           key={`cloud-${index}`}
           className="absolute"
-          style={{ 
-            left: x - cameraOffset * 0.2, 
+          style={{
+            left: x - cameraOffset * 0.2,
             top: `${15 + (index % 3) * 20}%`,
             transform: (x - cameraOffset * 0.2) < -100 || (x - cameraOffset * 0.2) > VIEWPORT_WIDTH + 100 ? 'scale(0)' : 'scale(1)'
           }}
@@ -1711,12 +1705,12 @@ function InteractiveMarioJourney({
               <div className="absolute -left-2 top-2 w-4 h-4 bg-white rounded-full"></div>
               <div className="absolute -left-1 top-0 w-3 h-3 bg-white rounded-full"></div>
               <div className="absolute -left-1 top-5 w-3 h-3 bg-white rounded-full"></div>
-              
+
               {/* Right bumps */}
               <div className="absolute -right-2 top-2 w-4 h-4 bg-white rounded-full"></div>
               <div className="absolute -right-1 top-0 w-3 h-3 bg-white rounded-full"></div>
               <div className="absolute -right-1 top-5 w-3 h-3 bg-white rounded-full"></div>
-              
+
               {/* Top bumps */}
               <div className="absolute left-2 -top-2 w-4 h-4 bg-white rounded-full"></div>
               <div className="absolute left-6 -top-1 w-3 h-3 bg-white rounded-full"></div>
@@ -1724,23 +1718,22 @@ function InteractiveMarioJourney({
           </div>
         </div>
       ))}
-      
+
       {/* Background Hills - Responsive Green rolling hills */}
       {[100, 600, 1400, 2200, 3000, 3800].map((x, index) => (
         <div
           key={`hill-${index}`}
           className="absolute"
-          style={{ 
-            left: x - cameraOffset * 0.5, 
+          style={{
+            left: x - cameraOffset * 0.5,
             bottom: screenDimensions.width < 640 ? 80 : screenDimensions.width < 1024 ? 96 : 112,
             transform: (x - cameraOffset * 0.5) < -200 || (x - cameraOffset * 0.5) > VIEWPORT_WIDTH + 200 ? 'scale(0)' : 'scale(1)'
           }}
         >
-          <div className={`${
-            index % 2 === 0 ? 
-              (screenDimensions.width < 640 ? 'w-24 h-12' : 'w-32 h-16') : 
+          <div className={`${index % 2 === 0 ?
+              (screenDimensions.width < 640 ? 'w-24 h-12' : 'w-32 h-16') :
               (screenDimensions.width < 640 ? 'w-16 h-8' : 'w-24 h-12')
-          } bg-green-500 rounded-t-full border-t-2 sm:border-t-4 border-green-600`}></div>
+            } bg-green-500 rounded-t-full border-t-2 sm:border-t-4 border-green-600`}></div>
         </div>
       ))}
     </>
@@ -1751,9 +1744,9 @@ function InteractiveMarioJourney({
   }, [unlockAchievement])
 
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-blue-400 overflow-hidden select-none"
-      style={{ 
+      style={{
         imageRendering: 'pixelated',
         height: '100dvh', // Dynamic viewport height for mobile
         touchAction: 'none' // Prevent default touch behaviors
@@ -1763,11 +1756,11 @@ function InteractiveMarioJourney({
       onTouchEnd={handleTouchEnd}
     >
       {/* Classic Mario HUD - Mobile Compact */}
-      <div className="absolute top-0 left-0 w-full h-8 sm:h-12 lg:h-16 bg-black text-white z-50 flex items-center px-1 sm:px-2 lg:px-4 font-mono" 
-           style={{ 
-             imageRendering: 'pixelated',
-             fontSize: screenDimensions.width < 640 ? '8px' : screenDimensions.width < 1024 ? '11px' : '14px'
-           }}>
+      <div className="absolute top-0 left-0 w-full h-8 sm:h-12 lg:h-16 bg-black text-white z-50 flex items-center px-1 sm:px-2 lg:px-4 font-mono"
+        style={{
+          imageRendering: 'pixelated',
+          fontSize: screenDimensions.width < 640 ? '8px' : screenDimensions.width < 1024 ? '11px' : '14px'
+        }}>
         <div className="flex-1 text-center">
           <div className="text-white font-bold">MARIO</div>
           <div className="text-white">{String(gameState.score).padStart(6, '0')}</div>
@@ -1839,23 +1832,23 @@ function InteractiveMarioJourney({
       </div>
 
       {/* World Container with Camera Offset */}
-      <div 
+      <div
         className="absolute inset-0"
         style={{ transform: `translateX(-${cameraOffset}px)` }}
       >
         <WorldElements />
-        
+
         {/* Timeline Locations - Responsive Enhanced Mario Elements */}
         {timelineLocations.map((location, index) => (
           <motion.div
             key={location.id}
             className="absolute"
-            style={{ 
-              left: location.worldX, 
+            style={{
+              left: location.worldX,
               bottom: screenDimensions.width < 640 ? 80 : screenDimensions.width < 1024 ? 96 : 112
             }}
             initial={{ scale: 0, y: 20 }}
-            animate={{ 
+            animate={{
               scale: visitedLocations.includes(location.id) ? 1.1 : 1,
               y: visitedLocations.includes(location.id) ? -5 : 0
             }}
@@ -1865,56 +1858,46 @@ function InteractiveMarioJourney({
               /* Castle for Experience - Responsive */
               <div className="relative">
                 {/* Castle Base */}
-                <div className={`${
-                  screenDimensions.width < 640 ? 'w-16 h-20' : 'w-20 h-24'
-                } bg-gray-500 border-2 sm:border-4 border-gray-700 relative`}>
+                <div className={`${screenDimensions.width < 640 ? 'w-16 h-20' : 'w-20 h-24'
+                  } bg-gray-500 border-2 sm:border-4 border-gray-700 relative`}>
                   {/* Castle Towers */}
-                  <div className={`absolute -top-2 left-1 ${
-                    screenDimensions.width < 640 ? 'w-3 h-6' : 'w-4 h-8'
-                  } bg-gray-600 border border-gray-800 sm:border-2`}></div>
-                  <div className={`absolute -top-2 right-1 ${
-                    screenDimensions.width < 640 ? 'w-3 h-6' : 'w-4 h-8'
-                  } bg-gray-600 border border-gray-800 sm:border-2`}></div>
-                  <div className={`absolute -top-2 left-1/2 transform -translate-x-1/2 ${
-                    screenDimensions.width < 640 ? 'w-3 h-6' : 'w-4 h-8'
-                  } bg-gray-600 border border-gray-800 sm:border-2`}></div>
-                  
+                  <div className={`absolute -top-2 left-1 ${screenDimensions.width < 640 ? 'w-3 h-6' : 'w-4 h-8'
+                    } bg-gray-600 border border-gray-800 sm:border-2`}></div>
+                  <div className={`absolute -top-2 right-1 ${screenDimensions.width < 640 ? 'w-3 h-6' : 'w-4 h-8'
+                    } bg-gray-600 border border-gray-800 sm:border-2`}></div>
+                  <div className={`absolute -top-2 left-1/2 transform -translate-x-1/2 ${screenDimensions.width < 640 ? 'w-3 h-6' : 'w-4 h-8'
+                    } bg-gray-600 border border-gray-800 sm:border-2`}></div>
+
                   {/* Castle Gate */}
-                  <div className={`absolute bottom-2 left-1/2 transform -translate-x-1/2 ${
-                    screenDimensions.width < 640 ? 'w-6 h-10' : 'w-8 h-12'
-                  } bg-black rounded-t-full border border-gray-800 sm:border-2`}></div>
-                  
+                  <div className={`absolute bottom-2 left-1/2 transform -translate-x-1/2 ${screenDimensions.width < 640 ? 'w-6 h-10' : 'w-8 h-12'
+                    } bg-black rounded-t-full border border-gray-800 sm:border-2`}></div>
+
                   {/* Flag on top */}
-                  <div className={`absolute -top-6 left-1/2 transform -translate-x-1/2 w-1 ${
-                    screenDimensions.width < 640 ? 'h-6' : 'h-8'
-                  } bg-yellow-600`}></div>
+                  <div className={`absolute -top-6 left-1/2 transform -translate-x-1/2 w-1 ${screenDimensions.width < 640 ? 'h-6' : 'h-8'
+                    } bg-yellow-600`}></div>
                   <motion.div
-                    className={`absolute -top-6 left-1/2 ${
-                      screenDimensions.width < 640 ? 'w-4 h-3' : 'w-6 h-4'
-                    } bg-red-500 border border-red-700`}
+                    className={`absolute -top-6 left-1/2 ${screenDimensions.width < 640 ? 'w-4 h-3' : 'w-6 h-4'
+                      } bg-red-500 border border-red-700`}
                     animate={{ x: [0, 2, 0] }}
                     transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
                   >
                     <div className="text-white text-xs font-bold text-center">💼</div>
                   </motion.div>
-                  
+
                   {/* Windows */}
-                  <div className={`absolute top-4 left-3 ${
-                    screenDimensions.width < 640 ? 'w-1.5 h-1.5' : 'w-2 h-2'
-                  } bg-yellow-400 border border-yellow-600`}></div>
-                  <div className={`absolute top-4 right-3 ${
-                    screenDimensions.width < 640 ? 'w-1.5 h-1.5' : 'w-2 h-2'
-                  } bg-yellow-400 border border-yellow-600`}></div>
+                  <div className={`absolute top-4 left-3 ${screenDimensions.width < 640 ? 'w-1.5 h-1.5' : 'w-2 h-2'
+                    } bg-yellow-400 border border-yellow-600`}></div>
+                  <div className={`absolute top-4 right-3 ${screenDimensions.width < 640 ? 'w-1.5 h-1.5' : 'w-2 h-2'
+                    } bg-yellow-400 border border-yellow-600`}></div>
                 </div>
-                
+
                 {/* Visited Star */}
                 {visitedLocations.includes(location.id) && (
                   <motion.div
                     initial={{ scale: 0, rotate: -180 }}
                     animate={{ scale: 1, rotate: 0 }}
-                    className={`absolute -top-8 -right-2 text-yellow-300 ${
-                      screenDimensions.width < 640 ? 'text-lg' : 'text-2xl'
-                    } animate-pulse`}
+                    className={`absolute -top-8 -right-2 text-yellow-300 ${screenDimensions.width < 640 ? 'text-lg' : 'text-2xl'
+                      } animate-pulse`}
                   >
                     ⭐
                   </motion.div>
@@ -1924,56 +1907,48 @@ function InteractiveMarioJourney({
               /* Warp Pipe for Education - Responsive */
               <div className="relative">
                 <motion.div
-                  className={`${
-                    screenDimensions.width < 640 ? 'w-12 h-20' : 'w-16 h-28'
-                  } bg-green-500 border-2 sm:border-4 border-green-700 rounded-t-2xl relative overflow-hidden`}
-                  animate={{ 
-                    y: visitedLocations.includes(location.id) ? [0, -2, 0] : [0, -1, 0] 
+                  className={`${screenDimensions.width < 640 ? 'w-12 h-20' : 'w-16 h-28'
+                    } bg-green-500 border-2 sm:border-4 border-green-700 rounded-t-2xl relative overflow-hidden`}
+                  animate={{
+                    y: visitedLocations.includes(location.id) ? [0, -2, 0] : [0, -1, 0]
                   }}
-                  transition={{ 
-                    duration: 2, 
-                    repeat: Number.POSITIVE_INFINITY, 
-                    ease: "easeInOut" 
+                  transition={{
+                    duration: 2,
+                    repeat: Number.POSITIVE_INFINITY,
+                    ease: "easeInOut"
                   }}
                 >
                   {/* Pipe Lip */}
-                  <div className={`absolute top-0 left-0 w-full ${
-                    screenDimensions.width < 640 ? 'h-4' : 'h-6'
-                  } bg-green-400 border-b-2 border-green-800 rounded-t-2xl`}></div>
-                  
+                  <div className={`absolute top-0 left-0 w-full ${screenDimensions.width < 640 ? 'h-4' : 'h-6'
+                    } bg-green-400 border-b-2 border-green-800 rounded-t-2xl`}></div>
+
                   {/* Pipe Highlights */}
-                  <div className={`absolute ${
-                    screenDimensions.width < 640 ? 'top-4 left-1.5 w-1.5 h-14' : 'top-6 left-2 w-2 h-20'
-                  } bg-green-400 opacity-60`}></div>
-                  <div className={`absolute ${
-                    screenDimensions.width < 640 ? 'top-4 right-1.5 w-1.5 h-14' : 'top-6 right-2 w-2 h-20'
-                  } bg-green-600 opacity-60`}></div>
-                  
+                  <div className={`absolute ${screenDimensions.width < 640 ? 'top-4 left-1.5 w-1.5 h-14' : 'top-6 left-2 w-2 h-20'
+                    } bg-green-400 opacity-60`}></div>
+                  <div className={`absolute ${screenDimensions.width < 640 ? 'top-4 right-1.5 w-1.5 h-14' : 'top-6 right-2 w-2 h-20'
+                    } bg-green-600 opacity-60`}></div>
+
                   {/* Education Icon */}
-                  <div className={`absolute ${
-                    screenDimensions.width < 640 ? 'top-6' : 'top-8'
-                  } left-1/2 transform -translate-x-1/2 text-white ${
-                    screenDimensions.width < 640 ? 'text-lg' : 'text-2xl'
-                  }`}>
+                  <div className={`absolute ${screenDimensions.width < 640 ? 'top-6' : 'top-8'
+                    } left-1/2 transform -translate-x-1/2 text-white ${screenDimensions.width < 640 ? 'text-lg' : 'text-2xl'
+                    }`}>
                     🎓
                   </div>
-                  
+
                   {/* Pipe Entrance Glow */}
-                  <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 ${
-                    screenDimensions.width < 640 ? 'w-6 h-3' : 'w-8 h-4'
-                  } bg-black rounded-full border-2 border-green-800`}>
+                  <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 ${screenDimensions.width < 640 ? 'w-6 h-3' : 'w-8 h-4'
+                    } bg-black rounded-full border-2 border-green-800`}>
                     <div className="w-full h-full bg-gradient-to-t from-purple-900 to-transparent rounded-full"></div>
                   </div>
                 </motion.div>
-                
+
                 {/* Visited Star */}
                 {visitedLocations.includes(location.id) && (
                   <motion.div
                     initial={{ scale: 0, rotate: -180 }}
                     animate={{ scale: 1, rotate: 0 }}
-                    className={`absolute -top-4 -right-2 text-yellow-300 ${
-                      screenDimensions.width < 640 ? 'text-lg' : 'text-2xl'
-                    } animate-pulse`}
+                    className={`absolute -top-4 -right-2 text-yellow-300 ${screenDimensions.width < 640 ? 'text-lg' : 'text-2xl'
+                      } animate-pulse`}
                   >
                     ⭐
                   </motion.div>
@@ -1987,8 +1962,8 @@ function InteractiveMarioJourney({
       {/* Mario Character - Responsive Fixed Position */}
       <motion.div
         className="absolute z-30"
-        style={{ 
-          left: marioPosition.x, 
+        style={{
+          left: marioPosition.x,
           bottom: isJumping ? (screenDimensions.width < 640 ? 110 : 150) : (screenDimensions.width < 640 ? 80 : 96),
         }}
         animate={{
@@ -2001,13 +1976,13 @@ function InteractiveMarioJourney({
         }}
       >
         <div className="relative">
-          <Mario8BitSprite 
-            isWalking={isWalking} 
-            isJumping={isJumping} 
+          <Mario8BitSprite
+            isWalking={isWalking}
+            isJumping={isJumping}
             facingRight={facingRight}
             walkFrame={walkFrame}
           />
-          
+
           {/* Jump sound effect - responsive */}
           {isJumping && (
             <motion.div
@@ -2019,9 +1994,9 @@ function InteractiveMarioJourney({
               WAHOO!
             </motion.div>
           )}
-          
+
           {/* Mario's shadow - responsive */}
-          <div 
+          <div
             className="absolute bg-black/30 rounded-full blur-sm"
             style={{
               width: screenDimensions.width < 640 ? '24px' : '32px',
@@ -2045,9 +2020,9 @@ function InteractiveMarioJourney({
           style={{ maxHeight: screenDimensions.width < 640 ? screenDimensions.height * 0.4 : screenDimensions.height * 0.6 }}
         >
           {/* Compact Mario dialog box */}
-          <div 
+          <div
             className="bg-black border border-white sm:border-2 rounded p-2 sm:p-4 shadow-xl font-mono overflow-y-auto"
-            style={{ 
+            style={{
               imageRendering: 'pixelated',
               fontSize: screenDimensions.width < 640 ? '10px' : '14px',
               maxHeight: 'inherit'
@@ -2055,34 +2030,33 @@ function InteractiveMarioJourney({
           >
             {/* Dialog box pointer - Hidden on mobile */}
             <div className="hidden sm:block absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-white"></div>
-            
+
             {/* Compact Header */}
             <div className="text-center mb-1 sm:mb-3">
-              <div className={`inline-block px-2 py-1 rounded text-xs font-bold ${
-                currentLocationInfo.type === 'experience' 
-                  ? 'bg-red-600 text-white' 
+              <div className={`inline-block px-2 py-1 rounded text-xs font-bold ${currentLocationInfo.type === 'experience'
+                  ? 'bg-red-600 text-white'
                   : 'bg-blue-600 text-white'
-              }`}>
+                }`}>
                 {currentLocationInfo.type === 'experience' ? '🏰 CAREER' : '🎓 EDUCATION'}
               </div>
             </div>
-            
+
             {/* Compact content layout */}
             <div className="space-y-1 sm:space-y-2">
               {/* Title - Compact */}
               <div className="text-center">
                 <h3 className="text-yellow-400 font-bold text-xs sm:text-sm leading-tight">
-                  {screenDimensions.width < 640 ? 
-                    currentLocationInfo.title.length > 20 ? 
-                      currentLocationInfo.title.substring(0, 17) + '...' : 
-                      currentLocationInfo.title 
+                  {screenDimensions.width < 640 ?
+                    currentLocationInfo.title.length > 20 ?
+                      currentLocationInfo.title.substring(0, 17) + '...' :
+                      currentLocationInfo.title
                     : currentLocationInfo.title.toUpperCase()}
                 </h3>
                 <div className="text-white text-xs">
                   {currentLocationInfo.subtitle}
                 </div>
               </div>
-              
+
               {/* Date and Location - Ultra Compact */}
               <div className="bg-gray-800 border border-gray-600 rounded p-1 sm:p-2">
                 <div className="text-green-400 text-xs">
@@ -2094,30 +2068,30 @@ function InteractiveMarioJourney({
                   </div>
                 )}
               </div>
-              
+
               {/* Description - Condensed */}
               <div className="bg-white text-black p-1 sm:p-2 rounded text-xs leading-tight">
-                {screenDimensions.width < 640 ? 
-                  currentLocationInfo.description.length > 100 ? 
-                    currentLocationInfo.description.substring(0, 97) + '...' : 
+                {screenDimensions.width < 640 ?
+                  currentLocationInfo.description.length > 100 ?
+                    currentLocationInfo.description.substring(0, 97) + '...' :
                     currentLocationInfo.description
                   : currentLocationInfo.description}
               </div>
-              
+
               {/* Achievement - Compact */}
               {currentLocationInfo.achievements.length > 0 && (
                 <div className="bg-yellow-200 text-black p-1 sm:p-2 rounded text-xs">
                   <div className="font-bold">⭐ Achievement:</div>
                   <div>
-                    {screenDimensions.width < 640 ? 
-                      currentLocationInfo.achievements[0].length > 60 ? 
-                        currentLocationInfo.achievements[0].substring(0, 57) + '...' : 
+                    {screenDimensions.width < 640 ?
+                      currentLocationInfo.achievements[0].length > 60 ?
+                        currentLocationInfo.achievements[0].substring(0, 57) + '...' :
                         currentLocationInfo.achievements[0]
                       : currentLocationInfo.achievements[0]}
                   </div>
                 </div>
               )}
-              
+
               {/* Technologies - Minimal */}
               {currentLocationInfo.technologies && currentLocationInfo.technologies.length > 0 && (
                 <div className="pt-1 border-t border-gray-600">
@@ -2136,7 +2110,7 @@ function InteractiveMarioJourney({
                   </div>
                 </div>
               )}
-              
+
               {/* Continue instruction - Minimal */}
               <div className="text-center pt-1 border-t border-gray-600">
                 <div className="text-yellow-400 text-xs font-bold animate-pulse">
@@ -2155,9 +2129,9 @@ function InteractiveMarioJourney({
           animate={{ opacity: 1, y: -(screenDimensions.width < 640 ? 30 : 50), scale: screenDimensions.width < 640 ? 1 : 1.2 }}
           exit={{ opacity: 0, y: -(screenDimensions.width < 640 ? 60 : 100), scale: 0.8 }}
           className="absolute z-50 pointer-events-none"
-          style={{ 
-            left: Math.min(scorePopup.x, screenDimensions.width - 120), 
-            top: scorePopup.y 
+          style={{
+            left: Math.min(scorePopup.x, screenDimensions.width - 120),
+            top: scorePopup.y
           }}
         >
           <div className="bg-yellow-400 text-black px-2 sm:px-4 py-1 sm:py-2 rounded border-2 sm:border-4 border-yellow-600 font-bold shadow-2xl">
@@ -2171,7 +2145,7 @@ function InteractiveMarioJourney({
 
       {/* Mobile Touch Instructions - Smart Positioning */}
       <div className={`sm:hidden absolute left-1/2 transform -translate-x-1/2 z-30 ${currentLocationInfo ? 'bottom-2' : 'bottom-6'}`}>
-        <motion.div 
+        <motion.div
           className="bg-black/80 border border-yellow-400 rounded px-3 py-1 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

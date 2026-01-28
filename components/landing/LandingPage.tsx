@@ -9,7 +9,7 @@ import ThemeSwitcher from "../portfolio/ThemeSwitcher"
 import { useRouter } from "next/navigation"
 import AnimatedShapes from "./AnimatedShapes"
 
-interface LandingPageProps {}
+interface LandingPageProps { }
 
 const themes = [
     {
@@ -62,7 +62,7 @@ const themes = [
     },
 ]
 
-const LandingPage = ({}: LandingPageProps) => {
+const LandingPage = ({ }: LandingPageProps) => {
     const [selectedTheme, setSelectedTheme] = useState<string | null>(null)
     const router = useRouter()
     const { setTheme, visitCount, visitData } = usePortfolioStore()
@@ -85,7 +85,7 @@ const LandingPage = ({}: LandingPageProps) => {
             <main className="relative z-10">
                 {/* Hero Section */}
                 <section className="home container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-screen">
-                    <motion.div 
+                    <motion.div
                         className="intro text-center"
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -99,8 +99,8 @@ const LandingPage = ({}: LandingPageProps) => {
                             animate={{ scale: 1 }}
                             transition={{ delay: 0.2, type: "spring", bounce: 0.5 }}
                         />
-                        
-                        <motion.h1 
+
+                        <motion.h1
                             className="home__name text-5xl md:text-6xl font-bold mb-3"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -108,8 +108,8 @@ const LandingPage = ({}: LandingPageProps) => {
                         >
                             {personalInfo.name}
                         </motion.h1>
-                        
-                        <motion.span 
+
+                        <motion.span
                             className="home__education text-xl md:text-2xl text-gray-400 mb-4 block"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -125,7 +125,7 @@ const LandingPage = ({}: LandingPageProps) => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.8 }}
                             >
-                                Welcome back! Visit #{visitCount} 
+                                Welcome back! Visit #{visitCount}
                                 {visitData.themesExplored.length > 0 && (
                                     <span className="text-gray-400 ml-2">
                                         • {visitData.themesExplored.length} themes explored
@@ -134,7 +134,7 @@ const LandingPage = ({}: LandingPageProps) => {
                             </motion.p>
                         )}
 
-                        <motion.div 
+                        <motion.div
                             className="home__socials flex justify-center gap-6 mb-8"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -172,7 +172,7 @@ const LandingPage = ({}: LandingPageProps) => {
                             </a>
                             <a
                                 href={personalInfo.resumeUrl}
-                                download="Nakul_Jhunjhunwala_Resume.docx"
+                                download="Nakul_Jhunjhunwala_Resume.pdf"
                                 className="btn inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 px-8 rounded-full hover:from-pink-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                             >
                                 <FileText size={20} />
@@ -180,7 +180,7 @@ const LandingPage = ({}: LandingPageProps) => {
                             </a>
                         </motion.div>
 
-                        <motion.div 
+                        <motion.div
                             className="scroll__down"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
