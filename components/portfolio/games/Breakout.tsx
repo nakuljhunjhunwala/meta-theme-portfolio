@@ -282,7 +282,6 @@ const Breakout = () => {
   }, [])
   
   const handleTouchMove = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
-    e.preventDefault()
     if (!gameAreaRef.current) return
     const rect = gameAreaRef.current.getBoundingClientRect()
     const scaleX = GAME_WIDTH / rect.width
@@ -357,6 +356,7 @@ const Breakout = () => {
         className="relative w-full max-w-2xl bg-black border-4 border-red-500 overflow-hidden rounded-lg shadow-2xl"
         style={{
           aspectRatio: `${GAME_WIDTH}/${GAME_HEIGHT}`,
+          touchAction: 'none',
           backgroundImage: `
             linear-gradient(90deg, rgba(255, 0, 0, 0.1) 1px, transparent 1px),
             linear-gradient(rgba(255, 0, 0, 0.1) 1px, transparent 1px),
@@ -366,7 +366,6 @@ const Breakout = () => {
         }}
         onMouseMove={handleMouseMove}
         onTouchMove={handleTouchMove}
-        onTouchStart={(e) => e.preventDefault()}
         onClick={!gameState.gameStarted ? startGame : undefined}
       >
         {/* Bricks */}

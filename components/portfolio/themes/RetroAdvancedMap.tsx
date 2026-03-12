@@ -135,9 +135,9 @@ export default function RetroAdvancedMap() {
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setShowVisited(!showVisited)}
-                className={`px-3 py-1 text-xs font-bold border-2 border-black transition-all retro-button-3d ${
-                  showVisited 
-                    ? 'bg-green-400 text-white' 
+                className={`px-3 py-2 min-h-[44px] text-xs font-bold border-2 border-black transition-all active:scale-95 retro-button-3d ${
+                  showVisited
+                    ? 'bg-green-400 text-white'
                     : 'bg-gray-600 text-white'
                 }`}
               >
@@ -145,9 +145,9 @@ export default function RetroAdvancedMap() {
               </button>
               <button
                 onClick={() => setShowDreams(!showDreams)}
-                className={`px-3 py-1 text-xs font-bold border-2 border-black transition-all retro-button-3d ${
-                  showDreams 
-                    ? 'bg-purple-400 text-white' 
+                className={`px-3 py-2 min-h-[44px] text-xs font-bold border-2 border-black transition-all active:scale-95 retro-button-3d ${
+                  showDreams
+                    ? 'bg-purple-400 text-white'
                     : 'bg-gray-600 text-white'
                 }`}
               >
@@ -171,9 +171,9 @@ export default function RetroAdvancedMap() {
                 }
               }}
                              // text colour white not black and not selected something else the white colour
-                className={`px-3 py-1 text-xs font-bold border-2 border-black transition-all retro-button-3d ${
-                  indiaOnly 
-                   ? 'bg-orange-400 text-white' 
+                className={`px-3 py-2 min-h-[44px] text-xs font-bold border-2 border-black transition-all active:scale-95 retro-button-3d ${
+                  indiaOnly
+                   ? 'bg-orange-400 text-white'
                    : 'bg-cyan-400 text-white'
                 }`}
             >
@@ -186,7 +186,7 @@ export default function RetroAdvancedMap() {
             <h3 className="text-white font-bold text-sm pixel-text">🕹️ MAP CONTROLS</h3>
             <button
               onClick={handleResetView}
-              className="px-3 py-1 text-xs font-bold bg-pink-400 text-white border-2 border-black hover:bg-pink-300 transition-all retro-button-3d"
+              className="px-3 py-2 min-h-[44px] text-xs font-bold bg-pink-400 text-white border-2 border-black hover:bg-pink-300 active:scale-95 transition-all retro-button-3d"
             >
               <RotateCcw className="w-3 h-3 inline mr-1" />
               RESET VIEW
@@ -218,7 +218,7 @@ export default function RetroAdvancedMap() {
       </div>
 
       {/* Mario-Style Map Container - Bright & Happy! */}
-      <div className="relative w-full h-[450px] sm:h-[550px] md:h-[650px] lg:h-[700px] bg-cyan-300 border-4 border-yellow-400 rounded overflow-hidden pixel-perfect retro-container">
+      <div className="relative w-full h-[300px] sm:h-[450px] md:h-[550px] lg:h-[700px] bg-cyan-300 border-4 border-yellow-400 rounded overflow-hidden pixel-perfect retro-container">
         {/* Mario clouds background */}
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           {[...Array(6)].map((_, i) => (
@@ -348,9 +348,15 @@ export default function RetroAdvancedMap() {
                   onClick={() => handleMarkerClick(place)}
                 >
                   <g className="marker cursor-pointer">
+                    {/* Invisible larger touch target for mobile */}
+                    <circle
+                      r={Math.max(10, 20 / zoom)}
+                      fill="transparent"
+                      stroke="transparent"
+                    />
                     {/* Mario-Style Marker with much better zoom scaling */}
-                    <circle 
-                      r={Math.max(2, 6 / zoom)} 
+                    <circle
+                      r={Math.max(2, 6 / zoom)}
                       fill={place.visited ? "#fbbf24" : "#ec4899"}
                       stroke="#000"
                       strokeWidth="2"
@@ -503,7 +509,7 @@ export default function RetroAdvancedMap() {
                 <div className="text-center">
                   <button
                     onClick={() => setSelectedPlace(null)}
-                    className="px-6 py-2 bg-red-500 text-white font-bold border-2 border-black hover:bg-red-400 transition-all retro-button-3d pixel-text"
+                    className="px-6 py-2 min-h-[44px] bg-red-500 text-white font-bold border-2 border-black hover:bg-red-400 active:bg-red-600 active:scale-95 transition-all retro-button-3d pixel-text"
                   >
                     CLOSE
                   </button>

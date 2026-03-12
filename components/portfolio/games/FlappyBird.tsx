@@ -247,9 +247,7 @@ const FlappyBird = () => {
     jump()
   }, [jump])
 
-  const handleTouch = useCallback((e: React.TouchEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
+  const handleTouch = useCallback(() => {
     jump()
   }, [jump])
 

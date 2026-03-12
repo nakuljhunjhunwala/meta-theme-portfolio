@@ -2,7 +2,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { playTone } from "@/lib/audio"
 import { motion } from "framer-motion"
 
@@ -135,7 +135,7 @@ const Pong = () => {
     }))
   }
 
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchMove = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
     if (!gameAreaRef.current) return
     const rect = gameAreaRef.current.getBoundingClientRect()
     const newPlayerY = e.touches[0].clientY - rect.top - 50
@@ -146,7 +146,7 @@ const Pong = () => {
         Math.min(newPlayerY, rect.height - 100)
       ),
     }))
-  }
+  }, [])
   
   const handleRestart = () => {
     const gameArea = gameAreaRef.current
@@ -198,6 +198,7 @@ const Pong = () => {
           className="relative w-full h-full max-w-2xl max-h-full bg-black border-2 sm:border-4 border-cyan-500 overflow-hidden cursor-none rounded-lg shadow-2xl"
           style={{
             aspectRatio: '4/3',
+            touchAction: 'none',
             backgroundImage: `
               linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
               linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
@@ -207,7 +208,6 @@ const Pong = () => {
           }}
         onMouseMove={handleMouseMove}
         onTouchMove={handleTouchMove}
-        onTouchStart={(e) => e.preventDefault()}
       >
         {/* Center Line */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-full border-l-4 border-dashed border-cyan-400/40"></div>

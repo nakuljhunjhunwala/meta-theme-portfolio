@@ -319,7 +319,6 @@ const RoadRush: React.FC = () => {
           else if (gameStarted && !gameOver && !isPaused) doBoost()
         }}
         onTouchStart={(e) => {
-          e.preventDefault()
           e.stopPropagation()
           const touch = e.touches[0]
           const rect = e.currentTarget.getBoundingClientRect()
@@ -331,7 +330,6 @@ const RoadRush: React.FC = () => {
           e.currentTarget.dataset.touchStartY = touchY.toString()
         }}
         onTouchEnd={(e) => {
-          e.preventDefault()
           e.stopPropagation()
           if (!gameStarted) {
             startGame()

@@ -550,7 +550,7 @@ const Tetris = () => {
               e.stopPropagation()
               movePiece(-1, 0)
             }}
-            className="bg-purple-600 text-white font-bold p-2 rounded border border-purple-400 text-xs"
+            className="bg-purple-600 text-white font-bold p-2 min-h-[44px] rounded border border-purple-400 text-xs active:brightness-90"
             whileTap={{ scale: 0.95 }}
           >
             ⬅️
@@ -561,7 +561,7 @@ const Tetris = () => {
               e.stopPropagation()
               rotatePieceAction()
             }}
-            className="bg-yellow-600 text-white font-bold p-2 rounded border border-yellow-400 text-xs"
+            className="bg-yellow-600 text-white font-bold p-2 min-h-[44px] rounded border border-yellow-400 text-xs active:brightness-90"
             whileTap={{ scale: 0.95 }}
           >
             🔄
@@ -572,7 +572,7 @@ const Tetris = () => {
               e.stopPropagation()
               movePiece(1, 0)
             }}
-            className="bg-purple-600 text-white font-bold p-2 rounded border border-purple-400 text-xs"
+            className="bg-purple-600 text-white font-bold p-2 min-h-[44px] rounded border border-purple-400 text-xs active:brightness-90"
             whileTap={{ scale: 0.95 }}
           >
             ➡️
@@ -583,7 +583,7 @@ const Tetris = () => {
               e.stopPropagation()
               hardDrop()
             }}
-            className="bg-red-600 text-white font-bold p-2 rounded border border-red-400 text-xs"
+            className="bg-red-600 text-white font-bold p-2 min-h-[44px] rounded border border-red-400 text-xs active:brightness-90"
             whileTap={{ scale: 0.95 }}
           >
             ⬇️
@@ -596,7 +596,7 @@ const Tetris = () => {
               e.stopPropagation()
               togglePause()
             }}
-            className="bg-gray-600 text-white font-bold px-3 py-1 rounded border border-gray-400 text-xs"
+            className="bg-gray-600 text-white font-bold px-4 py-2 min-h-[44px] rounded border border-gray-400 text-xs active:brightness-90"
             whileTap={{ scale: 0.95 }}
           >
             {isPaused ? "▶️" : "⏸️"}

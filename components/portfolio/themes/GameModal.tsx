@@ -30,9 +30,10 @@ const GameModal: React.FC<GameModalProps> = ({
           onClick={onClose}
         >
           <motion.div
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.5, opacity: 0 }}
+            initial={{ scale: 0.8, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 10 }}
+            transition={{ type: "spring", stiffness: 400, damping: 30 }}
             className="bg-[#0d0f14] border-4 border-[#2f2f46] shadow-2xl w-full h-full max-w-6xl max-h-[95vh] sm:max-h-[90vh] flex flex-col relative rounded-lg overflow-hidden crt-overlay game-screen select-none"
             onClick={(e) => e.stopPropagation()}
             style={{
@@ -61,17 +62,17 @@ const GameModal: React.FC<GameModalProps> = ({
               </div>
               <button
                 onClick={onClose}
-                className="relative text-white/70 hover:text-white transition-colors rounded p-1 sm:p-2 border border-white/10"
+                className="relative text-white/70 hover:text-white active:text-white/50 transition-colors rounded p-2 min-h-[44px] min-w-[44px] flex items-center justify-center border border-white/10"
               >
                 <X size={18} className="sm:w-6 sm:h-6" />
               </button>
             </div>
-            <div className="flex-grow overflow-hidden p-1 sm:p-2 relative">
-              <div className="absolute inset-0 bg-black/10"></div>
+            <div className="flex-grow overflow-y-auto p-1 sm:p-2 pb-[env(safe-area-inset-bottom,4px)] relative" style={{ WebkitOverflowScrolling: 'touch' }}>
+              <div className="absolute inset-0 bg-black/10 pointer-events-none"></div>
               <div className="relative z-10 h-full">
                 {children}
               </div>
-              <div className="crt-scanline"></div>
+              <div className="crt-scanline hidden sm:block"></div>
             </div>
           </motion.div>
         </motion.div>

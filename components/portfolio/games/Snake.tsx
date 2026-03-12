@@ -326,39 +326,39 @@ const Snake = () => {
             <div></div>
             <motion.button
               onTouchStart={() => handleTouchDirection({ x: 0, y: -1 })}
-              className="bg-purple-600 hover:bg-purple-700 text-white font-bold p-2 rounded border border-purple-400 text-lg"
+              className="bg-purple-600 hover:bg-purple-700 text-white font-bold p-2 min-h-[44px] rounded border border-purple-400 text-lg active:brightness-90"
               whileTap={{ scale: 0.95 }}
             >
               ⬆️
             </motion.button>
             <div></div>
-            
+
             <motion.button
               onTouchStart={() => handleTouchDirection({ x: -1, y: 0 })}
-              className="bg-purple-600 hover:bg-purple-700 text-white font-bold p-2 rounded border border-purple-400 text-lg"
+              className="bg-purple-600 hover:bg-purple-700 text-white font-bold p-2 min-h-[44px] rounded border border-purple-400 text-lg active:brightness-90"
               whileTap={{ scale: 0.95 }}
             >
               ⬅️
             </motion.button>
             <motion.button
               onClick={togglePause}
-              className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold p-2 rounded border border-yellow-400 text-xs"
+              className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold p-2 min-h-[44px] rounded border border-yellow-400 text-xs active:brightness-90"
               whileTap={{ scale: 0.95 }}
             >
               ⏸️
             </motion.button>
             <motion.button
               onTouchStart={() => handleTouchDirection({ x: 1, y: 0 })}
-              className="bg-purple-600 hover:bg-purple-700 text-white font-bold p-2 rounded border border-purple-400 text-lg"
+              className="bg-purple-600 hover:bg-purple-700 text-white font-bold p-2 min-h-[44px] rounded border border-purple-400 text-lg active:brightness-90"
               whileTap={{ scale: 0.95 }}
             >
               ➡️
             </motion.button>
-            
+
             <div></div>
             <motion.button
               onTouchStart={() => handleTouchDirection({ x: 0, y: 1 })}
-              className="bg-purple-600 hover:bg-purple-700 text-white font-bold p-2 rounded border border-purple-400 text-lg"
+              className="bg-purple-600 hover:bg-purple-700 text-white font-bold p-2 min-h-[44px] rounded border border-purple-400 text-lg active:brightness-90"
               whileTap={{ scale: 0.95 }}
             >
               ⬇️

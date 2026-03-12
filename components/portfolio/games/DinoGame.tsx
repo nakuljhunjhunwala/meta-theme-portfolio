@@ -338,18 +338,16 @@ const DinoGame = () => {
     }
   }, [handleKeyDown, handleKeyUp])
 
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
+  const handleTouchStart = useCallback(() => {
     if (!gameStarted) {
       startGame()
       return
     }
     if (gameOver) return
-    
+
     setIsHolding(true)
     jump()
-    
+
     // Set timeout for ducking after 200ms of hold
     setTimeout(() => {
       if (isHolding) {
@@ -358,9 +356,7 @@ const DinoGame = () => {
     }, 200)
   }, [gameStarted, gameOver, startGame, jump, duck, isHolding])
 
-  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
+  const handleTouchEnd = useCallback(() => {
     setIsHolding(false)
     stopDuck()
   }, [stopDuck])

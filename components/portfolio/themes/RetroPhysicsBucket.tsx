@@ -432,10 +432,15 @@ function PhysicsCanvasComponent({
     const touchPosition = { x: touchX, y: touchY }
     
     for (let body of bodies) {
-      if (Matter.Bounds.contains(body.bounds, touchPosition)) {
+      // Expanded touch target (+10px each side) for better mobile interaction
+      const expandedBounds = {
+        min: { x: body.bounds.min.x - 10, y: body.bounds.min.y - 10 },
+        max: { x: body.bounds.max.x + 10, y: body.bounds.max.y + 10 }
+      }
+      if (Matter.Bounds.contains(expandedBounds, touchPosition)) {
         setSelectedBody(body)
         setIsDragging(true)
-        
+
         const constraint = Matter.Constraint.create({
           pointA: touchPosition,
           bodyB: body,
@@ -444,7 +449,7 @@ function PhysicsCanvasComponent({
           damping: 0.2,
           length: 0
         })
-        
+
         constraintRef.current = constraint
         Matter.World.add(worldRef.current!, constraint)
         break
@@ -541,7 +546,7 @@ function PhysicsCanvasComponent({
               console.log('🎯 Manual drop button clicked!')
               dropInDreams()
             }}
-            className="px-3 py-1 bg-yellow-500 hover:bg-yellow-400 text-black font-bold border-2 border-black rounded pixel-text text-xs retro-button-3d"
+            className="px-4 py-2 min-h-[44px] bg-yellow-500 hover:bg-yellow-400 active:bg-yellow-600 active:scale-95 text-black font-bold border-2 border-black rounded pixel-text text-xs retro-button-3d transition-all"
           >
             🪣 DROP NOW!
           </button>
@@ -697,7 +702,7 @@ const RetroPhysicsBucket = () => {
         ].map((stat, index) => (
           <motion.div 
             key={stat.label} 
-            className={`text-center p-1 sm:p-2 md:p-4 rounded border-2 sm:border-4 border-black ${stat.color} retro-button-3d pixel-perfect`}
+            className={`text-center p-2 sm:p-2 md:p-4 rounded border-2 sm:border-4 border-black ${stat.color} retro-button-3d pixel-perfect`}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 + index * 0.1, duration: 0.4 }}

@@ -2,7 +2,7 @@
 "use client"
 
 import React, { useState, useEffect, Suspense } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import { usePortfolioStore } from "@/stores/portfolioStore"
 import { personalInfo, technicalSkills, projects, experiences } from "@/constants/portfolio"
 import {
@@ -51,6 +51,15 @@ export default function RetroPortfolio() {
   })
   const [showAchievement, setShowAchievement] = useState<string | null>(null)
   const [activeGame, setActiveGame] = useState<string | null>(null)
+  const prefersReducedMotion = useReducedMotion()
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const { unlockAchievement } = usePortfolioStore()
 
@@ -122,13 +131,13 @@ export default function RetroPortfolio() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600 text-white font-mono relative overflow-hidden">
-      {/* Mario-style clouds background */}
+      {/* Mario-style clouds background - reduced on mobile for performance */}
       <div className="fixed inset-0 opacity-20 pointer-events-none -z-10">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(isMobile ? 4 : 8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-16 h-10 bg-white rounded-full"
-            animate={{
+            className="absolute w-16 h-10 bg-white rounded-full will-change-transform"
+            animate={prefersReducedMotion ? {} : {
               x: ["-100px", "calc(100vw + 100px)"],
             }}
             transition={{
@@ -138,6 +147,7 @@ export default function RetroPortfolio() {
             }}
             style={{
               top: `${10 + i * 10}%`,
+              transform: 'translateZ(0)',
             }}
           >
             <div className="absolute -left-4 top-2 w-8 h-6 bg-white rounded-full" />
@@ -227,25 +237,31 @@ export default function RetroPortfolio() {
       </div>
 
       {/* Mobile Navigation - Bottom bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-green-600 border-t-4 border-green-800 p-2">
+      <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-green-600 border-t-4 border-green-800 p-2 retro-safe-bottom">
         <div className="flex justify-around items-center">
           {sections.map((section) => (
             <motion.button
               key={section.id}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 0.9 }}
               onClick={() => {
                 setCurrentSection(section.id)
-                addScore(10, true) // Sound for navigation
+                addScore(10, true)
                 addCoins(1)
               }}
-              className={`flex flex-col items-center px-2 py-1 rounded transition-all font-bold text-xs ${currentSection === section.id
+              className={`relative flex flex-col items-center px-2 py-2 min-h-[44px] rounded transition-all font-bold text-xs ${currentSection === section.id
                   ? "bg-yellow-400 text-black shadow-lg"
-                  : `${section.color} text-white hover:brightness-110`
+                  : `${section.color} text-white active:brightness-90`
                 }`}
             >
-              <span className="text-lg mb-1">{section.icon}</span>
-              <span className="text-xs">{section.label.split(' ')[1] || section.label}</span>
+              {currentSection === section.id && (
+                <motion.div
+                  layoutId="retro-nav-indicator"
+                  className="absolute inset-0 bg-yellow-400 rounded"
+                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                />
+              )}
+              <span className="relative z-10 text-lg mb-0.5">{section.icon}</span>
+              <span className="relative z-10 text-[10px] leading-tight">{section.label.split(' ')[1] || section.label}</span>
             </motion.button>
           ))}
         </div>
@@ -267,7 +283,7 @@ export default function RetroPortfolio() {
                 }}
                 className={`w-full flex items-center space-x-2 px-3 py-2 rounded transition-all font-bold text-sm ${currentSection === section.id
                     ? "bg-yellow-400 text-black shadow-lg transform scale-110"
-                    : `${section.color} text-white hover:brightness-110 shadow-md`
+                    : `${section.color} text-white hover:brightness-110 active:brightness-90 shadow-md`
                   }`}
               >
                 <span className="text-lg">{section.icon}</span>
@@ -284,10 +300,10 @@ export default function RetroPortfolio() {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSection}
-              initial={{ opacity: 0, x: 50 }}
+              initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.3 }}
+              exit={{ opacity: 0, x: -30 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 30 }}
             >
               {currentSection === "about" && (
                 <RetroAbout addScore={addScore} addCoins={addCoins} unlockAchievement={unlockRetroAchievement} />
@@ -299,6 +315,7 @@ export default function RetroPortfolio() {
                   unlockAchievement={unlockRetroAchievement}
                   gameState={gameState}
                   playSound={playSound}
+                  onBack={() => setCurrentSection("about")}
                 />
               )}
               {currentSection === "skills" && (
@@ -335,7 +352,7 @@ export default function RetroPortfolio() {
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
-            className="fixed top-24 right-4 z-50 bg-yellow-400 text-black p-4 rounded-lg border-4 border-yellow-600 shadow-lg"
+            className="fixed top-12 sm:top-24 right-2 sm:right-4 z-[60] bg-yellow-400 text-black p-3 sm:p-4 rounded-lg border-4 border-yellow-600 shadow-lg"
           >
             <div className="flex items-center space-x-2">
               <Trophy className="w-6 h-6" />
@@ -373,28 +390,30 @@ export default function RetroPortfolio() {
         </Suspense>
       </GameModal>
 
-      {/* Floating coins */}
-      <div className="fixed inset-0 pointer-events-none">
-        {[...Array(10)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-6 h-6 bg-yellow-400 rounded-full border-2 border-yellow-600"
-            animate={{
-              y: [0, -20, 0],
-              rotate: [0, 360],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Number.POSITIVE_INFINITY,
-              delay: Math.random() * 2,
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${80 + Math.random() * 20}%`,
-            }}
-          />
-        ))}
-      </div>
+      {/* Floating coins - repositioned on mobile to avoid bottom nav */}
+      {!prefersReducedMotion && (
+        <div className="fixed inset-0 pointer-events-none">
+          {[...Array(isMobile ? 5 : 10)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-6 h-6 bg-yellow-400 rounded-full border-2 border-yellow-600 will-change-transform"
+              animate={{
+                y: [0, -20, 0],
+                rotate: [0, 360],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Number.POSITIVE_INFINITY,
+                delay: Math.random() * 2,
+              }}
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${(isMobile ? 50 : 80) + Math.random() * 20}%`,
+              }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -478,7 +497,7 @@ function RetroAbout({
               addScore(15, true) // Sound for skill click
               addCoins(3)
             }}
-            className={`${skill.color} border-4 border-black rounded-lg p-3 sm:p-4 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg`}
+            className={`${skill.color} border-4 border-black rounded-lg p-3 sm:p-4 hover:brightness-110 active:brightness-90 transition-all transform hover:scale-105 active:scale-95 shadow-lg`}
           >
             <div className="text-sm sm:text-lg font-bold text-yellow-400 mb-2">{skill.title}</div>
             <div className="w-full bg-black rounded-full h-3 mb-2 border-2 border-gray-600">
@@ -553,7 +572,7 @@ function RetroSkills({
                       addScore(20, true) // Sound for skill category click
                       addCoins(2)
                     }}
-                    className={`${categoryColors[category]} border-4 border-black rounded-lg p-2 sm:p-3 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg`}
+                    className={`${categoryColors[category]} border-4 border-black rounded-lg p-2 sm:p-3 hover:brightness-110 active:brightness-90 transition-all transform hover:scale-105 active:scale-95 shadow-lg`}
                   >
                     <div className="text-white font-bold mb-2 text-sm sm:text-base">{skill.name}</div>
                     <div className="flex justify-center space-x-1 mb-2">
@@ -611,7 +630,7 @@ function RetroProjects({
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2 }}
-              className="bg-black/80 border-4 border-green-400 rounded-lg p-3 sm:p-6 hover:border-yellow-400 transition-all cursor-pointer transform hover:scale-105 shadow-lg"
+              className="bg-black/80 border-4 border-green-400 rounded-lg p-3 sm:p-6 hover:border-yellow-400 transition-all cursor-pointer transform hover:scale-105 active:scale-95 shadow-lg"
               onClick={() => {
                 addScore(50, true) // Sound for project click
                 addCoins(10)
@@ -659,7 +678,7 @@ function RetroProjects({
                     href={project.links.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 bg-yellow-400 text-black px-3 py-2 rounded font-bold hover:bg-yellow-300 transition-colors text-center border-2 border-black"
+                    className="flex-1 bg-yellow-400 text-black px-3 py-2 min-h-[44px] rounded font-bold hover:bg-yellow-300 active:bg-yellow-500 transition-colors text-center border-2 border-black"
                     onClick={(e) => e.stopPropagation()}
                   >
                     🎮 PLAY DEMO
@@ -670,7 +689,7 @@ function RetroProjects({
                     href={project.links.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 bg-green-500 text-white px-3 py-2 rounded font-bold hover:bg-green-400 transition-colors text-center border-2 border-black"
+                    className="flex-1 bg-green-500 text-white px-3 py-2 min-h-[44px] rounded font-bold hover:bg-green-400 active:bg-green-600 transition-colors text-center border-2 border-black"
                     onClick={(e) => e.stopPropagation()}
                   >
                     📝 VIEW CODE
@@ -785,7 +804,7 @@ function RetroGames({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.2 }}
             onClick={() => setActiveGame(game.id)}
-            className={`${game.color} border-4 border-black rounded-lg p-3 sm:p-6 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg flex flex-col items-center justify-center text-center relative z-10 cursor-pointer select-none`}
+            className={`${game.color} border-4 border-black rounded-lg p-3 sm:p-6 hover:brightness-110 active:brightness-90 transition-all transform hover:scale-105 active:scale-95 shadow-lg flex flex-col items-center justify-center text-center relative z-10 cursor-pointer select-none`}
             style={{
               backgroundImage: `
                 linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
@@ -898,7 +917,7 @@ function RetroContact({
                   contact.action()
                 }
               }}
-              className={`${contact.color} border-4 border-black rounded-lg p-3 sm:p-4 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg ${contact.action ? 'cursor-pointer' : 'cursor-default'}`}
+              className={`${contact.color} border-4 border-black rounded-lg p-3 sm:p-4 hover:brightness-110 active:brightness-90 transition-all transform hover:scale-105 active:scale-95 shadow-lg ${contact.action ? 'cursor-pointer' : 'cursor-default'}`}
             >
               <div className="text-xl sm:text-2xl mb-2">{contact.icon}</div>
               <div className="text-yellow-400 font-bold text-xs sm:text-sm">{contact.label}</div>
@@ -915,7 +934,7 @@ function RetroContact({
             href={`https://wa.me/91${personalInfo.whatsappNumber}?text=Hi%20Nakul!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20potential%20opportunities.%20Are%20you%20available%20for%20a%20quick%20chat%3F`}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-green-500 text-white px-4 sm:px-6 py-3 rounded font-bold hover:bg-green-400 transition-colors border-4 border-black shadow-lg text-sm sm:text-base"
+            className="bg-green-500 text-white px-4 sm:px-6 py-3 min-h-[44px] rounded font-bold hover:bg-green-400 active:bg-green-600 transition-colors border-4 border-black shadow-lg text-sm sm:text-base"
             onClick={() => {
               addScore(100, true) // Sound for WhatsApp click
               addCoins(20)
@@ -925,7 +944,7 @@ function RetroContact({
           </a>
           <a
             href={`mailto:${personalInfo.email}?subject=Hi%20Nakul!%20Let's%20collaborate&body=Hi%20Nakul,%0A%0AI%20came%20across%20your%20portfolio%20and%20I'm%20impressed%20with%20your%20work.%20I'd%20love%20to%20discuss%20potential%20opportunities.%0A%0ABest%20regards`}
-            className="bg-yellow-400 text-black px-4 sm:px-6 py-3 rounded font-bold hover:bg-yellow-300 transition-colors border-4 border-black shadow-lg text-sm sm:text-base"
+            className="bg-yellow-400 text-black px-4 sm:px-6 py-3 min-h-[44px] rounded font-bold hover:bg-yellow-300 active:bg-yellow-500 transition-colors border-4 border-black shadow-lg text-sm sm:text-base"
             onClick={() => {
               addScore(100, true) // Sound for email click
               addCoins(20)
@@ -936,7 +955,7 @@ function RetroContact({
           <a
             href={personalInfo.resumeUrl}
             download="Nakul_Jhunjhunwala_Resume.pdf"
-            className="bg-purple-500 text-white px-4 sm:px-6 py-3 rounded font-bold hover:bg-purple-400 transition-colors border-4 border-black shadow-lg text-sm sm:text-base"
+            className="bg-purple-500 text-white px-4 sm:px-6 py-3 min-h-[44px] rounded font-bold hover:bg-purple-400 active:bg-purple-600 transition-colors border-4 border-black shadow-lg text-sm sm:text-base"
             onClick={() => {
               addScore(75, true) // Sound for resume download
               addCoins(15)
@@ -948,7 +967,7 @@ function RetroContact({
             href={personalInfo.socialLinks.find((s) => s.platform === "LinkedIn")?.url || "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-blue-500 text-white px-4 sm:px-6 py-3 rounded font-bold hover:bg-blue-400 transition-colors border-4 border-black shadow-lg text-sm sm:text-base"
+            className="bg-blue-500 text-white px-4 sm:px-6 py-3 min-h-[44px] rounded font-bold hover:bg-blue-400 active:bg-blue-600 transition-colors border-4 border-black shadow-lg text-sm sm:text-base"
             onClick={() => {
               addScore(50, true) // Sound for LinkedIn click
               addCoins(10)
@@ -1013,7 +1032,7 @@ function RetroBucketList({
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
-              className={`${stat.color} border-2 sm:border-4 border-black rounded-lg p-1 sm:p-2 md:p-3 text-center shadow-lg min-h-[80px] sm:min-h-[100px] flex flex-col justify-center`}
+              className={`${stat.color} border-2 sm:border-4 border-black rounded-lg p-2 sm:p-2 md:p-3 text-center shadow-lg min-h-[72px] sm:min-h-[100px] flex flex-col justify-center`}
             >
               <div className="text-base sm:text-lg md:text-xl lg:text-2xl mb-1">{stat.icon}</div>
               <div className="text-white font-bold text-sm sm:text-base md:text-lg lg:text-xl">{stat.value}</div>
@@ -1048,7 +1067,7 @@ function RetroBucketList({
                 addCoins(5)
                 unlockAchievement(`${item.title} Revisited`)
               }}
-              className="bg-green-500 border-2 sm:border-4 border-black rounded-lg p-2 sm:p-3 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg text-left min-h-[120px] sm:min-h-[140px] flex flex-col"
+              className="bg-green-500 border-2 sm:border-4 border-black rounded-lg p-2 sm:p-3 hover:brightness-110 active:brightness-90 transition-all transform hover:scale-105 active:scale-95 shadow-lg text-left min-h-[120px] sm:min-h-[140px] flex flex-col"
             >
               <div className="flex items-start justify-between mb-2">
                 <span className="text-lg sm:text-xl md:text-2xl flex-shrink-0">{item.icon}</span>
@@ -1187,7 +1206,7 @@ function RetroTravelMap({
                 addCoins(8)
                 unlockAchievement(`${place.location} Explorer`)
               }}
-              className="bg-green-500 border-4 border-black rounded-lg p-3 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg text-left"
+              className="bg-green-500 border-4 border-black rounded-lg p-3 hover:brightness-110 active:brightness-90 transition-all transform hover:scale-105 active:scale-95 shadow-lg text-left"
             >
               <div className="flex items-start justify-between mb-2">
                 <span className="text-2xl">
@@ -1243,7 +1262,7 @@ function RetroTravelMap({
                 addCoins(5)
                 unlockAchievement(`${place.location} Dreamer`)
               }}
-              className="bg-purple-500 border-4 border-black rounded-lg p-3 hover:brightness-110 transition-all transform hover:scale-105 shadow-lg text-left relative overflow-hidden"
+              className="bg-purple-500 border-4 border-black rounded-lg p-3 hover:brightness-110 active:brightness-90 transition-all transform hover:scale-105 active:scale-95 shadow-lg text-left relative overflow-hidden"
             >
               {/* Locked level shimmer effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
@@ -1289,12 +1308,14 @@ function InteractiveMarioJourney({
   unlockAchievement,
   gameState,
   playSound,
+  onBack,
 }: {
   addScore: (points: number, playSound_?: boolean) => void
   addCoins: (coins: number) => void
   unlockAchievement: (achievement: string) => void
   gameState: GameState
   playSound: (type: string) => void
+  onBack: () => void
 }) {
   const [marioPosition, setMarioPosition] = useState({ x: 100, worldX: 0 })
   const [cameraOffset, setCameraOffset] = useState(0)
@@ -1309,7 +1330,7 @@ function InteractiveMarioJourney({
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
   const [touchStartY, setTouchStartY] = useState<number | null>(null)
   const [isTouchMoving, setIsTouchMoving] = useState(false)
-  const [screenDimensions, setScreenDimensions] = useState({ width: 0, height: 0 })
+  const [screenDimensions, setScreenDimensions] = useState({ width: 375, height: 667 })
 
   const WORLD_WIDTH = 5000
   const VIEWPORT_WIDTH = screenDimensions.width || (typeof window !== 'undefined' ? window.innerWidth : 1200)
@@ -1783,6 +1804,15 @@ function InteractiveMarioJourney({
         </div>
       </div>
 
+      {/* Back button - ensures users aren't trapped in Journey with touchAction: none */}
+      <motion.button
+        onClick={onBack}
+        className="absolute top-10 sm:top-14 left-2 z-50 bg-black/80 border-2 border-yellow-400 rounded-lg px-3 py-2 min-h-[44px] min-w-[44px] flex items-center"
+        whileTap={{ scale: 0.9 }}
+      >
+        <span className="text-yellow-400 text-xs font-bold">← BACK</span>
+      </motion.button>
+
       {/* Instructions Panel - Mobile Responsive */}
       {showInstructions && (
         <motion.div
@@ -1805,7 +1835,7 @@ function InteractiveMarioJourney({
               setShowInstructions(false)
               playSound("select")
             }}
-            className="bg-yellow-400 text-black px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors text-xs sm:text-lg shadow-lg"
+            className="bg-yellow-400 text-black px-3 sm:px-6 py-2 sm:py-3 min-h-[44px] rounded-lg font-bold hover:bg-yellow-300 active:bg-yellow-500 transition-colors text-xs sm:text-lg shadow-lg"
           >
             START ADVENTURE!
           </button>
@@ -2011,13 +2041,15 @@ function InteractiveMarioJourney({
       </motion.div>
 
       {/* Journey Information - Compact Mobile Dialog */}
+      <AnimatePresence>
       {currentLocationInfo && (
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 30 }}
-          className="absolute bottom-32 sm:bottom-20 left-2 right-2 sm:left-1/2 sm:right-auto sm:transform sm:-translate-x-1/2 sm:w-full sm:max-w-lg lg:max-w-2xl z-40"
-          style={{ maxHeight: screenDimensions.width < 640 ? screenDimensions.height * 0.4 : screenDimensions.height * 0.6 }}
+          exit={{ opacity: 0, y: 40 }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          className="absolute bottom-24 sm:bottom-20 left-2 right-2 sm:left-1/2 sm:right-auto sm:transform sm:-translate-x-1/2 sm:w-full sm:max-w-lg lg:max-w-2xl z-40"
+          style={{ maxHeight: screenDimensions.width < 640 ? screenDimensions.height * 0.5 : screenDimensions.height * 0.6 }}
         >
           {/* Compact Mario dialog box */}
           <div
@@ -2025,7 +2057,8 @@ function InteractiveMarioJourney({
             style={{
               imageRendering: 'pixelated',
               fontSize: screenDimensions.width < 640 ? '10px' : '14px',
-              maxHeight: 'inherit'
+              maxHeight: 'inherit',
+              WebkitOverflowScrolling: 'touch',
             }}
           >
             {/* Dialog box pointer - Hidden on mobile */}
@@ -2121,6 +2154,7 @@ function InteractiveMarioJourney({
           </div>
         </motion.div>
       )}
+      </AnimatePresence>
 
       {/* Mario-style Score Popup - Mobile Responsive */}
       {scorePopup && (
