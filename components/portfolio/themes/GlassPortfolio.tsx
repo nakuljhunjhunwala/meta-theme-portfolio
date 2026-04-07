@@ -36,7 +36,7 @@ import {
   Compass,
 } from "lucide-react"
 import PhysicsDreamsBucket from "./PhysicsDreamsBucket"
-import AdvancedGlassMap from "./AdvancedGlassMap"
+import TravelEmbed from "../TravelEmbed"
 
 
 type SectionId = "home" | "about" | "journey" | "skills" | "projects" | "adventures" | "contact"
@@ -612,9 +612,27 @@ function AdventuresSection() {
               Interactive
             </div>
           </div>
-          <div className="h-[450px] sm:h-[550px] md:h-[650px] lg:h-[700px] rounded-xl overflow-hidden relative">
-            <AdvancedGlassMap />
-          </div>
+          <TravelEmbed
+            view="map"
+            height="450px"
+            className="rounded-xl overflow-hidden"
+            showExploreButton={false}
+            exploreButtonClassName=""
+            onTripClick={(slug) => window.open(`https://travel.nakuljhunjhunwala.in/trips/${slug}`, '_blank')}
+          />
+        </div>
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={() => window.open('https://travel.nakuljhunjhunwala.in', '_blank')}
+            className="flex items-center gap-2 px-6 py-3 backdrop-blur-xl bg-white/10 border border-white/30 rounded-full text-white/80 text-sm font-medium hover:bg-white/20 hover:text-white transition-all cursor-pointer"
+          >
+            Explore My Full Travel Journal
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </button>
         </div>
       </motion.div>
 

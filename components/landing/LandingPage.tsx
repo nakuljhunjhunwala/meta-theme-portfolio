@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Sparkles, Github, Linkedin, Mail, ExternalLink, Download, MessageCircle, FileText } from "lucide-react"
+import { Sparkles, Github, Linkedin, Mail, ExternalLink, Download, MessageCircle, FileText, Plane } from "lucide-react"
+import TravelEmbed from "../portfolio/TravelEmbed"
 import { personalInfo, getFeaturedProjects } from "@/constants/portfolio"
 import { usePortfolioStore } from "@/stores/portfolioStore"
 import ThemeSwitcher from "../portfolio/ThemeSwitcher"
@@ -257,6 +258,50 @@ const LandingPage = ({ }: LandingPageProps) => {
                             <Sparkles className="w-6 h-6" />
                             <span>Surprise Me!</span>
                         </button>
+                    </motion.div>
+                </section>
+
+                {/* Beyond Code — Travel Teaser */}
+                <section className="container mx-auto px-4 py-20">
+                    <motion.div
+                        className="max-w-4xl mx-auto"
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                    >
+                        <div className="text-center mb-8">
+                            <h2 className="text-3xl md:text-4xl font-bold mb-3 flex items-center justify-center gap-3">
+                                <Plane className="w-8 h-8 text-amber-400" />
+                                When I&apos;m Not Coding
+                            </h2>
+                            <p className="text-gray-400 text-lg">
+                                Honest itineraries. Real costs. No influencer BS.
+                            </p>
+                        </div>
+
+                        {/* Compact map embed */}
+                        <div className="rounded-2xl overflow-hidden border border-gray-700/50 bg-gray-800/30 backdrop-blur-sm">
+                            <TravelEmbed
+                                view="map"
+                                height="420px"
+                                showExploreButton={false}
+                            />
+                        </div>
+
+                        {/* CTA */}
+                        <div className="flex justify-center mt-6">
+                            <a
+                                href="https://travel.nakuljhunjhunwala.in"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full font-semibold hover:from-amber-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105"
+                            >
+                                <Plane className="w-5 h-5" />
+                                Explore My Travel Journal
+                                <ExternalLink className="w-4 h-4" />
+                            </a>
+                        </div>
                     </motion.div>
                 </section>
             </main>

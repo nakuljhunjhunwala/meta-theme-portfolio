@@ -14,6 +14,7 @@ import {
   getVisitedPlaces,
   getDreamDestinations 
 } from "@/constants/personal"
+import TravelEmbed from "../TravelEmbed"
 import {
   Home,
   User,
@@ -649,6 +650,24 @@ function AdventuresWidget({ accentColor, warningColor, successColor }: any) {
           </motion.div>
         ))}
       </div>
+
+        {/* Travel Map */}
+        <div className="mt-6">
+          <h3 className="text-lg font-bold mb-3 flex items-center gap-2 text-gray-700">
+            <MapPin className="w-5 h-5" style={{ color: accentColor }} />
+            My Travels
+          </h3>
+          <div className="neuro-card rounded-2xl p-4 overflow-hidden">
+            <TravelEmbed
+              view="map"
+              height="400px"
+              showExploreButton={true}
+              exploreButtonText="Explore All Journeys"
+              exploreButtonClassName="mt-3 flex items-center gap-1.5 mx-auto text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
+              onTripClick={(slug) => window.open(`https://travel.nakuljhunjhunwala.in/trips/${slug}`, '_blank')}
+            />
+          </div>
+        </div>
     </motion.section>
   )
 }

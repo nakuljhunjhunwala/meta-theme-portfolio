@@ -34,7 +34,7 @@ export const commandList = {
     socials: "Display my social media links",
     availability: "Check my current availability status",
     dreams: "Show my bucket list and life goals. Usage: dreams [--completed|--pending]",
-    travel: "Display my travel experiences and destinations. Usage: travel [--visited|--planned]",
+    travel: "Display my travel experiences and destinations. Usage: travel [--visited|--planned|--explore|--open]",
 
     whoami: "Display the current user",
     pwd: "Print the current working directory",
@@ -274,6 +274,15 @@ export const useCommands = ({ setHistory }: { setHistory: React.Dispatch<React.S
                     const dreamDestinations = getDreamDestinations()
 
                     const filterArg = args.find(arg => arg === '--visited' || arg === '--planned')
+
+                    if (args.includes('--open')) {
+                        window.open('https://travel.nakuljhunjhunwala.in', '_blank')
+                        return '🌍 Opening travel portfolio in new tab...'
+                    }
+
+                    if (args.includes('--explore')) {
+                        return '__TRAVEL_EMBED__'
+                    }
 
                     if (filterArg === '--visited') {
                         return `✈️ Places I've Explored (${visitedPlaces.length}):\n\n` +

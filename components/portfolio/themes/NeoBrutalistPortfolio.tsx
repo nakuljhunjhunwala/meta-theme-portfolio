@@ -12,6 +12,7 @@ import {
   getPendingBucketList,
   getVisitedPlaces,
 } from "@/constants/personal"
+import TravelEmbed from "../TravelEmbed"
 import {
   Code,
   Briefcase,
@@ -640,6 +641,27 @@ function AdventuresSection({ colors }: any) {
           </motion.div>
         ))}
       </div>
+
+        {/* Travel Map */}
+        <div className="mt-8">
+          <h3 className="text-xl sm:text-2xl font-black uppercase mb-4 flex items-center gap-2">
+            <span className="px-2 py-1 border-4 border-black text-black text-sm"
+              style={{ backgroundColor: colors.cyan, boxShadow: '4px 4px 0px 0px #000000' }}>
+              WHERE I&apos;VE BEEN
+            </span>
+          </h3>
+          <div className="border-4 border-black overflow-hidden"
+            style={{ boxShadow: '8px 8px 0px 0px #000000' }}>
+            <TravelEmbed
+              view="map"
+              height="450px"
+              showExploreButton={true}
+              exploreButtonText="SEE ALL TRIPS"
+              exploreButtonClassName="mt-3 mb-2 flex items-center gap-2 mx-auto px-4 py-2 bg-black text-white font-bold text-xs uppercase cursor-pointer hover:bg-gray-800 transition-colors"
+              onTripClick={(slug) => window.open(`https://travel.nakuljhunjhunwala.in/trips/${slug}`, '_blank')}
+            />
+          </div>
+        </div>
     </div>
   )
 }

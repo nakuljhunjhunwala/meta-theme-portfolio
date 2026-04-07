@@ -16,6 +16,7 @@ import { CodeEditor } from "./CodeEditor"
 import { CodeFileTabs } from "./CodeFileTabs"
 import { CodeStatusBar } from "./CodeStatusBar"
 import { CodeWindow } from "./CodeWindow"
+import TravelEmbed from "../TravelEmbed"
 
 export type PortfolioFileType =
   | "portfolio.tsx"
@@ -23,7 +24,7 @@ export type PortfolioFileType =
   | "skills.json"
   | "projects.md"
   | "dreams.ts"
-  | "travel.json"
+  | "travel-explorer.tsx"
   | "contact.tsx"
 
 export default function CodePortfolio() {
@@ -208,33 +209,31 @@ export { dreamStats, achievedDreams, futureDreams };
 
 // 🎯 Next milestone: Complete ${getPendingBucketList()[0]?.title || 'next dream on the list'}!`,
     },
-    "travel.json": {
-      language: "json",
-      content: JSON.stringify({
-        travelStats: {
-          placesVisited: getVisitedPlaces().length,
-          dreamDestinations: getDreamDestinations().length,
-          countries: [...new Set(travelExperiences.map(t => t.country))].length,
-          averageRating: Math.round(getVisitedPlaces().reduce((acc, p) => acc + p.rating, 0) / getVisitedPlaces().length || 0)
-        },
-        visitedPlaces: getVisitedPlaces().map(place => ({
-          id: place.id,
-          location: place.location,
-          country: place.country,
-          visitDate: place.visitDate,
-          duration: place.duration,
-          rating: place.rating,
-          category: place.category,
-          highlights: place.highlights
-        })),
-        dreamDestinations: getDreamDestinations().map(place => ({
-          id: place.id,
-          location: place.location,
-          country: place.country,
-          category: place.category,
-          highlights: place.highlights
-        }))
-      }, null, 2),
+    "travel-explorer.tsx": {
+      language: "tsx",
+      content: `// travel-explorer.tsx — Live Travel Dashboard
+// This file renders an interactive travel map with real trip data
+
+import { TravelMap } from '@/components/maps/IndiaMap';
+import { useTripData } from '@/hooks/useTripData';
+
+export default function TravelExplorer() {
+  const { trips, stats } = useTripData();
+
+  // Stats: ${getVisitedPlaces().length} places visited
+  //        ${getDreamDestinations().length} dream destinations
+  //        ${[...new Set(travelExperiences.map(t => t.country))].length} countries
+
+  return (
+    <TravelMap
+      trips={trips}
+      interactive={true}
+      showStats={true}
+    />
+  );
+}
+
+// See live preview in the panel below ↓`,
     },
 
     "contact.tsx": {
@@ -296,11 +295,40 @@ export default ContactInfo;
             />
           </div>
 
-          <CodeEditor
-            file={activeFile}
-            content={portfolioFiles[activeFile].content}
-            language={portfolioFiles[activeFile].language}
-          />
+          {activeFile === "travel-explorer.tsx" ? (
+            <div className="flex flex-col h-full">
+              <div className="flex-none h-[25%] overflow-auto">
+                <CodeEditor
+                  file={activeFile}
+                  content={portfolioFiles[activeFile].content}
+                  language={portfolioFiles[activeFile].language}
+                />
+              </div>
+              <div className="flex-none h-[2px] bg-[#3e3e42]" />
+              <div className="flex-1 relative">
+                <div className="absolute top-0 left-0 right-0 bg-[#2d2d30] border-b border-[#3e3e42] px-3 py-1 text-[11px] text-gray-400 flex items-center gap-2 z-10">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="opacity-60">
+                    <circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+                  </svg>
+                  Live Preview
+                </div>
+                <div className="pt-6 h-full">
+                  <TravelEmbed
+                    view="map"
+                    height="100%"
+                    showExploreButton={false}
+                    onTripClick={(slug) => window.open(`https://travel.nakuljhunjhunwala.in/trips/${slug}`, '_blank')}
+                  />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <CodeEditor
+              file={activeFile}
+              content={portfolioFiles[activeFile].content}
+              language={portfolioFiles[activeFile].language}
+            />
+          )}
 
           <CodeStatusBar
             fileName={activeFile}
