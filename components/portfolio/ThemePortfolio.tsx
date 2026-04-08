@@ -8,6 +8,7 @@ import TerminalPortfolio from "./themes/TerminalPortfolio"
 import NeumorphismPortfolio from "./themes/NeumorphismPortfolio"
 import NeoBrutalistPortfolio from "./themes/NeoBrutalistPortfolio"
 import ThemeSwitcher from "./ThemeSwitcher"
+import ChatBubble from "./ChatBubble"
 import JourneyManager from "@/components/storytelling/JourneyManager"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
@@ -82,6 +83,7 @@ export default function ThemePortfolio({ onBackToLanding }: ThemePortfolioProps)
     <div className="relative">
       {renderTheme()}
       <ThemeSwitcher />
+      <ChatBubble />
       <JourneyManager />
     </div>
   )

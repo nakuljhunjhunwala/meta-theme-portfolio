@@ -7,6 +7,7 @@ import TravelEmbed from "../portfolio/TravelEmbed"
 import { personalInfo, getFeaturedProjects } from "@/constants/portfolio"
 import { usePortfolioStore } from "@/stores/portfolioStore"
 import ThemeSwitcher from "../portfolio/ThemeSwitcher"
+import ChatBubble from "../portfolio/ChatBubble"
 import { useRouter } from "next/navigation"
 import AnimatedShapes from "./AnimatedShapes"
 
@@ -81,6 +82,7 @@ const LandingPage = ({ }: LandingPageProps) => {
 
             {/* Theme Switcher Integration */}
             <ThemeSwitcher />
+            <ChatBubble />
 
             {/* Main Content */}
             <main className="relative z-10">

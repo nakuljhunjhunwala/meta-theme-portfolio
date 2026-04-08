@@ -1,6 +1,23 @@
 // 🚀 Ultra-Production Grade Portfolio Data
 // Single source of truth for all portfolio information
 
+// Career start: Feb 2021 (first job at CodeFlip LLP)
+const CAREER_START = "2021-02"
+
+/** Calculate years from a YYYY-MM date string to now, rounded to 1 decimal */
+export function yearsFrom(dateStr: string): number {
+  const [y, m] = dateStr.split("-").map(Number)
+  const start = new Date(y, m - 1)
+  const now = new Date()
+  const diff = (now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 365.25)
+  return Math.round(diff * 10) / 10
+}
+
+/** Total professional experience since first job */
+export function totalExperience(): number {
+  return yearsFrom(CAREER_START)
+}
+
 export interface PersonalInfo {
   name: string
   title: string
@@ -49,6 +66,9 @@ export interface TechnicalSkill {
   name: string
   category: "frontend" | "backend" | "database" | "cloud" | "mobile" | "devops" | "ai" | "other"
   proficiency: number // 0-100
+  /** YYYY-MM when the skill was first used professionally */
+  startedUsing: string
+  /** Computed dynamically from startedUsing via yearsFrom() */
   yearsExperience: number
   icon?: string
   color?: string
@@ -165,11 +185,11 @@ export const personalInfo: PersonalInfo = {
   title: "Senior Full-Stack Developer & AI-Driven Development Specialist",
   tagline: "Pioneering AI-driven development to achieve 80-90% productivity gains while building scalable, user-centric applications",
   bio: {
-    short: "4.6+ year Full-Stack Developer specializing in AI-driven development, achieving 80-90% productivity increases and reducing development cycles from weeks to days.",
+    short: `${totalExperience()}+ year Full-Stack Developer specializing in AI-driven development, achieving 80-90% productivity increases and reducing development cycles from weeks to days.`,
     medium:
-      "Passionate full-stack developer with 4.6+ years of experience in AI-driven development, modern web technologies, and cloud architecture. Pioneered AI development tool adoption achieving 80-90% productivity gains, reducing 4-week cycles to 2-3 days. Expert in React, Node.js, NestJS, microservices architecture, and enterprise-scale solutions. Google Cloud Professional & Associate Certified architect with proven track record of 100% on-time delivery and technical leadership.",
+      `Passionate full-stack developer with ${totalExperience()}+ years of experience in AI-driven development, modern web technologies, and cloud architecture. Pioneered AI development tool adoption achieving 80-90% productivity gains, reducing 4-week cycles to 2-3 days. Expert in React, Node.js, NestJS, microservices architecture, and enterprise-scale solutions. Google Cloud Professional & Associate Certified architect with proven track record of 100% on-time delivery and technical leadership.`,
     detailed:
-      "I'm a senior full-stack developer with 4.6+ years of experience revolutionizing development workflows through AI-driven tools and modern web technologies. I pioneered AI development adoption at UnicoConnect, achieving 80-90% productivity increases and compressing 4-week development cycles into 2-3 days. My expertise spans the entire stack: React, Vue.js, Node.js, NestJS, TypeScript, microservices architecture, and cloud platforms (AWS, GCP). I've architected enterprise-scale notification frameworks processing high-throughput communications, built AI-powered financial analysis platforms, and created innovative portfolio experiences. As a Google Cloud Professional & Associate Certified architect, I combine technical excellence with business impact, maintaining a 100% on-time delivery record while leading teams through AI transformation. I'm passionate about leveraging cutting-edge AI tools to build intelligent, scalable solutions that solve real-world problems.",
+      `I'm a senior full-stack developer with ${totalExperience()}+ years of experience revolutionizing development workflows through AI-driven tools and modern web technologies. I pioneered AI development adoption at UnicoConnect, achieving 80-90% productivity increases and compressing 4-week development cycles into 2-3 days. My expertise spans the entire stack: React, Vue.js, Node.js, NestJS, TypeScript, microservices architecture, and cloud platforms (AWS, GCP). I've architected enterprise-scale notification frameworks processing high-throughput communications, built AI-powered financial analysis platforms, and created innovative portfolio experiences. As a Google Cloud Professional & Associate Certified architect, I combine technical excellence with business impact, maintaining a 100% on-time delivery record while leading teams through AI transformation. I'm passionate about leveraging cutting-edge AI tools to build intelligent, scalable solutions that solve real-world problems.`,
   },
   location: "Mumbai, India",
   avatar: "/profile_photo.jpg",
@@ -263,7 +283,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "JavaScript",
     category: "frontend",
     proficiency: 95,
-    yearsExperience: 4.6,
+    startedUsing: "2021-02",
+    yearsExperience: yearsFrom("2021-02"),
     icon: "javascript",
     color: "#F7DF1E",
     description: "Expert-level JavaScript (ES6+) with deep understanding of async/await, closures, prototypes, and modern language features",
@@ -274,7 +295,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "React.js",
     category: "frontend",
     proficiency: 95,
-    yearsExperience: 4.6,
+    startedUsing: "2021-02",
+    yearsExperience: yearsFrom("2021-02"),
     icon: "react",
     color: "#61DAFB",
     description: "Advanced React development with hooks, context, custom components, and modern patterns",
@@ -285,7 +307,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "TypeScript",
     category: "frontend",
     proficiency: 92,
-    yearsExperience: 4.6,
+    startedUsing: "2021-02",
+    yearsExperience: yearsFrom("2021-02"),
     icon: "typescript",
     color: "#3178C6",
     description: "Advanced TypeScript with complex type systems, generics, and enterprise-level type safety",
@@ -296,7 +319,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Tailwind CSS",
     category: "frontend",
     proficiency: 90,
-    yearsExperience: 3,
+    startedUsing: "2022-02",
+    yearsExperience: yearsFrom("2022-02"),
     icon: "tailwind",
     color: "#06B6D4",
     description: "Modern utility-first CSS framework for rapid UI development and responsive design",
@@ -307,7 +331,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Vue.js",
     category: "frontend",
     proficiency: 85,
-    yearsExperience: 2,
+    startedUsing: "2023-02",
+    yearsExperience: yearsFrom("2023-02"),
     icon: "vue",
     color: "#4FC08D",
     description: "Created UI kits and components for CometChat platform",
@@ -318,7 +343,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Vite",
     category: "frontend",
     proficiency: 88,
-    yearsExperience: 2,
+    startedUsing: "2023-02",
+    yearsExperience: yearsFrom("2023-02"),
     icon: "vite",
     color: "#646CFF",
     description: "Modern build tool for fast development and optimized production builds",
@@ -331,7 +357,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Node.js",
     category: "backend",
     proficiency: 95,
-    yearsExperience: 4.6,
+    startedUsing: "2021-02",
+    yearsExperience: yearsFrom("2021-02"),
     icon: "nodejs",
     color: "#339933",
     description: "Advanced Node.js development with microservices, async patterns, and performance optimization",
@@ -342,7 +369,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "NestJS",
     category: "backend",
     proficiency: 90,
-    yearsExperience: 1.5,
+    startedUsing: "2023-08",
+    yearsExperience: yearsFrom("2023-08"),
     icon: "nestjs",
     color: "#E0234E",
     description: "Enterprise-grade backend framework with TypeScript, dependency injection, and microservices architecture for scalable notification systems",
@@ -353,7 +381,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Express.js",
     category: "backend",
     proficiency: 92,
-    yearsExperience: 4.6,
+    startedUsing: "2021-02",
+    yearsExperience: yearsFrom("2021-02"),
     icon: "express",
     color: "#000000",
     description: "Enterprise-level API development with middleware, authentication, and scalable architecture",
@@ -364,7 +393,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Prisma ORM",
     category: "backend",
     proficiency: 88,
-    yearsExperience: 2,
+    startedUsing: "2023-02",
+    yearsExperience: yearsFrom("2023-02"),
     icon: "prisma",
     color: "#2D3748",
     description: "Modern database toolkit with type-safe queries, migrations, and schema management",
@@ -375,7 +405,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Cron Jobs",
     category: "backend",
     proficiency: 85,
-    yearsExperience: 3,
+    startedUsing: "2022-02",
+    yearsExperience: yearsFrom("2022-02"),
     icon: "cron",
     color: "#4CAF50",
     description: "Background job scheduling for automated tasks, notifications, and data processing",
@@ -386,7 +417,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Prompt Engineering",
     category: "ai",
     proficiency: 90,
-    yearsExperience: 2,
+    startedUsing: "2023-02",
+    yearsExperience: yearsFrom("2023-02"),
     icon: "prompt",
     color: "#8B5CF6",
     description: "Advanced prompt design for optimal AI responses, context awareness, and user personalization",
@@ -397,7 +429,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "RESTful APIs",
     category: "backend",
     proficiency: 95,
-    yearsExperience: 4.6,
+    startedUsing: "2021-02",
+    yearsExperience: yearsFrom("2021-02"),
     icon: "api",
     color: "#009688",
     description: "Expert in designing and implementing RESTful API architectures with proper HTTP methods, status codes, and API versioning",
@@ -408,7 +441,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Microservices Architecture",
     category: "backend",
     proficiency: 88,
-    yearsExperience: 2.5,
+    startedUsing: "2022-08",
+    yearsExperience: yearsFrom("2022-08"),
     icon: "microservices",
     color: "#FF6B6B",
     description: "Design and implementation of microservices-based architectures with service isolation, API gateways, and inter-service communication",
@@ -421,7 +455,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "PostgreSQL",
     category: "database",
     proficiency: 90,
-    yearsExperience: 3,
+    startedUsing: "2022-02",
+    yearsExperience: yearsFrom("2022-02"),
     icon: "postgresql",
     color: "#336791",
     description: "Advanced PostgreSQL with complex queries, indexing, and performance optimization",
@@ -432,7 +467,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "MongoDB",
     category: "database",
     proficiency: 88,
-    yearsExperience: 4.6,
+    startedUsing: "2021-02",
+    yearsExperience: yearsFrom("2021-02"),
     icon: "mongodb",
     color: "#47A248",
     description: "Document modeling and database design with Mongoose and aggregation pipelines",
@@ -443,7 +479,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Redis",
     category: "database",
     proficiency: 85,
-    yearsExperience: 1.5,
+    startedUsing: "2023-08",
+    yearsExperience: yearsFrom("2023-08"),
     icon: "redis",
     color: "#DC382D",
     description: "High-performance caching, session management, queue systems for enterprise notification frameworks",
@@ -454,7 +491,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "DynamoDB",
     category: "database",
     proficiency: 78,
-    yearsExperience: 2,
+    startedUsing: "2023-02",
+    yearsExperience: yearsFrom("2023-02"),
     icon: "dynamodb",
     color: "#4053D6",
     description: "NoSQL database design with AWS DynamoDB for serverless applications and high-throughput workloads",
@@ -465,7 +503,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "MySQL",
     category: "database",
     proficiency: 82,
-    yearsExperience: 3,
+    startedUsing: "2022-02",
+    yearsExperience: yearsFrom("2022-02"),
     icon: "mysql",
     color: "#4479A1",
     description: "Relational database design, query optimization, and data integrity management",
@@ -476,7 +515,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Elasticsearch",
     category: "database",
     proficiency: 75,
-    yearsExperience: 1.5,
+    startedUsing: "2023-08",
+    yearsExperience: yearsFrom("2023-08"),
     icon: "elasticsearch",
     color: "#005571",
     description: "Full-text search, log analytics, and real-time data indexing for enterprise applications",
@@ -487,7 +527,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Firebase",
     category: "database",
     proficiency: 80,
-    yearsExperience: 2,
+    startedUsing: "2023-02",
+    yearsExperience: yearsFrom("2023-02"),
     icon: "firebase",
     color: "#FFCA28",
     description: "Real-time database, authentication, and cloud functions for rapid application development",
@@ -498,7 +539,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "SQL",
     category: "database",
     proficiency: 85,
-    yearsExperience: 4.6,
+    startedUsing: "2021-02",
+    yearsExperience: yearsFrom("2021-02"),
     icon: "sql",
     color: "#00758F",
     description: "Advanced SQL query writing, database design, optimization, and data manipulation across PostgreSQL and MySQL",
@@ -511,7 +553,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Docker",
     category: "devops",
     proficiency: 85,
-    yearsExperience: 3,
+    startedUsing: "2022-02",
+    yearsExperience: yearsFrom("2022-02"),
     icon: "docker",
     color: "#2496ED",
     description: "Containerization with multi-stage builds, Docker Compose, and production deployment",
@@ -522,7 +565,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Google Cloud Platform",
     category: "cloud",
     proficiency: 80,
-    yearsExperience: 2,
+    startedUsing: "2023-02",
+    yearsExperience: yearsFrom("2023-02"),
     icon: "gcp",
     color: "#4285F4",
     description: "Cloud architecture, Calendar API integration, and deployment solutions",
@@ -534,7 +578,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Amazon Web Services",
     category: "cloud",
     proficiency: 85,
-    yearsExperience: 3,
+    startedUsing: "2022-02",
+    yearsExperience: yearsFrom("2022-02"),
     icon: "aws",
     color: "#FF9900",
     description: "Lambda, S3, SNS, SQS, SES for scalable cloud applications",
@@ -546,7 +591,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "AI-Driven Development",
     category: "ai",
     proficiency: 95,
-    yearsExperience: 1.5,
+    startedUsing: "2023-08",
+    yearsExperience: yearsFrom("2023-08"),
     icon: "ai-tools",
     color: "#10A37F",
     description: "Pioneered AI development tool adoption (Cursor IDE, code generation) achieving 80-90% productivity gains and reducing development cycles from 4 weeks to 2-3 days",
@@ -557,7 +603,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Git",
     category: "devops",
     proficiency: 92,
-    yearsExperience: 4.6,
+    startedUsing: "2021-02",
+    yearsExperience: yearsFrom("2021-02"),
     icon: "git",
     color: "#F05032",
     description: "Advanced version control, branching strategies, and collaborative development workflows",
@@ -568,7 +615,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "CI/CD",
     category: "devops",
     proficiency: 82,
-    yearsExperience: 3,
+    startedUsing: "2022-02",
+    yearsExperience: yearsFrom("2022-02"),
     icon: "cicd",
     color: "#2088FF",
     description: "Continuous integration and deployment pipelines with automated testing and release management",
@@ -579,7 +627,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Serverless Architecture",
     category: "cloud",
     proficiency: 85,
-    yearsExperience: 2.5,
+    startedUsing: "2022-08",
+    yearsExperience: yearsFrom("2022-08"),
     icon: "serverless",
     color: "#FD5750",
     description: "AWS Lambda, serverless frameworks, and event-driven architectures for cost-effective scalability",
@@ -590,7 +639,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Agile/Scrum",
     category: "other",
     proficiency: 90,
-    yearsExperience: 3.5,
+    startedUsing: "2021-08",
+    yearsExperience: yearsFrom("2021-08"),
     icon: "agile",
     color: "#0052CC",
     description: "Expert in Agile methodologies, sprint planning, daily standups, retrospectives, and delivering in iterative cycles with 95% on-time success rate",
@@ -601,7 +651,8 @@ export const technicalSkills: TechnicalSkill[] = [
     name: "Performance Optimization",
     category: "other",
     proficiency: 88,
-    yearsExperience: 4,
+    startedUsing: "2021-06",
+    yearsExperience: yearsFrom("2021-06"),
     icon: "performance",
     color: "#00D084",
     description: "Code optimization, database query tuning, caching strategies, and application performance monitoring",
@@ -1609,7 +1660,7 @@ export const getCurrentExperience = () => {
 }
 
 export const getTotalYearsExperience = () => {
-  return 4.6
+  return totalExperience()
 }
 
 export const getSkillCategories = () => {

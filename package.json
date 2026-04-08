@@ -46,6 +46,8 @@
     "node": ">=18.17.0"
   },
   "scripts": {
+    "extract-resume": "node scripts/extract-resume.js",
+    "prebuild": "node scripts/extract-resume.js",
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
@@ -53,6 +55,7 @@
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
+    "@google/genai": "^1.48.0",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "latest",
     "@radix-ui/react-alert-dialog": "latest",
@@ -130,6 +133,7 @@
     "@types/react-dom": "^19",
     "@types/react-simple-maps": "^3.0.6",
     "@types/three": "^0.179.0",
+    "mammoth": "^1.12.0",
     "typescript": "^5"
   }
 }
